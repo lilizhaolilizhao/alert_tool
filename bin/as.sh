@@ -255,7 +255,6 @@ parse_arguments()
 
 }
 
-
 # attach arthas to target jvm
 # $1 : arthas_local_version
 attach_jvm()
