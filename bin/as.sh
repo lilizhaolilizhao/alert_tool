@@ -1,36 +1,7 @@
 #!/usr/bin/env bash
 
-# WIKI: https://alibaba.github.io/arthas
-# This script only supports bash, do not support posix sh.
-# If you have the problem like Syntax error: "(" unexpected (expecting "fi"),
-# Try to run "bash -version" to check the version.
-# Try to visit WIKI to find a solution.
-
-# program : Arthas
-#  author : Core Engine @ Taobao.com
-#    date : 2018-09-17
-
-# current arthas script version
-ARTHAS_SCRIPT_VERSION=3.0.4
-
-# define arthas's home
-ARTHAS_HOME=${HOME}/.arthas
-
 # define arthas's lib
-ARTHAS_LIB_DIR=${ARTHAS_HOME}/lib
-
-# define arthas's temp dir
-TMP_DIR=/tmp
-
-# last update arthas version
-ARTHAS_VERSION=
-
-# arthas remote url
-ARTHAS_REMOTE_VERSION_URL="http://search.maven.org/solrsearch/select?q=g:%22com.taobao.arthas%22+AND+a:%22arthas-packaging%22"
-ARTHAS_REMOTE_DOWNLOAD_URL="http://search.maven.org/classic/remotecontent?filepath=com/taobao/arthas/arthas-packaging"
-
-# update timeout(sec)
-SO_TIMEOUT=5
+ARTHAS_LIB_DIR=$(cd `dirname $0`; pwd)
 
 # define default target ip
 DEFAULT_TARGET_IP="127.0.0.1"
@@ -71,28 +42,10 @@ default()
     [[ ! -z "${1}" ]] && echo "${1}" || echo "${2}"
 }
 
-
-# check arthas permission
-check_permission()
-{
-    [ ! -w ${HOME} ] \
-        && exit_on_err 1 "permission denied, ${HOME} is not writable."
-}
-
-
 # reset arthas work environment
 # reset some options for env
 reset_for_env()
 {
-
-    # init ARTHAS' lib
-    mkdir -p ${ARTHAS_LIB_DIR} \
-        || exit_on_err 1 "create ${ARTHAS_LIB_DIR} fail."
-
-    # if env define the JAVA_HOME, use it first
-    # if is alibaba opts, use alibaba ops's default JAVA_HOME
-    [ -z ${JAVA_HOME} ] && JAVA_HOME=/opt/taobao/java
-
     # iterater throught candidates to find a proper JAVA_HOME at least contains tools.jar which is required by arthas.
     if [ ! -d ${JAVA_HOME} ]; then
         JAVA_HOME_CANDIDATES=($(ps aux | grep java | grep -v 'grep java' | awk '{print $11}' | sed -n 's/\/bin\/java$//p'))
@@ -127,67 +80,8 @@ reset_for_env()
     fi
 
     # reset CHARSET for alibaba opts, we use GBK
-    [[ -x /opt/taobao/java ]] && JVM_OPTS="-Dinput.encoding=GBK ${JVM_OPTS} "
+    JVM_OPTS="-Dinput.encoding=GBK ${JVM_OPTS} "
 
-}
-
-# get latest version from local
-get_local_version()
-{
-    ls ${ARTHAS_LIB_DIR} | sort | tail -1
-}
-
-# get latest version from remote
-get_remote_version()
-{
-    curl -sLk --connect-timeout ${SO_TIMEOUT} "${ARTHAS_REMOTE_VERSION_URL}" | sed 's/{.*latestVersion":"*\([0-9a-zA-Z\\.\\-]*\)"*,*.*}/\1/'
-}
-
-# make version format to comparable format like 000.000.(0){15}
-# $1 : version
-to_comparable_version()
-{
-    echo ${1}|awk -F "." '{printf("%d.%d.%d\n",$1,$2,$3)}'
-}
-
-# update arthas if necessary
-update_if_necessary()
-{
-    local update_version=$1
-
-    if [ ! -d ${ARTHAS_LIB_DIR}/${update_version} ]; then
-        echo "updating version ${update_version} ..."
-
-        local temp_target_lib_dir="$TMP_DIR/temp_${update_version}_$$"
-        local temp_target_lib_zip="${temp_target_lib_dir}/arthas-${update_version}-bin.zip"
-        local target_lib_dir="${ARTHAS_LIB_DIR}/${update_version}/arthas"
-        mkdir -p ${target_lib_dir}
-
-        # clean
-        rm -rf ${temp_target_lib_dir}
-        rm -rf ${target_lib_dir}
-
-        mkdir -p "${temp_target_lib_dir}" \
-            || exit_on_err 1 "create ${temp_target_lib_dir} fail."
-
-        # download current arthas version
-        curl \
-            -#Lk \
-            --connect-timeout ${SO_TIMEOUT} \
-            -o ${temp_target_lib_zip} \
-            "${ARTHAS_REMOTE_DOWNLOAD_URL}/${update_version}/arthas-packaging-${update_version}-bin.zip"  \
-        || return 1
-
-        # unzip arthas lib
-        unzip ${temp_target_lib_zip} -d ${temp_target_lib_dir} || (rm -rf ${temp_target_lib_dir} \
-        ${ARTHAS_LIB_DIR}/${update_version} && return 1)
-
-        # rename
-        mv ${temp_target_lib_dir} ${target_lib_dir} || return 1
-
-        # print success
-        echo "update completed."
-    fi
 }
 
 # the usage
@@ -366,10 +260,9 @@ parse_arguments()
 # $1 : arthas_local_version
 attach_jvm()
 {
-    local arthas_version=$1
-    local arthas_lib_dir=${ARTHAS_LIB_DIR}/${arthas_version}/arthas
+    local arthas_lib_dir=${ARTHAS_LIB_DIR}
 
-    echo "Attaching to ${TARGET_PID} using version ${1}..."
+    echo "Attaching to ${TARGET_PID}"
 
     if [ ${TARGET_IP} = ${DEFAULT_TARGET_IP} ]; then
         ${JAVA_HOME}/bin/java \
@@ -408,8 +301,7 @@ sanity_check() {
 # $1 : arthas_local_version
 active_console()
 {
-    local arthas_version=$1
-    local arthas_lib_dir=${ARTHAS_LIB_DIR}/${arthas_version}/arthas
+    local arthas_lib_dir=${ARTHAS_LIB_DIR}
 
     if [ "${BATCH_MODE}" = "true" ]; then
         ${JAVA_HOME}/bin/java ${ARTHAS_OPTS} ${JVM_OPTS} \
@@ -429,36 +321,16 @@ active_console()
 # the main
 main()
 {
-    echo "Arthas script version: $ARTHAS_SCRIPT_VERSION"
-
-    check_permission
+    # check_permission
     reset_for_env
 
     parse_arguments "${@}" \
         || exit_on_err 1 "$(usage)"
 
-    local remote_version=$(get_remote_version)
-
-    if [ -z ${ARTHAS_VERSION} ]; then
-        update_if_necessary ${remote_version} || echo "update fail, ignore this update." 1>&2
-    else
-        update_if_necessary ${ARTHAS_VERSION} || echo "update fail, ignore this update." 1>&2
-    fi
-
-    local arthas_local_version=$(get_local_version)
-
-    if [ ! -z ${ARTHAS_VERSION} ]; then
-        arthas_local_version=${ARTHAS_VERSION}
-    fi
-
-    if [ ! -d ${ARTHAS_LIB_DIR}/${arthas_local_version} ]; then
-        exit_on_err 1 "arthas not found, please check your network."
-    fi
-
     sanity_check
 
     echo "Calculating attach execution time..."
-    time (attach_jvm ${arthas_local_version} || exit 1)
+    time (attach_jvm || exit 1)
 
     if [ $? -ne 0 ]; then
         exit_on_err 1 "attach to target jvm (${TARGET_PID}) failed, check ${HOME}/logs/arthas/arthas.log or stderr of target jvm for any exceptions."
@@ -471,7 +343,5 @@ main()
       active_console ${arthas_local_version}
     fi
 }
-
-
 
 main "${@}"
