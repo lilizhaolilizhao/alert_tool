@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class TelnetConsole{
 
-    private static final String PROMPT = "alert=>";
+    private static final String PROMPT = "$";
     private static final String DEFAULT_TELNET_PORT = "3658";
     private static final int DEFAULT_CONNECTION_TIMEOUT = 5000; // 5000 ms
     private static final String DEFAULT_WINDOW_WIDTH = "120";
