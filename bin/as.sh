@@ -33,7 +33,6 @@ exit_on_err()
     exit ${1}
 }
 
-
 # get with default value
 # $1 : target value
 # $2 : default value
@@ -81,7 +80,6 @@ reset_for_env()
 
     # reset CHARSET for alibaba opts, we use GBK
     JVM_OPTS="-Dinput.encoding=GBK ${JVM_OPTS} "
-
 }
 
 # the usage

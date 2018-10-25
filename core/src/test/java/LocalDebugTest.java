@@ -25,7 +25,7 @@ public class LocalDebugTest {
         final int pid = getCurrentJVMPid();
         System.out.println("pid:"+pid);
         String path = LocalDebugTest.class.getResource("/").getPath();
-        final String npath = path.substring(1, path.indexOf("core")) + "packaging/target/";
+        final String npath = path.substring(0, path.indexOf("core")) + "packaging/target/";
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
