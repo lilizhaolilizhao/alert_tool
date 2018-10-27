@@ -41,12 +41,12 @@ public class ArthasBanner {
             }
 
             StringBuilder sb = new StringBuilder();
-            String[] LOGOS = new String[6];
+            String[] LOGOS = new String[10];
             int i = 0, j = 0;
             for (String line : logoText.split("\n")) {
                 sb.append(line);
                 sb.append("\n");
-                if (i++ == 4) {
+                if (i++ == 5) {
                     LOGOS[j++] = sb.toString();
                     i = 0;
                     sb.setLength(0);
@@ -59,7 +59,11 @@ public class ArthasBanner {
                     label(LOGOS[2]).style(Decoration.bold.fg(Color.cyan)),
                     label(LOGOS[3]).style(Decoration.bold.fg(Color.magenta)),
                     label(LOGOS[4]).style(Decoration.bold.fg(Color.green)),
-                    label(LOGOS[5]).style(Decoration.bold.fg(Color.blue)));
+                    label(LOGOS[5]).style(Decoration.bold.fg(Color.red)),
+                    label(LOGOS[6]).style(Decoration.bold.fg(Color.magenta)),
+                    label(LOGOS[7]).style(Decoration.bold.fg(Color.yellow)),
+                    label(LOGOS[8]).style(Decoration.bold.fg(Color.cyan)),
+                    label(LOGOS[9]).style(Decoration.bold.fg(Color.red)));
             LOGO = RenderUtil.render(logoTable);
         } catch (Throwable e) {
             e.printStackTrace();
@@ -89,6 +93,6 @@ public class ArthasBanner {
     public static String welcome() {
 //        logger.info("arthas version: " + version());
 //        return "wiki: " + wiki() + "\n" + "version: " + version();
-        return "Welcome to use alarm tools.";
+        return logo() + "\nWelcome to use alarm tools.";
     }
 }
