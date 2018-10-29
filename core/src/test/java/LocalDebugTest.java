@@ -26,29 +26,25 @@ public class LocalDebugTest {
         System.out.println("pid:"+pid);
         String path = LocalDebugTest.class.getResource("/").getPath();
         final String npath = path.substring(0, path.indexOf("core")) + "packaging/target/";
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Arthas.main(new String[]{
-                        "-jar",
-                        npath + "arthas-core.jar",
-                        "-pid",
-                        pid + "",
-                        "-target-ip",
-                        "127.0.0.1",
-                        //"-telnet-port",
-                        //"3658",
-                        //"-http-port",
-                        //"8563",
-                        "-core",
-                        npath + "arthas-core.jar",
-                        "-agent",
-                        npath + "arthas-agent.jar"
-                });
-            }
+        final String corePath = path.substring(0, path.indexOf("core")) + "core/target/";
+        Arthas.main(new String[]{
+                "-jar",
+//                        npath + "arthas-core.jar",
+                corePath + "arthas-core.jar",
+                "-pid",
+                pid + "",
+                "-target-ip",
+                "127.0.0.1",
+                //"-telnet-port",
+                //"3658",
+                //"-http-port",
+                //"8563",
+                "-core",
+//                        npath + "arthas-core.jar",
+                corePath + "arthas-core.jar",
+                "-agent",
+                npath + "arthas-agent.jar"
         });
-        thread.start();
-        thread.join();
         System.out.println("代码植入成功");
         Thread.sleep(10000000);
     }

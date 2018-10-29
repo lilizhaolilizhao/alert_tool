@@ -91,8 +91,6 @@ public class ArthasBanner {
     }
 
     public static String welcome() {
-//        logger.info("arthas version: " + version());
-//        return "wiki: " + wiki() + "\n" + "version: " + version();
         return logo() + "\nWelcome to use alarm tools.";
     }
 }
