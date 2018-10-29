@@ -33,6 +33,7 @@ public class LocalDebugTest {
                 corePath + "arthas-core.jar",
                 "-pid",
                 pid + "",
+//                2628 + "",
                 "-target-ip",
                 "127.0.0.1",
                 //"-telnet-port",

@@ -11,9 +11,6 @@ import com.taobao.arthas.core.util.ThreadLocalWatch;
 import com.taobao.arthas.core.view.ObjectView;
 import com.taobao.middleware.logger.Logger;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * @author beiwei30 on 29/11/2016.
  */
@@ -82,10 +79,19 @@ class WatchAdviceListener extends ReflectAdviceListenerAdapter {
             double cost = threadLocalWatch.costInMillis();
             if (isConditionMet(command.getConditionExpress(), advice, cost)) {
                 // TODO: concurrency issues for process.write
-                Object value = getExpressionResult(command.getExpress(), advice, cost);
-                String result = StringUtils.objectToString(
-                        isNeedExpand() ? new ObjectView(value, command.getExpand(), command.getSizeLimit()).draw() : value);
-                process.write("ts=" + DateUtils.getCurrentDate() + ";result=" + result + "\n");
+
+                StringBuilder builder = new StringBuilder();
+                String[] expressArray = command.getExpress().split(",");
+                for (String express : expressArray) {
+                    Object value = getExpressionResult(express, advice, cost);
+                    String result = StringUtils.objectToString(
+                            isNeedExpand() ? new ObjectView(value, command.getExpand(), command.getSizeLimit()).draw() : value);
+
+                    builder.append(";" + express + "=" + result);
+                }
+                builder.append("\n");
+
+                process.write("ts=" + DateUtils.getCurrentDate() + builder.toString());
                 process.times().incrementAndGet();
                 if (isLimitExceeded(command.getNumberOfLimit(), process.times().get())) {
                     abortProcess(process, command.getNumberOfLimit());
