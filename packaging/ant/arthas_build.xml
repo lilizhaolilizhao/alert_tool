@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="alert_tool" default="cp">
+    <!--工程文件打包-->
+    <target name="mvn" description="package">
+        <exec executable="sh">
+            <arg value="-c"/>
+            <arg value="cd /Users/oneapm/git/arthas;/Users/oneapm/software/apache-maven-3.5.4/bin/mvn -DskipTests package"/>
+        </exec>
+    </target>
+
+    <!--不必询问,直接覆盖-->
+    <target name="unzip" depends="mvn">
+        <exec executable="sh">
+            <arg value="-c"/>
+            <arg value="cd /Users/oneapm/git/arthas/packaging/target;unzip -o /Users/oneapm/git/arthas/packaging/target/arthas-3.0.5-SNAPSHOT-bin.zip"/>
+        </exec>
+    </target>
+
+    <!--拷贝到指定目录-->
+    <target name="cp" depends="unzip">
+        <exec executable="sh">
+            <arg value="-c"/>
+            <arg value="cd /Users/oneapm/git/arthas/packaging/target;cp -rf arthas-agent.jar arthas-client.jar
+            arthas-core.jar arthas-spy.jar /Users/oneapm/git/arthas/core/target/"/>
+        </exec>
+    </target>
+</project>
