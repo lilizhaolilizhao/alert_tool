@@ -23,8 +23,7 @@ import com.taobao.middleware.cli.annotations.Summary;
 @Description("\nExamples:\n" +
         "  monitor org.apache.commons.lang.StringUtils isBlank\n" +
         "  monitor org.apache.commons.lang.StringUtils isBlank -c 5\n" +
-        "  monitor -E org\\.apache\\.commons\\.lang\\.StringUtils isBlank\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "monitor")
+        "  monitor -E org\\.apache\\.commons\\.lang\\.StringUtils isBlank\n")
 public class MonitorCommand extends EnhancerCommand {
 
     private String classPattern;

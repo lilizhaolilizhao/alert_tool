@@ -41,8 +41,7 @@ import static java.lang.String.format;
         "  sm org.apache.commons.????.StringUtils *\n" +
         "  sm -d org.apache.commons.lang.StringUtils\n" +
         "  sm -d org/apache/commons/lang/StringUtils\n" +
-        "  sm *String????s *\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "sm")
+        "  sm *String????s *\n")
 public class SearchMethodCommand extends AnnotatedCommand {
 
     private String classPattern;

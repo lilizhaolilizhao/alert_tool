@@ -18,10 +18,10 @@ import com.taobao.middleware.cli.annotations.Summary;
         "  watch -b org.apache.commons.lang.StringUtils isBlank params[0]\n" +
         "  watch -f org.apache.commons.lang.StringUtils isBlank returnObj\n" +
         "  watch -bf *StringUtils isBlank params[0]\n" +
+        "  watch -bfx 2 *Hello getmMltiply params[0],params[1],returnObj,throwExp\n" +
         "  watch *StringUtils isBlank params[0]\n" +
         "  watch *StringUtils isBlank params[0] params[0].length==1\n" +
-        "  watch *StringUtils isBlank '#cost>100'\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "watch")
+        "  watch *StringUtils isBlank '#cost>100'\n")
 public class WatchCommand extends EnhancerCommand {
 
     private String classPattern;

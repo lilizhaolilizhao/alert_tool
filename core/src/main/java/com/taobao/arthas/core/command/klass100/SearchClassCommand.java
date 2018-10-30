@@ -34,8 +34,7 @@ import static com.taobao.text.ui.Element.label;
         "  sc -E org\\\\.apache\\\\.commons\\\\.lang\\\\.StringUtils\n" +
         "  sc -d org.apache.commons.lang.StringUtils\n" +
         "  sc -d org/apache/commons/lang/StringUtils\n" +
-        "  sc -d *StringUtils\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "sc")
+        "  sc -d *StringUtils\n")
 public class SearchClassCommand extends AnnotatedCommand {
     private String classPattern;
     private boolean isDetail = false;

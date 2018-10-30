@@ -41,8 +41,7 @@ import java.util.TreeSet;
         "  classloader -c 327a647b\n" +
         "  classloader -c 327a647b -r META-INF/MANIFEST.MF\n" +
         "  classloader -a\n" +
-        "  classloader -a -c 327a647b\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "classloader")
+        "  classloader -a -c 327a647b\n")
 public class ClassLoaderCommand extends AnnotatedCommand {
     private boolean isTree = false;
     private String hashCode;

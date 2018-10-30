@@ -1,13 +1,10 @@
 package com.taobao.arthas.core.command;
 
 /**
- * @author ralf0131 2016-12-14 17:21.
+ * 常量
  */
 public interface Constants {
 
-    /**
-     * TODO improve the description
-     */
     String EXPRESS_DESCRIPTION = "  The express may be one of the following expression (evaluated dynamically):\n" +
             "          target : the object\n" +
             "           clazz : the object's class\n" +
@@ -21,13 +18,10 @@ public interface Constants {
 
     String EXAMPLE = "\nEXAMPLES:\n";
 
-    String WIKI = "\nWIKI:\n";
-
-    String WIKI_HOME = "  https://alibaba.github.io/arthas/";
-
     String EXPRESS_EXAMPLES =   "Examples:\n" +
                                 "  params[0]\n" +
                                 "  'params[0]+params[1]'\n" +
+                                "  params[0],params[1],returnObj,throwExp\n" +
                                 "  returnObj\n" +
                                 "  throwExp\n" +
                                 "  target\n" +

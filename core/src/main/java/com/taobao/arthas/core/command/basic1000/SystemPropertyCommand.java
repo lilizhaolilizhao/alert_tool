@@ -24,8 +24,7 @@ import static com.taobao.text.ui.Element.label;
  */
 @Name("sysprop")
 @Summary("Display, and change the system properties.")
-@Description(Constants.EXAMPLE + "sysprop\n"+ "sysprop file.encoding\n" + "sysprop production.mode true\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "sysprop")
+@Description(Constants.EXAMPLE + "sysprop\n"+ "sysprop file.encoding\n" + "sysprop production.mode true\n" + "sysprop")
 public class SystemPropertyCommand extends AnnotatedCommand {
 
     private String propertyName;

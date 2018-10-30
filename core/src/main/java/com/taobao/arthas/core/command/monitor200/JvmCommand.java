@@ -28,7 +28,6 @@ import static com.taobao.text.ui.Element.label;
  */
 @Name("jvm")
 @Summary("Display the target JVM information")
-@Description(Constants.WIKI + Constants.WIKI_HOME + "jvm")
 public class JvmCommand extends AnnotatedCommand {
 
     private final RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();

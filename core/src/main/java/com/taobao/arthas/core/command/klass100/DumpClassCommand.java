@@ -39,8 +39,7 @@ import static com.taobao.text.ui.Element.label;
         "  dump -E org\\\\.apache\\\\.commons\\\\.lang\\\\.StringUtils\n" +
         "  dump org.apache.commons.lang.StringUtils\n" +
         "  dump org/apache/commons/lang/StringUtils\n" +
-        "  dump *StringUtils\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "dump")
+        "  dump *StringUtils\n")
 public class DumpClassCommand extends AnnotatedCommand {
     private static final Logger logger = LogUtil.getArthasLogger();
 

@@ -34,8 +34,7 @@ import static java.lang.String.format;
  */
 @Name("options")
 @Summary("View and change various Arthas options")
-@Description(Constants.EXAMPLE + "options dump true\n"+ "options unsafe true\n" +
-        Constants.WIKI + Constants.WIKI_HOME + "options")
+@Description(Constants.EXAMPLE + "options dump true\n"+ "options unsafe true\n" + "options")
 public class OptionsCommand extends AnnotatedCommand {
     private String optionName;
     private String optionValue;

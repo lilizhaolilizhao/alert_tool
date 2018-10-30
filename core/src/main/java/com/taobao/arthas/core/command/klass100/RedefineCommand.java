@@ -30,8 +30,7 @@ import com.taobao.middleware.cli.annotations.Summary;
 @Summary("Redefine classes. @see Instrumentation#redefineClasses(ClassDefinition...)")
 @Description(Constants.EXAMPLE +
                 "  redefine -p /tmp/Test.class\n" +
-                "  redefine -c 327a647b -p /tmp/Test.class /tmp/Test\\$Inner.class \n" +
-                Constants.WIKI + Constants.WIKI_HOME + "redefine")
+                "  redefine -c 327a647b -p /tmp/Test.class /tmp/Test\\$Inner.class \n")
 public class RedefineCommand extends AnnotatedCommand {
 
     private static final int MAX_FILE_SIZE = 10 * 1024 * 1024;
