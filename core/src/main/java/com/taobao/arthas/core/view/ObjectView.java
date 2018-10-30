@@ -95,34 +95,27 @@ public class ObjectView implements View {
     }
 
     private void renderObject(Object obj, int deep, int expand, final StringBuilder buf) throws ObjectTooLargeException {
-
         if (null == obj) {
-            appendStringBuilder(buf,"null");
+            appendStringBuilder(buf, "null");
         } else {
-
             final Class<?> clazz = obj.getClass();
             final String className = clazz.getSimpleName();
 
             // 7种基础类型,直接输出@类型[值]
             if (Integer.class.isInstance(obj)
-                || Long.class.isInstance(obj)
-                || Float.class.isInstance(obj)
-                || Double.class.isInstance(obj)
+                    || Long.class.isInstance(obj)
+                    || Float.class.isInstance(obj)
+                    || Double.class.isInstance(obj)
                     //                    || Character.class.isInstance(obj)
-                || Short.class.isInstance(obj)
-                || Byte.class.isInstance(obj)
-                || Boolean.class.isInstance(obj)) {
+                    || Short.class.isInstance(obj)
+                    || Byte.class.isInstance(obj)
+                    || Boolean.class.isInstance(obj)) {
                 appendStringBuilder(buf, format("@%s[%s]", className, obj));
-            }
-
-            // Char要特殊处理,因为有不可见字符的因素
-            else if (Character.class.isInstance(obj)) {
-
+            } else if (Character.class.isInstance(obj)) {
                 final Character c = (Character) obj;
 
                 // ASCII的可见字符
-                if (c >= 32
-                    && c <= 126) {
+                if (c >= 32 && c <= 126) {
                     appendStringBuilder(buf, format("@%s[%s]", className, c));
                 }
 
@@ -135,11 +128,7 @@ public class ObjectView implements View {
                 else {
                     appendStringBuilder(buf, format("@%s[%s]", className, c));
                 }
-
-            }
-
-            // 字符串类型单独处理
-            else if (String.class.isInstance(obj)) {
+            } else if (String.class.isInstance(obj)) {
                 appendStringBuilder(buf, "@");
                 appendStringBuilder(buf, className);
                 appendStringBuilder(buf, "[");
@@ -156,29 +145,21 @@ public class ObjectView implements View {
                     }//switch
                 }//for
                 appendStringBuilder(buf, "]");
-            }
-
-            // 集合类输出
-            else if (Collection.class.isInstance(obj)) {
-
+            } else if (Collection.class.isInstance(obj)) {
                 @SuppressWarnings("unchecked") final Collection<Object> collection = (Collection<Object>) obj;
-
                 // 非根节点或空集合只展示摘要信息
                 if (!isExpand(deep, expand)
-                    || collection.isEmpty()) {
+                        || collection.isEmpty()) {
 
                     appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                      className,
-                                      collection.isEmpty(),
-                                      collection.size()));
-                }
-
-                // 展开展示
-                else {
+                            className,
+                            collection.isEmpty(),
+                            collection.size()));
+                } else {
                     appendStringBuilder(buf, format("@%s[", className));
                     for (Object e : collection) {
                         appendStringBuilder(buf, "\n");
-                        for (int i = 0; i < deep+1; i++) {
+                        for (int i = 0; i < deep + 1; i++) {
                             appendStringBuilder(buf, TAB);
                         }
                         renderObject(e, deep + 1, expand, buf);
@@ -190,28 +171,22 @@ public class ObjectView implements View {
                     }
                     appendStringBuilder(buf, "]");
                 }
-
-            }
-
-
-            // Map类输出
-            else if (Map.class.isInstance(obj)) {
+            } else if (Map.class.isInstance(obj)) {
                 @SuppressWarnings("unchecked") final Map<Object, Object> map = (Map<Object, Object>) obj;
-
                 // 非根节点或空集合只展示摘要信息
                 if (!isExpand(deep, expand)
-                    || map.isEmpty()) {
+                        || map.isEmpty()) {
 
                     appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                      className,
-                                      map.isEmpty(),
-                                      map.size()));
+                            className,
+                            map.isEmpty(),
+                            map.size()));
 
                 } else {
                     appendStringBuilder(buf, format("@%s[", className));
                     for (Map.Entry<Object, Object> entry : map.entrySet()) {
                         appendStringBuilder(buf, "\n");
-                        for (int i = 0; i < deep+1; i++) {
+                        for (int i = 0; i < deep + 1; i++) {
                             appendStringBuilder(buf, TAB);
                         }
                         renderObject(entry.getKey(), deep + 1, expand, buf);
@@ -225,36 +200,23 @@ public class ObjectView implements View {
                     }
                     appendStringBuilder(buf, "]");
                 }
-            }
-
-
-            // 数组类输出
-            else if (obj.getClass().isArray()) {
-
-
+            } else if (obj.getClass().isArray()) {
                 final String typeName = obj.getClass().getSimpleName();
-
-                // int[]
                 if (typeName.equals("int[]")) {
-
                     final int[] arrays = (int[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
-
-                    }
-
-                    // 展开展示
-                    else {
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
+                    } else {
                         appendStringBuilder(buf, format("@%s[", className));
                         for (int e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -267,29 +229,23 @@ public class ObjectView implements View {
                         appendStringBuilder(buf, "]");
                     }
 
-                }
-
-                // long[]
-                else if (typeName.equals("long[]")) {
+                } else if (typeName.equals("long[]")) {
 
                     final long[] arrays = (long[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
 
-                    }
-
-                    // 展开展示
-                    else {
+                    } else {
                         appendStringBuilder(buf, format("@%s[", className));
                         for (long e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -302,29 +258,21 @@ public class ObjectView implements View {
                         appendStringBuilder(buf, "]");
                     }
 
-                }
-
-                // short[]
-                else if (typeName.equals("short[]")) {
-
+                } else if (typeName.equals("short[]")) {
                     final short[] arrays = (short[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
-
-                    }
-
-                    // 展开展示
-                    else {
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
+                    } else {
                         appendStringBuilder(buf, format("@%s[", className));
                         for (short e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -337,29 +285,23 @@ public class ObjectView implements View {
                         appendStringBuilder(buf, "]");
                     }
 
-                }
-
-                // float[]
-                else if (typeName.equals("float[]")) {
+                } else if (typeName.equals("float[]")) {
 
                     final float[] arrays = (float[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
 
-                    }
-
-                    // 展开展示
-                    else {
+                    } else {
                         appendStringBuilder(buf, format("@%s[", className));
                         for (float e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -372,29 +314,22 @@ public class ObjectView implements View {
                         appendStringBuilder(buf, "]");
                     }
 
-                }
-
-                // double[]
-                else if (typeName.equals("double[]")) {
-
+                } else if (typeName.equals("double[]")) {  // double[]
                     final double[] arrays = (double[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
 
-                    }
-
-                    // 展开展示
-                    else {
+                    } else {
                         appendStringBuilder(buf, format("@%s[", className));
                         for (double e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -407,29 +342,22 @@ public class ObjectView implements View {
                         appendStringBuilder(buf, "]");
                     }
 
-                }
-
-                // boolean[]
-                else if (typeName.equals("boolean[]")) {
-
+                } else if (typeName.equals("boolean[]")) {
                     final boolean[] arrays = (boolean[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
 
-                    }
-
-                    // 展开展示
-                    else {
+                    } else {
                         appendStringBuilder(buf, format("@%s[", className));
                         for (boolean e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -441,30 +369,22 @@ public class ObjectView implements View {
                         }
                         appendStringBuilder(buf, "]");
                     }
-
-                }
-
-                // char[]
-                else if (typeName.equals("char[]")) {
-
+                } else if (typeName.equals("char[]")) { // char[]
                     final char[] arrays = (char[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
 
-                    }
-
-                    // 展开展示
-                    else {
+                    } else { // 展开展示
                         appendStringBuilder(buf, format("@%s[", className));
                         for (char e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -477,29 +397,22 @@ public class ObjectView implements View {
                         appendStringBuilder(buf, "]");
                     }
 
-                }
-
-                // byte[]
-                else if (typeName.equals("byte[]")) {
-
+                } else if (typeName.equals("byte[]")) {  // byte[]
                     final byte[] arrays = (byte[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
 
-                    }
-
-                    // 展开展示
-                    else {
+                    } else { // 展开展示
                         appendStringBuilder(buf, format("@%s[", className));
                         for (byte e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -511,29 +424,21 @@ public class ObjectView implements View {
                         }
                         appendStringBuilder(buf, "]");
                     }
-
-                }
-
-                // Object[]
-                else {
+                } else {  // Object[]
                     final Object[] arrays = (Object[]) obj;
                     // 非根节点或空集合只展示摘要信息
                     if (!isExpand(deep, expand)
-                        || arrays.length == 0) {
+                            || arrays.length == 0) {
 
                         appendStringBuilder(buf, format("@%s[isEmpty=%s;size=%d]",
-                                          typeName,
-                                          arrays.length == 0,
-                                          arrays.length));
-
-                    }
-
-                    // 展开展示
-                    else {
+                                typeName,
+                                arrays.length == 0,
+                                arrays.length));
+                    } else { // 展开展示
                         appendStringBuilder(buf, format("@%s[", className));
                         for (Object e : arrays) {
                             appendStringBuilder(buf, "\n");
-                            for (int i = 0; i < deep+1; i++) {
+                            for (int i = 0; i < deep + 1; i++) {
                                 appendStringBuilder(buf, TAB);
                             }
                             renderObject(e, deep + 1, expand, buf);
@@ -547,49 +452,43 @@ public class ObjectView implements View {
                     }
                 }
 
-            }
-
-
-            // Throwable输出
-            else if (Throwable.class.isInstance(obj)) {
-
+            } else if (Throwable.class.isInstance(obj)) { // Throwable输出
                 if (!isExpand(deep, expand)) {
                     appendStringBuilder(buf, format("@%s[%s]", className, obj));
                 } else {
-
                     final Throwable throwable = (Throwable) obj;
                     final StringWriter sw = new StringWriter();
                     final PrintWriter pw = new PrintWriter(sw);
                     throwable.printStackTrace(pw);
                     appendStringBuilder(buf, sw.toString());
                 }
-
-            }
-
-            // Date输出
-            else if (Date.class.isInstance(obj)) {
+            } else if (Date.class.isInstance(obj)) { // Date输出
                 appendStringBuilder(buf, format("@%s[%s]", className, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(obj)));
             }
 
             // 普通Object输出
             else {
-
                 if (!isExpand(deep, expand)) {
                     appendStringBuilder(buf, format("@%s[%s]", className, obj));
                 } else {
                     appendStringBuilder(buf, format("@%s[", className));
-                    final Field[] fields = obj.getClass().getDeclaredFields();
+
+                    List<Field> fields = new ArrayList<Field>();
+                    Class objClass = obj.getClass();
+                    //当父类为null的时候说明到达了最上层的父类(Object类).
+                    while (objClass != null) {
+                        fields.addAll(Arrays.asList(objClass.getDeclaredFields()));
+                        objClass = objClass.getSuperclass();
+                    }
+
                     if (null != fields) {
                         for (Field field : fields) {
-
                             field.setAccessible(true);
-
                             try {
-
                                 final Object value = field.get(obj);
 
                                 appendStringBuilder(buf, "\n");
-                                for (int i = 0; i < deep+1; i++) {
+                                for (int i = 0; i < deep + 1; i++) {
                                     appendStringBuilder(buf, TAB);
                                 }
                                 appendStringBuilder(buf, field.getName());
@@ -611,7 +510,6 @@ public class ObjectView implements View {
                     }
                     appendStringBuilder(buf, "]");
                 }
-
             }
         }
     }
@@ -640,7 +538,8 @@ public class ObjectView implements View {
 
     /**
      * append string to a string builder, with upper limit check
-     * @param buf the StringBuilder buffer
+     *
+     * @param buf  the StringBuilder buffer
      * @param data the data to be appended
      * @throws ObjectTooLargeException if the size has exceeded the upper limit
      */

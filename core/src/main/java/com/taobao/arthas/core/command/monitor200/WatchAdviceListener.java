@@ -78,8 +78,6 @@ class WatchAdviceListener extends ReflectAdviceListenerAdapter {
             // 本次调用的耗时
             double cost = threadLocalWatch.costInMillis();
             if (isConditionMet(command.getConditionExpress(), advice, cost)) {
-                // TODO: concurrency issues for process.write
-
                 StringBuilder builder = new StringBuilder();
                 String[] expressArray = command.getExpress().split(",");
                 for (String express : expressArray) {
