@@ -125,6 +125,7 @@
             <groupId>org.benf</groupId>
             <artifactId>cfr</artifactId>
             <version>0.132</version>
+            <systemPath>${basedir}/../lib/org/benf/cfr/0.132/cfr-0.132.jar</systemPath>
         </dependency>
         <!-- for com.sun.tools.attach.VirtualMachine api, do not package into fat jar -->
         <dependency>
