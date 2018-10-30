@@ -10,7 +10,6 @@ import com.taobao.arthas.core.command.basic1000.SystemPropertyCommand;
 import com.taobao.arthas.core.command.basic1000.VersionCommand;
 import com.taobao.arthas.core.command.hidden.JulyCommand;
 import com.taobao.arthas.core.command.hidden.OptionsCommand;
-import com.taobao.arthas.core.command.hidden.ThanksCommand;
 import com.taobao.arthas.core.command.klass100.ClassLoaderCommand;
 import com.taobao.arthas.core.command.klass100.DumpClassCommand;
 import com.taobao.arthas.core.command.klass100.GetStaticCommand;
@@ -19,7 +18,6 @@ import com.taobao.arthas.core.command.klass100.RedefineCommand;
 import com.taobao.arthas.core.command.klass100.SearchClassCommand;
 import com.taobao.arthas.core.command.klass100.SearchMethodCommand;
 import com.taobao.arthas.core.command.monitor200.DashboardCommand;
-import com.taobao.arthas.core.command.monitor200.GroovyScriptCommand;
 import com.taobao.arthas.core.command.monitor200.JvmCommand;
 import com.taobao.arthas.core.command.monitor200.MonitorCommand;
 import com.taobao.arthas.core.command.monitor200.StackCommand;
@@ -34,8 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO automatically discover the built-in commands.
- * @author beiwei30 on 17/11/2016.
+ * 内建命令
  */
 public class BuiltinCommandPack implements CommandResolver {
 
@@ -65,11 +62,9 @@ public class BuiltinCommandPack implements CommandResolver {
         commands.add(Command.create(WatchCommand.class));
         commands.add(Command.create(TimeTunnelCommand.class));
         commands.add(Command.create(JvmCommand.class));
-        // commands.add(Command.create(GroovyScriptCommand.class));
         commands.add(Command.create(DashboardCommand.class));
         commands.add(Command.create(DumpClassCommand.class));
         commands.add(Command.create(JulyCommand.class));
-        commands.add(Command.create(ThanksCommand.class));
         commands.add(Command.create(OptionsCommand.class));
         commands.add(Command.create(ClsCommand.class));
         commands.add(Command.create(ResetCommand.class));

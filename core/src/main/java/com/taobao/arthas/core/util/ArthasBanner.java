@@ -16,20 +16,17 @@ import static com.taobao.text.ui.Element.label;
  */
 public class ArthasBanner {
     private static final String LOGO_LOCATION = "/com/taobao/arthas/core/res/logo.txt";
-    private static final String CREDIT_LOCATION = "/com/taobao/arthas/core/res/thanks.txt";
     private static final String VERSION_LOCATION = "/com/taobao/arthas/core/res/version";
     private static final String WIKI = "https://alibaba.github.io/arthas";
 
     private static String LOGO = "Welcome to Arthas";
     private static String VERSION = "unknown";
-    private static String THANKS = "";
 
     private static final Logger logger = LogUtil.getArthasLogger();
 
     static {
         try {
             String logoText = IOUtils.toString(ShellServerOptions.class.getResourceAsStream(LOGO_LOCATION));
-            THANKS = IOUtils.toString(ShellServerOptions.class.getResourceAsStream(CREDIT_LOCATION));
             InputStream versionInputStream = ShellServerOptions.class.getResourceAsStream(VERSION_LOCATION);
             if (versionInputStream != null) {
                 VERSION = IOUtils.toString(versionInputStream).trim();
@@ -72,10 +69,6 @@ public class ArthasBanner {
 
     public static String wiki() {
         return WIKI;
-    }
-
-    public static String credit() {
-        return THANKS;
     }
 
     public static String version() {
