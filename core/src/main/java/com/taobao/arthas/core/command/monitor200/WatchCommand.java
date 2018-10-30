@@ -19,6 +19,7 @@ import com.taobao.middleware.cli.annotations.Summary;
         "  watch -f org.apache.commons.lang.StringUtils isBlank returnObj\n" +
         "  watch -bf *StringUtils isBlank params[0]\n" +
         "  watch -bfx 2 *Hello getmMltiply params[0],params[1],returnObj,throwExp\n" +
+        "  watch -fx 2 *MetricNameUtils assembleNameAi params[0] isThrow==true\n" +
         "  watch *StringUtils isBlank params[0]\n" +
         "  watch *StringUtils isBlank params[0] params[0].length==1\n" +
         "  watch *StringUtils isBlank '#cost>100'\n")
