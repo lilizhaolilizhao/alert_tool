@@ -4,7 +4,7 @@
     <target name="mvn" description="package">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="cd /Users/oneapm/git/arthas;/Users/oneapm/software/apache-maven-3.5.4/bin/mvn -DskipTests package"/>
+            <arg value="cd ${basedir}/../../;/Users/oneapm/software/apache-maven-3.5.4/bin/mvn -DskipTests package"/>
         </exec>
     </target>
 
@@ -12,7 +12,7 @@
     <target name="unzip" depends="mvn">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="cd /Users/oneapm/git/arthas/packaging/target;unzip -o /Users/oneapm/git/arthas/packaging/target/arthas-3.0.5-SNAPSHOT-bin.zip"/>
+            <arg value="cd ${basedir}/../../packaging/target;unzip -o ${basedir}/../../packaging/target/arthas-3.0.5-SNAPSHOT-bin.zip"/>
         </exec>
     </target>
 
@@ -20,8 +20,8 @@
     <target name="cp" depends="unzip">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="cd /Users/oneapm/git/arthas/packaging/target;cp -rf arthas-agent.jar arthas-client.jar
-            arthas-core.jar arthas-spy.jar /Users/oneapm/git/arthas/core/target/"/>
+            <arg value="cd ${basedir}/../../packaging/target;cp -rf arthas-agent.jar arthas-client.jar
+            arthas-core.jar arthas-spy.jar ${basedir}/../../core/target/"/>
         </exec>
     </target>
 </project>
