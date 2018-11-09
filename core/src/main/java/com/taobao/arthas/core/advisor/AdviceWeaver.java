@@ -30,8 +30,6 @@ public class AdviceWeaver extends ClassVisitor implements Opcodes {
 
     private final static Logger logger = LogUtil.getArthasLogger();
 
-
-
     // 线程帧栈堆栈大小
     private final static int FRAME_STACK_SIZE = 7;
     // 通知监听器集合
@@ -49,7 +47,6 @@ public class AdviceWeaver extends ClassVisitor implements Opcodes {
         }
 
     };
-
 
     /**
      * 方法开始<br/>

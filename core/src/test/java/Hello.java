@@ -8,6 +8,9 @@ public class Hello {
                 SonBean sonBean = getSonBean(i, i + ": test");
                 System.out.println(sonBean);
 
+                int multly = getMultly(i, i + 10);
+                System.out.println(multly);
+
 //                System.out.println(getMultly(i, i - 10));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -17,14 +20,15 @@ public class Hello {
 
     public static SonBean getSonBean(int i, String j) {
         SonBean sonBean = new SonBean();
-        sonBean.setI(i+10);
+        sonBean.setI(i + 10);
         sonBean.setJ(j);
 
         return sonBean;
     }
 
     public static int getMultly(int i, int j) {
-        if (j > 60) j = 0;
-        return i / j;
+//        if (j > 60) j = 0;
+//        return i / j;
+        return i + j;
     }
 }
