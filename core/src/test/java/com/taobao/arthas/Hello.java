@@ -1,3 +1,5 @@
+package com.taobao.arthas;
+
 import com.taobao.arthas.bean.SonBean;
 
 public class Hello {
