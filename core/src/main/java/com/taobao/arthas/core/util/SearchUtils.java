@@ -6,9 +6,7 @@ import com.taobao.arthas.core.util.matcher.RegexMatcher;
 import com.taobao.arthas.core.util.matcher.WildcardMatcher;
 
 import java.lang.instrument.Instrumentation;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 类搜索工具
@@ -28,7 +26,12 @@ public class SearchUtils {
         if (classNameMatcher == null) {
             return Collections.emptySet();
         }
-        final Set<Class<?>> matches = new HashSet<Class<?>>();
+        final Set<Class<?>> matches = new TreeSet<Class<?>>(new Comparator<Class<?>>() {
+            @Override
+            public int compare(Class<?> o1, Class<?> o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         for (Class<?> clazz : inst.getAllLoadedClasses()) {
             if (classNameMatcher.matching(clazz.getName())) {
                 matches.add(clazz);
@@ -102,7 +105,12 @@ public class SearchUtils {
      * @return 匹配的子类集合
      */
     public static Set<Class<?>> searchSubClass(Instrumentation inst, Set<Class<?>> classSet) {
-        final Set<Class<?>> matches = new HashSet<Class<?>>();
+        final Set<Class<?>> matches = new TreeSet<Class<?>>(new Comparator<Class<?>>() {
+            @Override
+            public int compare(Class<?> o1, Class<?> o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         for (Class<?> clazz : inst.getAllLoadedClasses()) {
             for (Class<?> superClass : classSet) {
                 if (superClass.isAssignableFrom(clazz)) {
