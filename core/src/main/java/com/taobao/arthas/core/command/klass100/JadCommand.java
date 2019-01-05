@@ -119,7 +119,6 @@ public class JadCommand extends AnnotatedCommand {
                 source = "unknown";
             }
 
-
             process.write("\n");
             process.write(RenderUtil.render(new LabelElement("ClassLoader: ").style(Decoration.bold.fg(Color.red)), process.width()));
             process.write(RenderUtil.render(TypeRenderUtils.drawClassLoader(c), process.width()) + "\n");
@@ -130,6 +129,7 @@ public class JadCommand extends AnnotatedCommand {
             process.write(com.taobao.arthas.core.util.Constants.EMPTY_STRING);
             affect.rCnt(classFiles.keySet().size());
         } catch (Throwable t) {
+            t.printStackTrace();
             logger.error(null, "jad: fail to decompile class: " + c.getName(), t);
         }
     }
@@ -181,23 +181,5 @@ public class JadCommand extends AnnotatedCommand {
         }
 
         return null;
-    }
-
-    public static void main(String[] args) {
-        String[] names = {
-                "com.taobao.container.web.arthas.mvc.AppInfoController",
-                "com.taobao.container.web.arthas.mvc.AppInfoController$1$$Lambda$19/381016128",
-                "com.taobao.container.web.arthas.mvc.AppInfoController$$Lambda$16/17741163",
-                "com.taobao.container.web.arthas.mvc.AppInfoController$1",
-                "com.taobao.container.web.arthas.mvc.AppInfoController$123",
-                "com.taobao.container.web.arthas.mvc.AppInfoController$A",
-                "com.taobao.container.web.arthas.mvc.AppInfoController$ABC"
-        };
-
-        String pattern = "com.taobao.container.web.arthas.mvc.AppInfoController" + "(?!.*\\$\\$Lambda\\$).*";
-        for(String name : names) {
-            System.out.println(name + "    " + Pattern.matches(pattern, name));
-        }
-
     }
 }
