@@ -27,27 +27,27 @@ $ reset -h
 ### 还原指定类
 
 ```
-$ trace Test test
+$ trace com.oneapm.test.Test test
 Press Ctrl+C to abort.
 Affect(class-cnt:1 , method-cnt:1) cost in 57 ms.
 `---ts=2017-10-26 17:10:33;thread_name=main;id=1;is_daemon=false;priority=5;TCCL=sun.misc.Launcher$AppClassLoader@14dad5dc
-    `---[0.590102ms] Test:test()
+    `---[0.590102ms] com.oneapm.test.Test:test()
 
 `---ts=2017-10-26 17:10:34;thread_name=main;id=1;is_daemon=false;priority=5;TCCL=sun.misc.Launcher$AppClassLoader@14dad5dc
-    `---[0.068692ms] Test:test()
+    `---[0.068692ms] com.oneapm.test.Test:test()
 
-$ reset Test
+$ reset com.oneapm.test.Test
 Affect(class-cnt:1 , method-cnt:0) cost in 11 ms.
 ```
 
 ### 还原所有类
 
 ```
-$ trace Test test
+$ trace com.oneapm.test.Test test
 Press Ctrl+C to abort.
 Affect(class-cnt:1 , method-cnt:1) cost in 15 ms.
 `---ts=2017-10-26 17:12:06;thread_name=main;id=1;is_daemon=false;priority=5;TCCL=sun.misc.Launcher$AppClassLoader@14dad5dc
-    `---[0.128518ms] Test:test()
+    `---[0.128518ms] com.oneapm.test.Test:test()
 
 $ reset
 Affect(class-cnt:1 , method-cnt:0) cost in 9 ms.

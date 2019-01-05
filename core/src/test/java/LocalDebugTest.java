@@ -29,11 +29,11 @@ public class LocalDebugTest {
         final String corePath = path.substring(0, path.indexOf("core")) + "core/target/";
         Arthas.main(new String[]{
                 "-jar",
-//                        npath + "arthas-core.jar",
-                corePath + "arthas-core.jar",
+                npath + "arthas-core.jar",
+//                corePath + "arthas-core.jar",
                 "-pid",
                 pid + "",
-//                3682 + "",
+//                2560 + "",
                 "-target-ip",
                 "127.0.0.1",
                 //"-telnet-port",
@@ -41,8 +41,8 @@ public class LocalDebugTest {
                 //"-http-port",
                 //"8563",
                 "-core",
-//                        npath + "arthas-core.jar",
-                corePath + "arthas-core.jar",
+                npath + "arthas-core.jar",
+//                corePath + "arthas-core.jar",
                 "-agent",
                 npath + "arthas-agent.jar"
         });

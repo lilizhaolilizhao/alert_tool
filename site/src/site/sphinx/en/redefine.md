@@ -21,6 +21,6 @@ F.Y.I
 ### Usage
 
 ```
-redefine -p /tmp/Test.class
-redefine -c 327a647b -p /tmp/Test.class /tmp/Test$Inner.class
+redefine -p /tmp/com.oneapm.test.Test.class
+redefine -c 327a647b -p /tmp/com.oneapm.test.Test.class /tmp/com.oneapm.test.Test$Inner.class
 ```

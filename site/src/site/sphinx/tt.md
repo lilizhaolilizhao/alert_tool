@@ -16,7 +16,7 @@ tt
   对于一个最基本的使用来说，就是记录下当前方法的每次调用环境现场。
   
   ```java
-  $ tt -t -n 3 *Test print
+  $ tt -t -n 3 *com.oneapm.test.Test print
   Press Ctrl+D or Ctrl+X to abort.
   Affect(class-cnt:1 , method-cnt:1) cost in 115 ms.
   +----------+----------------------+------------+----------+----------+-----------------+--------------------------------+--------------------------------+
@@ -35,7 +35,7 @@ tt
 
   - `-t`
 
-     tt 命令有很多个主参数，`-t` 就是其中之一。这个参数的表明希望记录下类 `*Test` 的 `print` 方法的每次执行情况。
+     tt 命令有很多个主参数，`-t` 就是其中之一。这个参数的表明希望记录下类 `*com.oneapm.test.Test` 的 `print` 方法的每次执行情况。
   
   - `-n 3`
 
@@ -66,15 +66,15 @@ tt
   
 - 解决方法重载
 
-     `tt -t *Test print params[0].length==1`
+     `tt -t *com.oneapm.test.Test print params[0].length==1`
      
      通过制定参数个数的形式解决不同的方法签名，如果参数个数一样，你还可以这样写
      
-     `tt -t *Test print 'params[1] instanceof Integer'`
+     `tt -t *com.oneapm.test.Test print 'params[1] instanceof Integer'`
   
 - 解决指定参数
 
-     `tt -t *Test print params[0].mobile=="13989838402"`
+     `tt -t *com.oneapm.test.Test print params[0].mobile=="13989838402"`
 
 - 构成条件表达式的 `Advice` 对象
 

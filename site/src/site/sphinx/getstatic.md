@@ -9,7 +9,7 @@ getstatic
 例如，假设n是一个Map，Map的Key是一个Enum，我们想过滤出Map中Key为某个Enum的值，可以写如下命令
 
 ```
-$ getstatic com.alibaba.arthas.Test n 'entrySet().iterator.{? #this.key.name()=="STOP"}'
+$ getstatic com.alibaba.arthas.com.oneapm.test.Test n 'entrySet().iterator.{? #this.key.name()=="STOP"}'
 field: n
 @ArrayList[
     @Node[STOP=bbb],
@@ -17,7 +17,7 @@ field: n
 Affect(row-cnt:1) cost in 68 ms.
 
 
-$ getstatic com.alibaba.arthas.Test m 'entrySet().iterator.{? #this.key=="a"}'
+$ getstatic com.alibaba.arthas.com.oneapm.test.Test m 'entrySet().iterator.{? #this.key=="a"}'
 field: m
 @ArrayList[
     @Node[a=aaa],

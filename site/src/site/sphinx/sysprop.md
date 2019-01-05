@@ -76,7 +76,7 @@ $ sysprop
  java.vm.specification.version                        1.8
  sun.arch.data.model                                  64
  java.home                                            /Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/jre
- sun.java.command                                     Test
+ sun.java.command                                     com.oneapm.test.Test
  java.specification.vendor                            Oracle Corporation
  user.language                                        en
  awt.toolkit                                          sun.lwawt.macosx.LWCToolkit

@@ -7,7 +7,7 @@ arthas中的异步调用，使用了仿linux系统任务相关的命令。[linux
 比如希望执行后台执行trace命令，那么调用下面命令
 
 ```bash
-trace Test t &  
+trace com.oneapm.test.Test t &  
 ```
 这时命令在后台执行，可以在console中继续执行其他命令。
 
@@ -16,7 +16,7 @@ trace Test t &
 ```bash
 $ jobs
 [10]*
-       Stopped           watch com.taobao.container.Test test "params[0].{? #this.name == null }" -x 2
+       Stopped           watch com.taobao.container.com.oneapm.test.Test test "params[0].{? #this.name == null }" -x 2
        execution count : 19
        start time      : Fri Sep 22 09:59:55 CST 2017
        timeout date    : Sat Sep 23 09:59:55 CST 2017
@@ -29,7 +29,7 @@ $ jobs
 * timeout date是超时的时间，到这个时间，任务将会自动超时退出
 
 ## 3. 任务暂停和取消
-当任务正在前台执行，比如直接调用命令`trace Test t`或者调用后台执行命令`trace Test t &`后又通过`fg`命令将任务转到前台。这时console中无法继续执行命令，但是可以接收并处理以下事件：
+当任务正在前台执行，比如直接调用命令`trace com.oneapm.test.Test t`或者调用后台执行命令`trace com.oneapm.test.Test t &`后又通过`fg`命令将任务转到前台。这时console中无法继续执行命令，但是可以接收并处理以下事件：
 
 * ‘ctrl + z’：将任务暂停。通过`jbos`查看任务状态将会变为Stopped，通过`bg <job-id>`或者`fg <job-id>`可让任务重新开始执行
 * ‘ctrl + c’：停止任务
@@ -44,13 +44,13 @@ $ jobs
 可通过`>`或者`>>`将任务输出结果输出到指定的文件中，可以和`&`一起使用，实现arthas命令的异步调用。比如：
 
 ```bash
-$ trace Test t >> test.out &
+$ trace com.oneapm.test.Test t >> test.out &
 ```
 这时trace命令会在后台执行，并且把结果输出到~/logs/arthas-cache/test.out。可继续执行其他命令。并可查看文件中的命令执行结果。
 
 当连接到远程的arthas server时，可能无法查看远程机器的文件，arthas同时支持了自动重定向到本地缓存路径。使用方法如下：
 ```bash
-$ trace Test t >>  &
+$ trace com.oneapm.test.Test t >>  &
 job id  : 2
 cache location  : /Users/gehui/logs/arthas-cache/28198/2
 ```

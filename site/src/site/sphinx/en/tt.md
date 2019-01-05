@@ -14,7 +14,7 @@ With the help of `tt` (*TimeTunnel*), you can check the contexts of the methods 
 Let's record the whole calling contexts:
   
   ```java
-  $ tt -t -n 3 *Test print
+  $ tt -t -n 3 *com.oneapm.test.Test print
   Press Ctrl+D or Ctrl+X to abort.
   Affect(class-cnt:1 , method-cnt:1) cost in 115 ms.
   +----------+----------------------+------------+----------+----------+-----------------+--------------------------------+--------------------------------+
@@ -33,7 +33,7 @@ Let's record the whole calling contexts:
 
   - `-t`
 
-     record the calling context of the method `*Test.print`
+     record the calling context of the method `*com.oneapm.test.Test.print`
   
   - `-n 3`
 
@@ -55,9 +55,9 @@ Let's record the whole calling contexts:
 #### Condition expression
 
 Tips:
-1. `tt -t *Test print params[0].length==1` with different amounts of parameters;
-2. `tt -t *Test print 'params[1] instanceof Integer'` with different types of parameters;
-3. `tt -t *Test print params[0].mobile=="13989838402"` with specified parameter.
+1. `tt -t *com.oneapm.test.Test print params[0].length==1` with different amounts of parameters;
+2. `tt -t *com.oneapm.test.Test print 'params[1] instanceof Integer'` with different types of parameters;
+3. `tt -t *com.oneapm.test.Test print params[0].mobile=="13989838402"` with specified parameter.
   
 Advanced:
 * [Critical fields in expression](advice-class.md)

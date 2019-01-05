@@ -22,7 +22,7 @@ Affect(row-cnt:1) cost in 3 ms.
 ### 使用新版本Arthas的异步后台任务将结果存日志文件
 
 ```bash
-$ trace Test t >>  &
+$ trace com.oneapm.test.Test t >>  &
 job id  : 2
 cache location  : /Users/zhuyong/logs/arthas-cache/28198/2
 ```

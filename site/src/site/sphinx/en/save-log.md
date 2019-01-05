@@ -24,7 +24,7 @@ F.Y.I
 With the latest Arthas, you can log the outputs asynchronously in the background:
 
 ```bash
-$ trace Test t >>  &
+$ trace com.oneapm.test.Test t >>  &
 job id  : 2
 cache location  : /Users/zhuyong/logs/arthas-cache/28198/2
 ```

@@ -9,7 +9,7 @@ Asynchronous jobs in arthas, using commands related to linux jobs.[linux man job
 For example, execute the trace command in the background:
 
 ```bash
-trace Test t &  
+trace com.oneapm.test.Test t &  
 ```
 
 ## 2. List background jobs
@@ -20,7 +20,7 @@ If you want to list all background jobs, you can execute the `jobs` command and 
 ```bash
 $ jobs
 [10]*
-       Stopped           watch com.taobao.container.Test test "params[0].{? #this.name == null }" -x 2
+       Stopped           watch com.taobao.container.com.oneapm.test.Test test "params[0].{? #this.name == null }" -x 2
        execution count : 19
        start time      : Fri Sep 22 09:59:55 CST 2017
        timeout date    : Sat Sep 23 09:59:55 CST 2017
@@ -36,7 +36,7 @@ You can see that there is currently a background job executing.
 
 ## 3. Suspend and Cancel job
 
-When the job is executing in the foreground, such as directly calling the command `trace Test t` or calling the background job command `trace Test t &`, the job is transferred to the foreground through the `fg` command. At this point, the console cannot continue to execute the command, but can receive and process the following keyboard events:
+When the job is executing in the foreground, such as directly calling the command `trace com.oneapm.test.Test t` or calling the background job command `trace com.oneapm.test.Test t &`, the job is transferred to the foreground through the `fg` command. At this point, the console cannot continue to execute the command, but can receive and process the following keyboard events:
 
 * ‘ctrl + z’: Suspend the job, the job status will change to `Stopped`, and the job can be restarted by `bg <job-id>` or `fg <job-id>`
 * ‘ctrl + c’: Stop the job
@@ -55,7 +55,7 @@ When the job is executing in the foreground, such as directly calling the comman
 The job output can be redirect to the specified file by `>` or `>>`, and can be used together with `&` to implement the asynchronous job of the arthas command. such as:
 
 ```bash
-$ trace Test t >> test.out &
+$ trace com.oneapm.test.Test t >> test.out &
 ```
 
 The trace command will be executed in the background and the output will be redirect to `~/logs/arthas-cache/test.out`. You can continue to execute other commands in the console.
@@ -64,7 +64,7 @@ The trace command will be executed in the background and the output will be redi
 When connecting to a remote arthas server, you may not be able to view the files of the remote machine. Arthas also supports automatic redirection to the local cache file. Examples are as follows:
 
 ```bash
-$ trace Test t >>  &
+$ trace com.oneapm.test.Test t >>  &
 job id  : 2
 cache location  : /Users/gehui/logs/arthas-cache/28198/2
 ```
