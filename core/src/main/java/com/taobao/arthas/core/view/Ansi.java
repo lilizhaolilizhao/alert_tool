@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  * @since 1.0
  */
+@SuppressWarnings("ALL")
 public class Ansi {
 
     private static final char FIRST_ESC_CHAR = 27;

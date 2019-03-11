@@ -25,15 +25,14 @@ public class LocalDebugTest {
         final int pid = getCurrentJVMPid();
         System.out.println("pid:"+pid);
         String path = LocalDebugTest.class.getResource("/").getPath();
-        final String npath = path.substring(0, path.indexOf("core")) + "packaging/target/";
+        final String agent = path.substring(0, path.indexOf("core")) + "agent/target/";
         final String corePath = path.substring(0, path.indexOf("core")) + "core/target/";
         Arthas.main(new String[]{
                 "-jar",
-                npath + "arthas-core.jar",
-//                corePath + "arthas-core.jar",
+                corePath + "arthas-core.jar",
                 "-pid",
-                pid + "",
-//                2560 + "",
+//                pid + "",
+                59154 + "",
                 "-target-ip",
                 "127.0.0.1",
                 //"-telnet-port",
@@ -41,10 +40,11 @@ public class LocalDebugTest {
                 //"-http-port",
                 //"8563",
                 "-core",
-                npath + "arthas-core.jar",
+                corePath + "arthas-core.jar",
 //                corePath + "arthas-core.jar",
                 "-agent",
-                npath + "arthas-agent.jar"
+                corePath + "arthas-agent.jar"
+//                agent + "arthas-agent-jar-with-dependencies.jar"
         });
         System.out.println("代码植入成功");
         Thread.sleep(10000000);

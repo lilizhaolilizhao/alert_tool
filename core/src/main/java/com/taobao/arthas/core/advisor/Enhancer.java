@@ -197,9 +197,9 @@ public class Enhancer implements ClassFileTransformer {
      * dump class to file
      */
     private static void dumpClassIfNecessary(String className, byte[] data, EnhancerAffect affect) {
-        if (!GlobalOptions.isDump) {
-            return;
-        }
+//        if (!GlobalOptions.isDump) {
+//            return;
+//        }
         final File dumpClassFile = new File("./arthas-class-dump/" + className + ".class");
         final File classPath = new File(dumpClassFile.getParent());
 
