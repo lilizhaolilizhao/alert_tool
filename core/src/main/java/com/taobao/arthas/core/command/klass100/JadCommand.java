@@ -129,7 +129,6 @@ public class JadCommand extends AnnotatedCommand {
             process.write(com.taobao.arthas.core.util.Constants.EMPTY_STRING);
             affect.rCnt(classFiles.keySet().size());
         } catch (Throwable t) {
-            t.printStackTrace();
             logger.error(null, "jad: fail to decompile class: " + c.getName(), t);
         }
     }
