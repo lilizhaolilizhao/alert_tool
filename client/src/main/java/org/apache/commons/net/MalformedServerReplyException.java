@@ -32,14 +32,12 @@ import java.io.IOException;
  *
  ***/
 
-public class MalformedServerReplyException extends IOException
-{
+public class MalformedServerReplyException extends IOException {
 
     private static final long serialVersionUID = 6006765264250543945L;
 
     /*** Constructs a MalformedServerReplyException with no message ***/
-    public MalformedServerReplyException()
-    {
+    public MalformedServerReplyException() {
         super();
     }
 
@@ -48,8 +46,7 @@ public class MalformedServerReplyException extends IOException
      *
      * @param message  The message explaining the reason for the exception.
      ***/
-    public MalformedServerReplyException(String message)
-    {
+    public MalformedServerReplyException(String message) {
         super(message);
     }
 

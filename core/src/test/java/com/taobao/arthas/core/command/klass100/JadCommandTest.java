@@ -24,7 +24,7 @@ public class JadCommandTest {
         };
 
         String pattern = "com.taobao.container.web.arthas.mvc.AppInfoController" + "(?!.*\\$\\$Lambda\\$).*";
-        for(String name : names) {
+        for (String name : names) {
             System.out.println(name + "    " + Pattern.matches(pattern, name));
         }
     }

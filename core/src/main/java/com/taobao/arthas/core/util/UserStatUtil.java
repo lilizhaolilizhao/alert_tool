@@ -28,7 +28,7 @@ public class UserStatUtil {
 
         try {
             executorService.execute(job);
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             //
         }
     }
@@ -46,14 +46,14 @@ public class UserStatUtil {
 
         try {
             executorService.execute(job);
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             //
         }
     }
 
     public static void arthasUsageSuccess(String cmd, List<String> args) {
         StringBuilder commandString = new StringBuilder(cmd);
-        for (String arg: args) {
+        for (String arg : args) {
             commandString.append(" ").append(arg);
         }
         UserStatUtil.arthasUsage(cmd, commandString.toString() + " --> success");
@@ -66,7 +66,7 @@ public class UserStatUtil {
 
     static class RemoteJob implements Runnable {
 
-//        private StringBuilder link = new StringBuilder("http://arthas.io/api/");
+        //        private StringBuilder link = new StringBuilder("http://arthas.io/api/");
         // disable stat
         private StringBuilder link = null;
 

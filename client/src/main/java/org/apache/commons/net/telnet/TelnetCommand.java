@@ -20,12 +20,12 @@ package org.apache.commons.net.telnet;
 /**
  * The TelnetCommand class cannot be instantiated and only serves as a
  * storehouse for telnet command constants.
+ *
  * @see org.apache.commons.net.telnet.Telnet
  * @see org.apache.commons.net.telnet.TelnetClient
  */
 
-public final class TelnetCommand
-{
+public final class TelnetCommand {
     /*** The maximum value a command code can have.  This value is 255. ***/
     public static final int MAX_COMMAND_VALUE = 255;
 
@@ -94,9 +94,9 @@ public final class TelnetCommand
 
     /*** String representations of commands. ***/
     private static final String __commandString[] = {
-                "IAC", "DONT", "DO", "WONT", "WILL", "SB", "GA", "EL", "EC", "AYT",
-                "AO", "IP", "BRK", "DMARK", "NOP", "SE", "EOR", "ABORT", "SUSP", "EOF"
-            };
+            "IAC", "DONT", "DO", "WONT", "WILL", "SB", "GA", "EL", "EC", "AYT",
+            "AO", "IP", "BRK", "DMARK", "NOP", "SE", "EOR", "ABORT", "SUSP", "EOF"
+    };
 
     private static final int __FIRST_COMMAND = IAC;
     private static final int __LAST_COMMAND = EOF;
@@ -108,8 +108,7 @@ public final class TelnetCommand
      * @param code The command code of the telnet protocol command.
      * @return The string representation of the telnet protocol command.
      ***/
-    public static final String getCommand(int code)
-    {
+    public static final String getCommand(int code) {
         return __commandString[__FIRST_COMMAND - code];
     }
 
@@ -120,12 +119,11 @@ public final class TelnetCommand
      * @param code  The command code to test.
      * @return True if the command code is valid, false if not.
      **/
-    public static final boolean isValidCommand(int code)
-    {
+    public static final boolean isValidCommand(int code) {
         return (code <= __FIRST_COMMAND && code >= __LAST_COMMAND);
     }
 
     // Cannot be instantiated
-    private TelnetCommand()
-    { }
+    private TelnetCommand() {
+    }
 }

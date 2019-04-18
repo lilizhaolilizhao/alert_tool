@@ -16,6 +16,7 @@
  */
 
 package org.apache.commons.net;
+
 import java.util.EventObject;
 
 /***
@@ -32,8 +33,7 @@ import java.util.EventObject;
  * @see ProtocolCommandSupport
  ***/
 
-public class ProtocolCommandEvent extends EventObject
-{
+public class ProtocolCommandEvent extends EventObject {
     private static final long serialVersionUID = 403743538418947240L;
 
     private final int __replyCode;
@@ -52,8 +52,7 @@ public class ProtocolCommandEvent extends EventObject
      * @param message The entire command string verbatim as sent to the server,
      *        including all arguments.
      ***/
-    public ProtocolCommandEvent(Object source, String command, String message)
-    {
+    public ProtocolCommandEvent(Object source, String command, String message) {
         super(source);
         __replyCode = 0;
         __message = message;
@@ -76,8 +75,7 @@ public class ProtocolCommandEvent extends EventObject
      *   strings like OK rather than integer codes (i.e., POP3Repy.OK).
      * @param message The entire reply as received from the server.
      ***/
-    public ProtocolCommandEvent(Object source, int replyCode, String message)
-    {
+    public ProtocolCommandEvent(Object source, int replyCode, String message) {
         super(source);
         __replyCode = replyCode;
         __message = message;
@@ -93,8 +91,7 @@ public class ProtocolCommandEvent extends EventObject
      * @return The string representation of the command type sent, or null
      *         if this is a reply event.
      ***/
-    public String getCommand()
-    {
+    public String getCommand() {
         return __command;
     }
 
@@ -106,8 +103,7 @@ public class ProtocolCommandEvent extends EventObject
      * @return The reply code of the received server reply.  Undefined if
      *         not a reply event.
      ***/
-    public int getReplyCode()
-    {
+    public int getReplyCode() {
         return __replyCode;
     }
 
@@ -118,8 +114,7 @@ public class ProtocolCommandEvent extends EventObject
      * @return true If the ProtocolCommandEvent was generated as a result
      * of sending a command.  False otherwise.
      ***/
-    public boolean isCommand()
-    {
+    public boolean isCommand() {
         return __isCommand;
     }
 
@@ -130,8 +125,7 @@ public class ProtocolCommandEvent extends EventObject
      * @return true If the ProtocolCommandEvent was generated as a result
      * of receiving a reply.  False otherwise.
      ***/
-    public boolean isReply()
-    {
+    public boolean isReply() {
         return !isCommand();
     }
 
@@ -141,8 +135,7 @@ public class ProtocolCommandEvent extends EventObject
      *
      * @return The entire message sent to or received from the server.
      ***/
-    public String getMessage()
-    {
+    public String getMessage() {
         return __message;
     }
 }

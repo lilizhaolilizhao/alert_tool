@@ -22,8 +22,7 @@ package org.apache.commons.net.telnet;
  * thrown whenever a TelnetOptionHandler with an invlaid
  * option code is registered in TelnetClient with addOptionHandler.
  ***/
-public class InvalidTelnetOptionException extends Exception
-{
+public class InvalidTelnetOptionException extends Exception {
 
     private static final long serialVersionUID = -2516777155928793597L;
 
@@ -43,8 +42,7 @@ public class InvalidTelnetOptionException extends Exception
      * @param message - Error message.
      * @param optcode - Option code.
      ***/
-    public InvalidTelnetOptionException(String message, int optcode)
-    {
+    public InvalidTelnetOptionException(String message, int optcode) {
         optionCode = optcode;
         msg = message;
     }
@@ -55,8 +53,7 @@ public class InvalidTelnetOptionException extends Exception
      * @return the error message.
      ***/
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         return (msg + ": " + optionCode);
     }
 }

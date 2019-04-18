@@ -24,8 +24,7 @@ package org.apache.commons.net.telnet;
  * @see TelnetClient
  * @since 3.0
  ***/
-public interface TelnetInputListener
-{
+public interface TelnetInputListener {
 
     /***
      * Callback method invoked when new incoming data is available on a

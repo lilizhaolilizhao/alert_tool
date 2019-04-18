@@ -9,11 +9,7 @@ import com.taobao.arthas.core.util.LogUtil;
 import com.taobao.arthas.core.util.SearchUtils;
 import com.taobao.arthas.core.util.TypeRenderUtils;
 import com.taobao.arthas.core.util.affect.RowAffect;
-import com.taobao.middleware.cli.annotations.Argument;
-import com.taobao.middleware.cli.annotations.Description;
-import com.taobao.middleware.cli.annotations.Name;
-import com.taobao.middleware.cli.annotations.Option;
-import com.taobao.middleware.cli.annotations.Summary;
+import com.taobao.middleware.cli.annotations.*;
 import com.taobao.middleware.logger.Logger;
 import com.taobao.text.Color;
 import com.taobao.text.Decoration;
@@ -29,7 +25,10 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import static com.taobao.text.ui.Element.label;
@@ -92,7 +91,7 @@ public class JadCommand extends AnnotatedCommand {
             } else if (matchedClasses.size() > 1) {
                 processMatches(process, matchedClasses);
             } else {
-                Set<Class<?>> withInnerClasses = SearchUtils.searchClassOnly(inst,  classPattern + "(?!.*\\$\\$Lambda\\$).*", true, code);
+                Set<Class<?>> withInnerClasses = SearchUtils.searchClassOnly(inst, classPattern + "(?!.*\\$\\$Lambda\\$).*", true, code);
                 processExactMatch(process, affect, inst, matchedClasses, withInnerClasses);
             }
         } finally {

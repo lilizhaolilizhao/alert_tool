@@ -20,8 +20,7 @@ package org.apache.commons.net.telnet;
 /***
  * Implements the telnet terminal type option RFC 1091.
  ***/
-public class TerminalTypeOptionHandler extends TelnetOptionHandler
-{
+public class TerminalTypeOptionHandler extends TelnetOptionHandler {
     /***
      * Terminal type
      ***/
@@ -35,12 +34,12 @@ public class TerminalTypeOptionHandler extends TelnetOptionHandler
     /***
      * Send (for subnegotiation)
      ***/
-    protected static final int TERMINAL_TYPE_SEND =  1;
+    protected static final int TERMINAL_TYPE_SEND = 1;
 
     /***
      * Is (for subnegotiation)
      ***/
-    protected static final int TERMINAL_TYPE_IS =  0;
+    protected static final int TERMINAL_TYPE_IS = 0;
 
     /***
      * Constructor for the TerminalTypeOptionHandler. Allows defining desired
@@ -55,13 +54,12 @@ public class TerminalTypeOptionHandler extends TelnetOptionHandler
      * @param acceptremote - if set to true, any WILL request is accepted.
      ***/
     public TerminalTypeOptionHandler(String termtype,
-                                boolean initlocal,
-                                boolean initremote,
-                                boolean acceptlocal,
-                                boolean acceptremote)
-    {
+                                     boolean initlocal,
+                                     boolean initremote,
+                                     boolean acceptlocal,
+                                     boolean acceptremote) {
         super(TelnetOption.TERMINAL_TYPE, initlocal, initremote,
-                                      acceptlocal, acceptremote);
+                acceptlocal, acceptremote);
         termType = termtype;
     }
 
@@ -71,8 +69,7 @@ public class TerminalTypeOptionHandler extends TelnetOptionHandler
      * <p>
      * @param termtype - terminal type that will be negotiated.
      ***/
-    public TerminalTypeOptionHandler(String termtype)
-    {
+    public TerminalTypeOptionHandler(String termtype) {
         super(TelnetOption.TERMINAL_TYPE, false, false, false, false);
         termType = termtype;
     }
@@ -86,21 +83,17 @@ public class TerminalTypeOptionHandler extends TelnetOptionHandler
      * @return terminal type information
      ***/
     @Override
-    public int[] answerSubnegotiation(int suboptionData[], int suboptionLength)
-    {
+    public int[] answerSubnegotiation(int suboptionData[], int suboptionLength) {
         if ((suboptionData != null) && (suboptionLength > 1)
-            && (termType != null))
-        {
+                && (termType != null)) {
             if ((suboptionData[0] == TERMINAL_TYPE)
-                && (suboptionData[1] == TERMINAL_TYPE_SEND))
-            {
+                    && (suboptionData[1] == TERMINAL_TYPE_SEND)) {
                 int response[] = new int[termType.length() + 2];
 
                 response[0] = TERMINAL_TYPE;
                 response[1] = TERMINAL_TYPE_IS;
 
-                for (int ii = 0; ii < termType.length(); ii++)
-                {
+                for (int ii = 0; ii < termType.length(); ii++) {
                     response[ii + 2] = termType.charAt(ii);
                 }
 

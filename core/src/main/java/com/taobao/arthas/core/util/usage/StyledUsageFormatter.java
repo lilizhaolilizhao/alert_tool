@@ -10,11 +10,10 @@ import com.taobao.text.Style;
 import com.taobao.text.ui.TableElement;
 import com.taobao.text.util.RenderUtil;
 
-
 import java.util.Collections;
 
-import static com.taobao.text.ui.Element.row;
 import static com.taobao.text.ui.Element.label;
+import static com.taobao.text.ui.Element.row;
 
 /**
  * @author ralf0131 2016-12-14 22:16.
@@ -48,7 +47,7 @@ public class StyledUsageFormatter extends UsageMessageFormatter {
 
         if (cli.getDescription() != null) {
             String[] descLines = cli.getDescription().split("\\n");
-            for (String line: descLines) {
+            for (String line : descLines) {
                 if (shouldBeHighlighted(line)) {
                     table.add(row().add(label(line).style(getHighlightedStyle())));
                 } else {
@@ -60,7 +59,7 @@ public class StyledUsageFormatter extends UsageMessageFormatter {
         if (!cli.getOptions().isEmpty() || !cli.getArguments().isEmpty()) {
             table.add(row().add(""));
             table.row(label("OPTIONS:").style(getHighlightedStyle()));
-            for (Option option: cli.getOptions()) {
+            for (Option option : cli.getOptions()) {
                 if (option.acceptValue()) {
                     table.add(row().add(label("-" + option.getShortName() + ", --" + option.getLongName() + " <value>")
                             .style(getHighlightedStyle()))
@@ -72,7 +71,7 @@ public class StyledUsageFormatter extends UsageMessageFormatter {
                 }
             }
 
-            for (Argument argument: cli.getArguments()) {
+            for (Argument argument : cli.getArguments()) {
                 table.add(row().add(label("<" + argument.getArgName() + ">").style(getHighlightedStyle()))
                         .add(argument.getDescription()));
             }

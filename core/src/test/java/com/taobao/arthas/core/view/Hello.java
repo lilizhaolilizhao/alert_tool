@@ -17,7 +17,7 @@ public class Hello {
 
     public static SonBean getSonBean(int i, String j) {
         SonBean sonBean = new SonBean();
-        sonBean.setI(i+10);
+        sonBean.setI(i + 10);
         sonBean.setJ(j);
 
         return sonBean;

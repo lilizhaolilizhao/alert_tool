@@ -17,15 +17,9 @@
 
 package org.apache.commons.net;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
 import javax.net.SocketFactory;
+import java.io.IOException;
+import java.net.*;
 
 /***
  * DefaultSocketFactory implements the SocketFactory interface by
@@ -40,16 +34,16 @@ import javax.net.SocketFactory;
  * @see SocketClient#setSocketFactory
  ***/
 
-public class DefaultSocketFactory extends SocketFactory
-{
-    /** The proxy to use when creating new sockets. */
+public class DefaultSocketFactory extends SocketFactory {
+    /**
+     * The proxy to use when creating new sockets.
+     */
     private final Proxy connProxy;
 
     /**
      * The default constructor.
      */
-    public DefaultSocketFactory()
-    {
+    public DefaultSocketFactory() {
         this(null);
     }
 
@@ -59,8 +53,7 @@ public class DefaultSocketFactory extends SocketFactory
      * @param proxy The Proxy to use when creating new Sockets.
      * @since 3.2
      */
-    public DefaultSocketFactory(Proxy proxy)
-    {
+    public DefaultSocketFactory(Proxy proxy) {
         connProxy = proxy;
     }
 
@@ -68,14 +61,12 @@ public class DefaultSocketFactory extends SocketFactory
      * Creates an unconnected Socket.
      *
      * @return A new unconnected Socket.
-     * @exception IOException If an I/O error occurs while creating the Socket.
+     * @throws IOException If an I/O error occurs while creating the Socket.
      * @since 3.2
      */
     @Override
-    public Socket createSocket() throws IOException
-    {
-        if (connProxy != null)
-        {
+    public Socket createSocket() throws IOException {
+        if (connProxy != null) {
             return new Socket(connProxy);
         }
         return new Socket();
@@ -92,10 +83,8 @@ public class DefaultSocketFactory extends SocketFactory
      ***/
     @Override
     public Socket createSocket(String host, int port)
-    throws UnknownHostException, IOException
-    {
-        if (connProxy != null)
-        {
+            throws UnknownHostException, IOException {
+        if (connProxy != null) {
             Socket s = new Socket(connProxy);
             s.connect(new InetSocketAddress(host, port));
             return s;
@@ -113,10 +102,8 @@ public class DefaultSocketFactory extends SocketFactory
      ***/
     @Override
     public Socket createSocket(InetAddress address, int port)
-    throws IOException
-    {
-        if (connProxy != null)
-        {
+            throws IOException {
+        if (connProxy != null) {
             Socket s = new Socket(connProxy);
             s.connect(new InetSocketAddress(address, port));
             return s;
@@ -139,10 +126,8 @@ public class DefaultSocketFactory extends SocketFactory
     @Override
     public Socket createSocket(String host, int port,
                                InetAddress localAddr, int localPort)
-    throws UnknownHostException, IOException
-    {
-        if (connProxy != null)
-        {
+            throws UnknownHostException, IOException {
+        if (connProxy != null) {
             Socket s = new Socket(connProxy);
             s.bind(new InetSocketAddress(localAddr, localPort));
             s.connect(new InetSocketAddress(host, port));
@@ -165,10 +150,8 @@ public class DefaultSocketFactory extends SocketFactory
     @Override
     public Socket createSocket(InetAddress address, int port,
                                InetAddress localAddr, int localPort)
-    throws IOException
-    {
-        if (connProxy != null)
-        {
+            throws IOException {
+        if (connProxy != null) {
             Socket s = new Socket(connProxy);
             s.bind(new InetSocketAddress(localAddr, localPort));
             s.connect(new InetSocketAddress(address, port));
@@ -186,8 +169,7 @@ public class DefaultSocketFactory extends SocketFactory
      * @exception IOException If an I/O error occurs while creating
      *                        the ServerSocket.
      ***/
-    public ServerSocket createServerSocket(int port) throws IOException
-    {
+    public ServerSocket createServerSocket(int port) throws IOException {
         return new ServerSocket(port);
     }
 
@@ -203,8 +185,7 @@ public class DefaultSocketFactory extends SocketFactory
      *                        the ServerSocket.
      ***/
     public ServerSocket createServerSocket(int port, int backlog)
-    throws IOException
-    {
+            throws IOException {
         return new ServerSocket(port, backlog);
     }
 
@@ -223,8 +204,7 @@ public class DefaultSocketFactory extends SocketFactory
      ***/
     public ServerSocket createServerSocket(int port, int backlog,
                                            InetAddress bindAddr)
-    throws IOException
-    {
+            throws IOException {
         return new ServerSocket(port, backlog, bindAddr);
     }
 }

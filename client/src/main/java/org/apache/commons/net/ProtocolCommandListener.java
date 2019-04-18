@@ -16,6 +16,7 @@
  */
 
 package org.apache.commons.net;
+
 import java.util.EventListener;
 
 /***
@@ -36,8 +37,7 @@ import java.util.EventListener;
  * @see ProtocolCommandSupport
  ***/
 
-public interface ProtocolCommandListener extends EventListener
-{
+public interface ProtocolCommandListener extends EventListener {
 
     /***
      * This method is invoked by a ProtocolCommandEvent source after

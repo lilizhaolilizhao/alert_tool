@@ -20,7 +20,6 @@ import com.taobao.middleware.cli.CommandLine;
 import com.taobao.middleware.cli.UsageMessageFormatter;
 import com.taobao.middleware.logger.Logger;
 import com.taobao.text.Color;
-
 import io.termd.core.function.Function;
 
 import java.util.Date;

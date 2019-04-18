@@ -1,7 +1,9 @@
 package com.taobao.arthas.agent;
 
 import java.arthas.Spy;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -32,6 +34,7 @@ public class AgentBootstrap {
     private static final String BIND = "bind";
 
     private static PrintStream ps = System.err;
+
     static {
         try {
             File log = new File(System.getProperty("user.home") + File.separator + "logs" + File.separator

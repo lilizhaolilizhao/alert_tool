@@ -36,7 +36,7 @@ public interface Completion {
     /**
      * End the completion with a value that will be inserted to complete the line.
      *
-     * @param value the value to complete with
+     * @param value    the value to complete with
      * @param terminal true if the value is terminal, i.e can be further completed
      */
     void complete(String value, boolean terminal);

@@ -5,9 +5,9 @@ import com.taobao.arthas.core.Option;
 import com.taobao.arthas.core.command.Constants;
 import com.taobao.arthas.core.shell.command.AnnotatedCommand;
 import com.taobao.arthas.core.shell.command.CommandProcess;
+import com.taobao.arthas.core.util.StringUtils;
 import com.taobao.arthas.core.util.matcher.EqualsMatcher;
 import com.taobao.arthas.core.util.matcher.Matcher;
-import com.taobao.arthas.core.util.StringUtils;
 import com.taobao.arthas.core.util.matcher.RegexMatcher;
 import com.taobao.arthas.core.util.reflect.FieldUtils;
 import com.taobao.middleware.cli.annotations.Argument;
@@ -34,7 +34,7 @@ import static java.lang.String.format;
  */
 @Name("options")
 @Summary("View and change various Arthas options")
-@Description(Constants.EXAMPLE + "options dump true\n"+ "options unsafe true\n" + "options")
+@Description(Constants.EXAMPLE + "options dump true\n" + "options unsafe true\n" + "options")
 public class OptionsCommand extends AnnotatedCommand {
     private String optionName;
     private String optionValue;

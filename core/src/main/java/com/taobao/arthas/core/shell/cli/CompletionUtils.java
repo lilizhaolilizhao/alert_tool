@@ -8,11 +8,7 @@ import com.taobao.middleware.cli.Option;
 import com.taobao.middleware.cli.annotations.CLIConfigurator;
 import io.termd.core.util.Helper;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author beiwei30 on 09/11/2016.
@@ -51,7 +47,7 @@ public class CompletionUtils {
         List<CliToken> tokens = completion.lineTokens();
         CliToken lastToken = tokens.get(tokens.size() - 1);
         List<String> candidates = new ArrayList<String>();
-        for (String name: searchScope) {
+        for (String name : searchScope) {
             if (" ".equals(lastToken.value()) || name.startsWith(lastToken.value())) {
                 candidates.add(name);
             }

@@ -14,10 +14,10 @@ public class GlobalOptions {
     @Option(level = 0,
             name = "unsafe",
             summary = "Option to support system-level class",
-            description  =
+            description =
                     "This option enables to proxy functionality of JVM classes."
-                            +  " Due to serious security risk a JVM crash is possibly be introduced."
-                            +  " Do not activate it unless you are able to manage."
+                            + " Due to serious security risk a JVM crash is possibly be introduced."
+                            + " Do not activate it unless you are able to manage."
     )
     public static volatile boolean isUnsafe = false;
 

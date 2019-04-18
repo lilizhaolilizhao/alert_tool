@@ -20,8 +20,7 @@ package org.apache.commons.net.telnet;
 /***
  * Implements the telnet echo option RFC 857.
  ***/
-public class EchoOptionHandler extends TelnetOptionHandler
-{
+public class EchoOptionHandler extends TelnetOptionHandler {
     /***
      * Constructor for the EchoOptionHandler. Allows defining desired
      * initial setting for local/remote activation of this option and
@@ -34,18 +33,16 @@ public class EchoOptionHandler extends TelnetOptionHandler
      * @param acceptremote - if set to true, any WILL request is accepted.
      ***/
     public EchoOptionHandler(boolean initlocal, boolean initremote,
-                                boolean acceptlocal, boolean acceptremote)
-    {
+                             boolean acceptlocal, boolean acceptremote) {
         super(TelnetOption.ECHO, initlocal, initremote,
-                                      acceptlocal, acceptremote);
+                acceptlocal, acceptremote);
     }
 
     /***
      * Constructor for the EchoOptionHandler. Initial and accept
      * behaviour flags are set to false
      ***/
-    public EchoOptionHandler()
-    {
+    public EchoOptionHandler() {
         super(TelnetOption.ECHO, false, false, false, false);
     }
 

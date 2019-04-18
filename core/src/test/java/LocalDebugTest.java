@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 
 /**
  * 本机调试
+ *
  * @author BlueT
  * 2018/9/17 23:34
  */
@@ -23,7 +24,7 @@ public class LocalDebugTest {
      */
     public static void main(String[] args) throws InterruptedException {
         final int pid = getCurrentJVMPid();
-        System.out.println("pid:"+pid);
+        System.out.println("pid:" + pid);
         String path = LocalDebugTest.class.getResource("/").getPath();
         final String agent = path.substring(0, path.indexOf("core")) + "agent/target/";
         final String corePath = path.substring(0, path.indexOf("core")) + "core/target/";
@@ -32,7 +33,7 @@ public class LocalDebugTest {
                 corePath + "arthas-core.jar",
                 "-pid",
 //                pid + "",
-                11098 + "",
+                4957 + "",
                 "-target-ip",
                 "127.0.0.1",
                 //"-telnet-port",

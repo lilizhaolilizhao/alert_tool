@@ -20,8 +20,7 @@ package org.apache.commons.net.telnet;
 /***
  * Implements the telnet suppress go ahead option RFC 858.
  ***/
-public class SuppressGAOptionHandler extends TelnetOptionHandler
-{
+public class SuppressGAOptionHandler extends TelnetOptionHandler {
     /***
      * Constructor for the SuppressGAOptionHandler. Allows defining desired
      * initial setting for local/remote activation of this option and
@@ -34,18 +33,16 @@ public class SuppressGAOptionHandler extends TelnetOptionHandler
      * @param acceptremote - if set to true, any WILL request is accepted.
      ***/
     public SuppressGAOptionHandler(boolean initlocal, boolean initremote,
-                                boolean acceptlocal, boolean acceptremote)
-    {
+                                   boolean acceptlocal, boolean acceptremote) {
         super(TelnetOption.SUPPRESS_GO_AHEAD, initlocal, initremote,
-                                      acceptlocal, acceptremote);
+                acceptlocal, acceptremote);
     }
 
     /***
      * Constructor for the SuppressGAOptionHandler. Initial and accept
      * behaviour flags are set to false
      ***/
-    public SuppressGAOptionHandler()
-    {
+    public SuppressGAOptionHandler() {
         super(TelnetOption.SUPPRESS_GO_AHEAD, false, false, false, false);
     }
 

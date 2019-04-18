@@ -9,7 +9,7 @@ import org.junit.Test;
 public class RegexMatcherTest {
 
     @Test
-    public void testMatchingWithNullInputs(){
+    public void testMatchingWithNullInputs() {
         Assert.assertFalse(new RegexMatcher(null).matching(null));
         Assert.assertFalse(new RegexMatcher(null).matching("foobar"));
         Assert.assertFalse(new RegexMatcher("foobar").matching(null));
@@ -20,7 +20,7 @@ public class RegexMatcherTest {
      * test regux with . | * + ? \s \S \w \W and so on...
      */
     @Test
-    public void testMatchingWithRegularGrammar(){
+    public void testMatchingWithRegularGrammar() {
         Assert.assertTrue(new RegexMatcher("foo?").matching("fo"));
         Assert.assertTrue(new RegexMatcher("foo?").matching("foo"));
         Assert.assertTrue(new RegexMatcher("foo.").matching("fooo"));
@@ -45,7 +45,7 @@ public class RegexMatcherTest {
     }
 
     @Test
-    public void testMatchingComplexRegex(){
+    public void testMatchingComplexRegex() {
         String ipAddressPattern = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
         Assert.assertTrue(new RegexMatcher(ipAddressPattern).matching("1.1.1.1"));
         Assert.assertFalse(new RegexMatcher(ipAddressPattern).matching("255.256.255.0"));

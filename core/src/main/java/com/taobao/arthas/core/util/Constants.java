@@ -1,8 +1,8 @@
 package com.taobao.arthas.core.util;
 
-import java.io.File;
-
 import com.taobao.arthas.core.view.Ansi;
+
+import java.io.File;
 
 /**
  * @author ralf0131 2016-12-28 16:20.

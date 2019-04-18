@@ -21,8 +21,7 @@ package org.apache.commons.net.telnet;
  * Simple option handler that can be used for options
  * that don't require subnegotiation.
  ***/
-public class SimpleOptionHandler extends TelnetOptionHandler
-{
+public class SimpleOptionHandler extends TelnetOptionHandler {
     /***
      * Constructor for the SimpleOptionHandler. Allows defining desired
      * initial setting for local/remote activation of this option and
@@ -36,13 +35,12 @@ public class SimpleOptionHandler extends TelnetOptionHandler
      * @param acceptremote - if set to true, any WILL request is accepted.
      ***/
     public SimpleOptionHandler(int optcode,
-                                boolean initlocal,
-                                boolean initremote,
-                                boolean acceptlocal,
-                                boolean acceptremote)
-    {
+                               boolean initlocal,
+                               boolean initremote,
+                               boolean acceptlocal,
+                               boolean acceptremote) {
         super(optcode, initlocal, initremote,
-                                      acceptlocal, acceptremote);
+                acceptlocal, acceptremote);
     }
 
     /***
@@ -51,8 +49,7 @@ public class SimpleOptionHandler extends TelnetOptionHandler
      * <p>
      * @param optcode - option code.
      ***/
-    public SimpleOptionHandler(int optcode)
-    {
+    public SimpleOptionHandler(int optcode) {
         super(optcode, false, false, false, false);
     }
 

@@ -4,6 +4,7 @@ import com.taobao.arthas.core.shell.cli.CliToken;
 import com.taobao.arthas.core.shell.cli.impl.CliTokenImpl;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,18 +14,18 @@ import java.util.List;
  */
 public class TokenUtilsTest {
 
-    private List<CliToken> newCliTokenList(CliToken ... tokens){
+    private List<CliToken> newCliTokenList(CliToken... tokens) {
         List<CliToken> cliTokens = new ArrayList<CliToken>();
-        if(tokens!=null) {
+        if (tokens != null) {
             Collections.addAll(cliTokens, tokens);
         }
         return cliTokens;
     }
 
     @Test
-    public void testFindFirstTextToken(){
-        CliToken textCliToken = new CliTokenImpl(true,"textCliToken");
-        CliToken nonTextCliToken = new CliTokenImpl(false,"nonTextCliToken");
+    public void testFindFirstTextToken() {
+        CliToken textCliToken = new CliTokenImpl(true, "textCliToken");
+        CliToken nonTextCliToken = new CliTokenImpl(false, "nonTextCliToken");
 
         //null list
         Assert.assertEquals(null, TokenUtils.findFirstTextToken(null));
@@ -53,11 +54,10 @@ public class TokenUtilsTest {
     }
 
 
-
     @Test
-    public void testFindLastTextToken(){
-        CliToken textCliToken = new CliTokenImpl(true,"textCliToken");
-        CliToken nonTextCliToken = new CliTokenImpl(false,"nonTextCliToken");
+    public void testFindLastTextToken() {
+        CliToken textCliToken = new CliTokenImpl(true, "textCliToken");
+        CliToken nonTextCliToken = new CliTokenImpl(false, "nonTextCliToken");
 
         //null list
         Assert.assertEquals(null, TokenUtils.findLastTextToken(null));
@@ -91,9 +91,9 @@ public class TokenUtilsTest {
 
 
     @Test
-    public void testFindSecondTextToken(){
-        CliToken textCliToken = new CliTokenImpl(true,"textCliToken");
-        CliToken nonTextCliToken = new CliTokenImpl(false,"nonTextCliToken");
+    public void testFindSecondTextToken() {
+        CliToken textCliToken = new CliTokenImpl(true, "textCliToken");
+        CliToken nonTextCliToken = new CliTokenImpl(false, "nonTextCliToken");
 
         //null list
         Assert.assertEquals(null, TokenUtils.findSecondTokenText(null));

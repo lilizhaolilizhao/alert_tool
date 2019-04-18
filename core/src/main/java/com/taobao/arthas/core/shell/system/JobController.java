@@ -32,8 +32,8 @@ public interface JobController {
      * Create a job wrapping a process.
      *
      * @param commandManager command manager
-     * @param tokens    the command tokens
-     * @param shell     the current shell
+     * @param tokens         the command tokens
+     * @param shell          the current shell
      * @return the created job
      */
     Job createJob(InternalCommandManager commandManager, List<CliToken> tokens, ShellImpl shell);

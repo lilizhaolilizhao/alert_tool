@@ -1,11 +1,9 @@
 package com.taobao.arthas.core.command.monitor200;
 
-import com.taobao.arthas.core.command.Constants;
 import com.taobao.arthas.core.shell.command.AnnotatedCommand;
 import com.taobao.arthas.core.shell.command.CommandProcess;
 import com.taobao.arthas.core.util.StringUtils;
 import com.taobao.arthas.core.util.affect.RowAffect;
-import com.taobao.middleware.cli.annotations.Description;
 import com.taobao.middleware.cli.annotations.Name;
 import com.taobao.middleware.cli.annotations.Summary;
 import com.taobao.text.Decoration;
@@ -86,6 +84,7 @@ public class JvmCommand extends AnnotatedCommand {
         table.row("MAX-FILE-DESCRIPTOR-COUNT", "" + invokeFileDescriptor(operatingSystemMXBean, "getMaxFileDescriptorCount"))
                 .row("OPEN-FILE-DESCRIPTOR-COUNT", "" + invokeFileDescriptor(operatingSystemMXBean, "getOpenFileDescriptorCount"));
     }
+
     private long invokeFileDescriptor(OperatingSystemMXBean os, String name) {
         try {
             final Method method = os.getClass().getDeclaredMethod(name);
@@ -95,6 +94,7 @@ public class JvmCommand extends AnnotatedCommand {
             return -1;
         }
     }
+
     private String toCol(Collection<String> strings) {
         final StringBuilder colSB = new StringBuilder();
         if (strings.isEmpty()) {
@@ -206,8 +206,9 @@ public class JvmCommand extends AnnotatedCommand {
         table.row("PENDING-FINALIZE-COUNT", "" + memoryMXBean.getObjectPendingFinalizationCount());
         return table;
     }
-    private String formatMemoryByte(long bytes){
-        return String.format("%s(%s)",bytes, StringUtils.humanReadableByteCount(bytes));
+
+    private String formatMemoryByte(long bytes) {
+        return String.format("%s(%s)", bytes, StringUtils.humanReadableByteCount(bytes));
     }
 
     private Element drawOperatingSystemMXBeanTable(TableElement table) {
@@ -223,9 +224,10 @@ public class JvmCommand extends AnnotatedCommand {
                 .row("DAEMON-COUNT", "" + threadMXBean.getDaemonThreadCount())
                 .row("PEAK-COUNT", "" + threadMXBean.getPeakThreadCount())
                 .row("STARTED-COUNT", "" + threadMXBean.getTotalStartedThreadCount())
-                .row("DEADLOCK-COUNT","" + getDeadlockedThreadsCount(threadMXBean));
+                .row("DEADLOCK-COUNT", "" + getDeadlockedThreadsCount(threadMXBean));
         return table;
     }
+
     private int getDeadlockedThreadsCount(ThreadMXBean threads) {
         final long[] ids = threads.findDeadlockedThreads();
         if (ids == null) {

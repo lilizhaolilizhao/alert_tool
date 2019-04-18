@@ -2,8 +2,10 @@ package com.taobao.arthas.core.util;
 
 /**
  * Copied from {@link org.apache.commons.io.FileUtils}
+ *
  * @author ralf0131 2016-12-28 11:46.
  */
+
 import io.termd.core.util.Helper;
 
 import java.io.*;
@@ -19,8 +21,8 @@ public class FileUtils {
      * NOTE: As from v1.3, the parent directories of the file will be created
      * if they do not exist.
      *
-     * @param file  the file to write to
-     * @param data  the content to write to the file
+     * @param file the file to write to
+     * @param data the content to write to the file
      * @throws IOException in case of an I/O error
      * @since 1.1
      */
@@ -31,10 +33,10 @@ public class FileUtils {
     /**
      * Writes a byte array to a file creating the file if it does not exist.
      *
-     * @param file  the file to write to
-     * @param data  the content to write to the file
+     * @param file   the file to write to
+     * @param data   the content to write to the file
      * @param append if {@code true}, then bytes will be added to the
-     * end of the file rather than overwriting
+     *               end of the file rather than overwriting
      * @throws IOException in case of an I/O error
      * @since IO 2.1
      */
@@ -68,9 +70,9 @@ public class FileUtils {
      * An exception is thrown if the file exists but cannot be written to.
      * An exception is thrown if the parent directory cannot be created.
      *
-     * @param file  the file to open for output, must not be {@code null}
+     * @param file   the file to open for output, must not be {@code null}
      * @param append if {@code true}, then bytes will be added to the
-     * end of the file rather than overwriting
+     *               end of the file rather than overwriting
      * @return a new {@link FileOutputStream} for the specified file
      * @throws IOException if the file object is a directory
      * @throws IOException if the file cannot be written to
@@ -98,14 +100,15 @@ public class FileUtils {
 
     /**
      * save the command history to the given file, data will be overridden.
+     *
      * @param history the command history, each represented by an int array
-     * @param file the file to save the history
+     * @param file    the file to save the history
      */
     public static void saveCommandHistory(List<int[]> history, File file) {
         OutputStream out = null;
         try {
             out = openOutputStream(file, false);
-            for (int[] command: history) {
+            for (int[] command : history) {
                 for (int i : command) {
                     out.write(i);
                 }

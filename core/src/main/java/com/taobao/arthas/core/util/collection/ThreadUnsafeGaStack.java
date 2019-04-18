@@ -39,7 +39,7 @@ public class ThreadUnsafeGaStack<E> implements GaStack<E> {
         final int currentStackSize = elementArray.length;
         if (elementArray.length <= expectDeep) {
             LogUtil.getArthasLogger().debug("resize GaStack to double length: " + currentStackSize * 2 + " for thread: "
-                                           + Thread.currentThread().getName());
+                    + Thread.currentThread().getName());
             final Object[] newElementArray = new Object[currentStackSize * 2];
             arraycopy(elementArray, 0, newElementArray, 0, currentStackSize);
             this.elementArray = newElementArray;

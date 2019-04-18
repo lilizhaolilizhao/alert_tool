@@ -28,8 +28,7 @@ package org.apache.commons.net.telnet;
  * @see org.apache.commons.net.telnet.TelnetClient
  ***/
 
-public class TelnetOption
-{
+public class TelnetOption {
     /*** The maximum value an option code can have.  This value is 255. ***/
     public static final int MAX_OPTION_VALUE = 255;
 
@@ -120,39 +119,39 @@ public class TelnetOption
     private static final int __LAST_OPTION = EXTENDED_OPTIONS_LIST;
 
     private static final String __optionString[] = {
-                "BINARY", "ECHO", "RCP", "SUPPRESS GO AHEAD", "NAME", "STATUS",
-                "TIMING MARK", "RCTE", "NAOL", "NAOP", "NAOCRD", "NAOHTS", "NAOHTD",
-                "NAOFFD", "NAOVTS", "NAOVTD", "NAOLFD", "EXTEND ASCII", "LOGOUT",
-                "BYTE MACRO", "DATA ENTRY TERMINAL", "SUPDUP", "SUPDUP OUTPUT",
-                "SEND LOCATION", "TERMINAL TYPE", "END OF RECORD", "TACACS UID",
-                "OUTPUT MARKING", "TTYLOC", "3270 REGIME", "X.3 PAD", "NAWS", "TSPEED",
-                "LFLOW", "LINEMODE", "XDISPLOC", "OLD-ENVIRON", "AUTHENTICATION",
-                "ENCRYPT", "NEW-ENVIRON", "TN3270E", "XAUTH", "CHARSET", "RSP",
-                "Com Port Control", "Suppress Local Echo", "Start TLS",
-                "KERMIT", "SEND-URL", "FORWARD_X", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "TELOPT PRAGMA LOGON", "TELOPT SSPI LOGON",
-                "TELOPT PRAGMA HEARTBEAT", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "",
-                "Extended-Options-List"
-            };
+            "BINARY", "ECHO", "RCP", "SUPPRESS GO AHEAD", "NAME", "STATUS",
+            "TIMING MARK", "RCTE", "NAOL", "NAOP", "NAOCRD", "NAOHTS", "NAOHTD",
+            "NAOFFD", "NAOVTS", "NAOVTD", "NAOLFD", "EXTEND ASCII", "LOGOUT",
+            "BYTE MACRO", "DATA ENTRY TERMINAL", "SUPDUP", "SUPDUP OUTPUT",
+            "SEND LOCATION", "TERMINAL TYPE", "END OF RECORD", "TACACS UID",
+            "OUTPUT MARKING", "TTYLOC", "3270 REGIME", "X.3 PAD", "NAWS", "TSPEED",
+            "LFLOW", "LINEMODE", "XDISPLOC", "OLD-ENVIRON", "AUTHENTICATION",
+            "ENCRYPT", "NEW-ENVIRON", "TN3270E", "XAUTH", "CHARSET", "RSP",
+            "Com Port Control", "Suppress Local Echo", "Start TLS",
+            "KERMIT", "SEND-URL", "FORWARD_X", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "TELOPT PRAGMA LOGON", "TELOPT SSPI LOGON",
+            "TELOPT PRAGMA HEARTBEAT", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "",
+            "Extended-Options-List"
+    };
 
 
     /***
@@ -162,14 +161,10 @@ public class TelnetOption
      * @param code The option code of the telnet protocol option
      * @return The string representation of the telnet protocol option.
      ***/
-    public static final String getOption(int code)
-    {
-        if(__optionString[code].length() == 0)
-        {
+    public static final String getOption(int code) {
+        if (__optionString[code].length() == 0) {
             return "UNASSIGNED";
-        }
-        else
-        {
+        } else {
             return __optionString[code];
         }
     }
@@ -182,12 +177,11 @@ public class TelnetOption
      * @param code  The option code to test.
      * @return True if the option code is valid, false if not.
      **/
-    public static final boolean isValidOption(int code)
-    {
+    public static final boolean isValidOption(int code) {
         return (code <= __LAST_OPTION);
     }
 
     // Cannot be instantiated
-    private TelnetOption()
-    { }
+    private TelnetOption() {
+    }
 }

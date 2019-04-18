@@ -41,8 +41,7 @@ import java.io.OutputStream;
  * closing the streams.
  ***/
 
-public class TelnetClient extends Telnet
-{
+public class TelnetClient extends Telnet {
     private InputStream __input;
     private OutputStream __output;
     protected boolean readerThread = true;
@@ -51,10 +50,9 @@ public class TelnetClient extends Telnet
     /***
      * Default TelnetClient constructor, sets terminal-type {@code VT100}.
      ***/
-    public TelnetClient()
-    {
+    public TelnetClient() {
         /* TERMINAL-TYPE option (start)*/
-        super ("VT100");
+        super("VT100");
         /* TERMINAL-TYPE option (end)*/
         __input = null;
         __output = null;
@@ -66,20 +64,18 @@ public class TelnetClient extends Telnet
      * @param termtype the terminal type to use, e.g. {@code VT100}
      */
     /* TERMINAL-TYPE option (start)*/
-    public TelnetClient(String termtype)
-    {
-        super (termtype);
+    public TelnetClient(String termtype) {
+        super(termtype);
         __input = null;
         __output = null;
     }
     /* TERMINAL-TYPE option (end)*/
 
-    void _flushOutputStream() throws IOException
-    {
+    void _flushOutputStream() throws IOException {
         _output_.flush();
     }
-    void _closeOutputStream() throws IOException
-    {
+
+    void _closeOutputStream() throws IOException {
         _output_.close();
     }
 
@@ -89,12 +85,10 @@ public class TelnetClient extends Telnet
      * @exception IOException  If an error occurs during connection setup.
      ***/
     @Override
-    protected void _connectAction_() throws IOException
-    {
+    protected void _connectAction_() throws IOException {
         super._connectAction_();
         TelnetInputStream tmp = new TelnetInputStream(_input_, this, readerThread);
-        if(readerThread)
-        {
+        if (readerThread) {
             tmp._start();
         }
         // __input CANNOT refer to the TelnetInputStream.  We run into
@@ -115,8 +109,7 @@ public class TelnetClient extends Telnet
      * the connection.
      ***/
     @Override
-    public void disconnect() throws IOException
-    {
+    public void disconnect() throws IOException {
         if (__input != null) {
             __input.close();
         }
@@ -133,8 +126,7 @@ public class TelnetClient extends Telnet
      *
      * @return The telnet connection output stream.
      ***/
-    public OutputStream getOutputStream()
-    {
+    public OutputStream getOutputStream() {
         return __output;
     }
 
@@ -145,8 +137,7 @@ public class TelnetClient extends Telnet
      *
      * @return The telnet connection input stream.
      ***/
-    public InputStream getInputStream()
-    {
+    public InputStream getInputStream() {
         return __input;
     }
 
@@ -157,8 +148,7 @@ public class TelnetClient extends Telnet
      *
      * @return The state of the option on the local side.
      ***/
-    public boolean getLocalOptionState(int option)
-    {
+    public boolean getLocalOptionState(int option) {
         /* BUG (option active when not already acknowledged) (start)*/
         return (_stateIsWill(option) && _requestedWill(option));
         /* BUG (option active when not already acknowledged) (end)*/
@@ -171,8 +161,7 @@ public class TelnetClient extends Telnet
      *
      * @return The state of the option on the remote side.
      ***/
-    public boolean getRemoteOptionState(int option)
-    {
+    public boolean getRemoteOptionState(int option) {
         /* BUG (option active when not already acknowledged) (start)*/
         return (_stateIsDo(option) && _requestedDo(option));
         /* BUG (option active when not already acknowledged) (end)*/
@@ -193,8 +182,7 @@ public class TelnetClient extends Telnet
      * @throws IOException on error
      ***/
     public boolean sendAYT(long timeout)
-    throws IOException, IllegalArgumentException, InterruptedException
-    {
+            throws IOException, IllegalArgumentException, InterruptedException {
         return (_sendAYT(timeout));
     }
     /* Code Section added for supporting AYT (start)*/
@@ -217,8 +205,7 @@ public class TelnetClient extends Telnet
      * @since 3.0
      ***/
     public void sendSubnegotiation(int[] message)
-    throws IOException, IllegalArgumentException
-    {
+            throws IOException, IllegalArgumentException {
         if (message.length < 1) {
             throw new IllegalArgumentException("zero length message");
         }
@@ -240,8 +227,7 @@ public class TelnetClient extends Telnet
      * @since 3.0
      ***/
     public void sendCommand(byte command)
-    throws IOException, IllegalArgumentException
-    {
+            throws IOException, IllegalArgumentException {
         _sendCommand(command);
     }
 
@@ -257,8 +243,7 @@ public class TelnetClient extends Telnet
      ***/
     @Override
     public void addOptionHandler(TelnetOptionHandler opthand)
-    throws InvalidTelnetOptionException, IOException
-    {
+            throws InvalidTelnetOptionException, IOException {
         super.addOptionHandler(opthand);
     }
     /* open TelnetOptionHandler functionality (end)*/
@@ -273,12 +258,12 @@ public class TelnetClient extends Telnet
      ***/
     @Override
     public void deleteOptionHandler(int optcode)
-    throws InvalidTelnetOptionException, IOException
-    {
+            throws InvalidTelnetOptionException, IOException {
         super.deleteOptionHandler(optcode);
     }
 
     /* Code Section added for supporting spystreams (start)*/
+
     /***
      * Registers an OutputStream for spying what's going on in
      * the TelnetClient session.
@@ -286,8 +271,7 @@ public class TelnetClient extends Telnet
      * @param spystream - OutputStream on which session activity
      * will be echoed.
      ***/
-    public void registerSpyStream(OutputStream  spystream)
-    {
+    public void registerSpyStream(OutputStream spystream) {
         super._registerSpyStream(spystream);
     }
 
@@ -295,8 +279,7 @@ public class TelnetClient extends Telnet
      * Stops spying this TelnetClient.
      *
      ***/
-    public void stopSpyStream()
-    {
+    public void stopSpyStream() {
         super._stopSpyStream();
     }
     /* Code Section added for supporting spystreams (end)*/
@@ -308,8 +291,7 @@ public class TelnetClient extends Telnet
      * @param notifhand - TelnetNotificationHandler to be registered
      ***/
     @Override
-    public void registerNotifHandler(TelnetNotificationHandler  notifhand)
-    {
+    public void registerNotifHandler(TelnetNotificationHandler notifhand) {
         super.registerNotifHandler(notifhand);
     }
 
@@ -318,8 +300,7 @@ public class TelnetClient extends Telnet
      *
      ***/
     @Override
-    public void unregisterNotifHandler()
-    {
+    public void unregisterNotifHandler() {
         super.unregisterNotifHandler();
     }
 
@@ -349,8 +330,7 @@ public class TelnetClient extends Telnet
      * @param flag true to enable the reader thread, false to disable
      * @see #registerInputListener
      ***/
-    public void setReaderThread(boolean flag)
-    {
+    public void setReaderThread(boolean flag) {
         readerThread = flag;
     }
 
@@ -359,8 +339,7 @@ public class TelnetClient extends Telnet
      *
      * @return true if the reader thread is enabled, false otherwise
      ***/
-    public boolean getReaderThread()
-    {
+    public boolean getReaderThread() {
         return (readerThread);
     }
 
@@ -386,8 +365,7 @@ public class TelnetClient extends Telnet
      * @param listener listener to be registered; replaces any previous
      * @since 3.0
      ***/
-    public synchronized void registerInputListener(TelnetInputListener listener)
-    {
+    public synchronized void registerInputListener(TelnetInputListener listener) {
         this.inputListener = listener;
     }
 
@@ -396,8 +374,7 @@ public class TelnetClient extends Telnet
      *
      * @since 3.0
      ***/
-    public synchronized void unregisterInputListener()
-    {
+    public synchronized void unregisterInputListener() {
         this.inputListener = null;
     }
 

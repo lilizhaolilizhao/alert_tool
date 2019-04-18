@@ -22,8 +22,7 @@ package org.apache.commons.net.telnet;
  * @version $Id: WindowSizeOptionHandler.java 1697293 2015-08-24 01:01:00Z sebb $
  * @since 2.0
  ***/
-public class WindowSizeOptionHandler extends TelnetOptionHandler
-{
+public class WindowSizeOptionHandler extends TelnetOptionHandler {
     /***
      * Horizontal Size
      ***/
@@ -53,19 +52,19 @@ public class WindowSizeOptionHandler extends TelnetOptionHandler
      * @param acceptremote - if set to true, any WILL request is accepted.
      ***/
     public WindowSizeOptionHandler(
-        int nWidth,
-        int nHeight,
-        boolean initlocal,
-        boolean initremote,
-        boolean acceptlocal,
-        boolean acceptremote
+            int nWidth,
+            int nHeight,
+            boolean initlocal,
+            boolean initremote,
+            boolean acceptlocal,
+            boolean acceptremote
     ) {
-        super (
-            TelnetOption.WINDOW_SIZE,
-            initlocal,
-            initremote,
-            acceptlocal,
-            acceptremote
+        super(
+                TelnetOption.WINDOW_SIZE,
+                initlocal,
+                initremote,
+                acceptlocal,
+                acceptremote
         );
 
         m_nWidth = nWidth;
@@ -80,15 +79,15 @@ public class WindowSizeOptionHandler extends TelnetOptionHandler
      * @param nHeight - Window Height
      ***/
     public WindowSizeOptionHandler(
-        int nWidth,
-        int nHeight
+            int nWidth,
+            int nHeight
     ) {
-        super (
-            TelnetOption.WINDOW_SIZE,
-            false,
-            false,
-            false,
-            false
+        super(
+                TelnetOption.WINDOW_SIZE,
+                false,
+                false,
+                false,
+                false
         );
 
         m_nWidth = nWidth;
@@ -102,8 +101,7 @@ public class WindowSizeOptionHandler extends TelnetOptionHandler
      * @return array to send to remote system
      ***/
     @Override
-    public int[] startSubnegotiationLocal()
-    {
+    public int[] startSubnegotiationLocal() {
         int nCompoundWindowSize = m_nWidth * 0x10000 + m_nHeight;
         int nResponseSize = 5;
         int nIndex;
@@ -142,9 +140,9 @@ public class WindowSizeOptionHandler extends TelnetOptionHandler
         response[0] = WINDOW_SIZE;                          // 1 //
 
         for (                                               // 2 //
-            nIndex=1, nShift = 24;
-            nIndex < nResponseSize;
-            nIndex++, nShift -=8
+                nIndex = 1, nShift = 24;
+                nIndex < nResponseSize;
+                nIndex++, nShift -= 8
         ) {
             nTurnedOnBits = 0xFF;
             nTurnedOnBits <<= nShift;

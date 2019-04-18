@@ -1,5 +1,14 @@
 package com.taobao.arthas.core.command.klass100;
 
+import com.taobao.arthas.core.command.Constants;
+import com.taobao.arthas.core.shell.command.AnnotatedCommand;
+import com.taobao.arthas.core.shell.command.CommandProcess;
+import com.taobao.middleware.cli.annotations.Description;
+import com.taobao.middleware.cli.annotations.Name;
+import com.taobao.middleware.cli.annotations.Option;
+import com.taobao.middleware.cli.annotations.Summary;
+import org.objectweb.asm.ClassReader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -10,16 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.objectweb.asm.ClassReader;
-
-import com.taobao.arthas.core.command.Constants;
-import com.taobao.arthas.core.shell.command.AnnotatedCommand;
-import com.taobao.arthas.core.shell.command.CommandProcess;
-import com.taobao.middleware.cli.annotations.Description;
-import com.taobao.middleware.cli.annotations.Name;
-import com.taobao.middleware.cli.annotations.Option;
-import com.taobao.middleware.cli.annotations.Summary;
-
 /**
  * Redefine Classes.
  *
@@ -29,8 +28,8 @@ import com.taobao.middleware.cli.annotations.Summary;
 @Name("redefine")
 @Summary("Redefine classes. @see Instrumentation#redefineClasses(ClassDefinition...)")
 @Description(Constants.EXAMPLE +
-                "  redefine -p /tmp/Test.class\n" +
-                "  redefine -c 327a647b -p /tmp/Test.class /tmp/Test\\$Inner.class \n")
+        "  redefine -p /tmp/Test.class\n" +
+        "  redefine -c 327a647b -p /tmp/Test.class /tmp/Test\\$Inner.class \n")
 public class RedefineCommand extends AnnotatedCommand {
 
     private static final int MAX_FILE_SIZE = 10 * 1024 * 1024;

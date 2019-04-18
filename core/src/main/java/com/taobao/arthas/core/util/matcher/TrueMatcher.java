@@ -7,6 +7,7 @@ public final class TrueMatcher<T> implements Matcher<T> {
 
     /**
      * always return true
+     *
      * @param target
      * @return
      */

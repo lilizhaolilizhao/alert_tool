@@ -16,7 +16,6 @@
  */
 package com.taobao.arthas.core.testtool;
 
-import com.taobao.arthas.core.shell.cli.CliToken;
 import org.junit.Assert;
 
 import java.io.File;
@@ -32,9 +31,9 @@ import java.util.List;
  */
 public class TestUtils {
 
-    public static <T> List<T> newArrayList(T ... items){
+    public static <T> List<T> newArrayList(T... items) {
         List<T> list = new ArrayList<T>();
-        if(items!=null) {
+        if (items != null) {
             Collections.addAll(list, items);
         }
         return list;
@@ -62,8 +61,8 @@ public class TestUtils {
             for (int i = 0; i < count; i++) {
                 Assert.assertEquals("byte " + i + " differs", b0[i], b1[i]);
             }
-        }finally {
-            if(is!=null){
+        } finally {
+            if (is != null) {
                 is.close();
             }
         }

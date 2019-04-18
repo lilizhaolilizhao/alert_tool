@@ -20,11 +20,12 @@ import static com.taobao.text.ui.Element.label;
 
 /**
  * A command to display all the keymap for the specified connection.
+ *
  * @author ralf0131 2017-01-09 14:03.
  */
 @Name("sysprop")
 @Summary("Display, and change the system properties.")
-@Description(Constants.EXAMPLE + "sysprop\n"+ "sysprop file.encoding\n" + "sysprop production.mode true\n" + "sysprop")
+@Description(Constants.EXAMPLE + "sysprop\n" + "sysprop file.encoding\n" + "sysprop production.mode true\n" + "sysprop")
 public class SystemPropertyCommand extends AnnotatedCommand {
 
     private String propertyName;
@@ -72,6 +73,7 @@ public class SystemPropertyCommand extends AnnotatedCommand {
     /**
      * First, try to complete with the sysprop command scope.
      * If completion is failed, delegates to super class.
+     *
      * @param completion the completion object
      */
     @Override
@@ -84,7 +86,7 @@ public class SystemPropertyCommand extends AnnotatedCommand {
         table.row(true, label("KEY").style(Decoration.bold.bold()),
                 label("VALUE").style(Decoration.bold.bold()));
 
-        for (String name: properties.stringPropertyNames()) {
+        for (String name : properties.stringPropertyNames()) {
             table.row(name, properties.getProperty(name));
         }
 

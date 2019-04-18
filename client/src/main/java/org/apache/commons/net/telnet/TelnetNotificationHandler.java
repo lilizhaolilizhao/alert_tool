@@ -27,12 +27,11 @@ package org.apache.commons.net.telnet;
  * of TelnetClient to be notified of option negotiation commands.
  ***/
 
-public interface TelnetNotificationHandler
-{
+public interface TelnetNotificationHandler {
     /***
      * The remote party sent a DO command.
      ***/
-    public static final int RECEIVED_DO =   1;
+    public static final int RECEIVED_DO = 1;
 
     /***
      * The remote party sent a DONT command.

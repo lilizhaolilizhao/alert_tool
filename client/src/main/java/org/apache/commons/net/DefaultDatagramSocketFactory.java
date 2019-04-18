@@ -34,8 +34,7 @@ import java.net.SocketException;
  * @see DatagramSocketClient#setDatagramSocketFactory
  ***/
 
-public class DefaultDatagramSocketFactory implements DatagramSocketFactory
-{
+public class DefaultDatagramSocketFactory implements DatagramSocketFactory {
 
     /***
      * Creates a DatagramSocket on the local host at the first available port.
@@ -43,8 +42,7 @@ public class DefaultDatagramSocketFactory implements DatagramSocketFactory
      * @exception SocketException If the socket could not be created.
      ***/
     @Override
-    public DatagramSocket createDatagramSocket() throws SocketException
-    {
+    public DatagramSocket createDatagramSocket() throws SocketException {
         return new DatagramSocket();
     }
 
@@ -56,8 +54,7 @@ public class DefaultDatagramSocketFactory implements DatagramSocketFactory
      * @exception SocketException If the socket could not be created.
      ***/
     @Override
-    public DatagramSocket createDatagramSocket(int port) throws SocketException
-    {
+    public DatagramSocket createDatagramSocket(int port) throws SocketException {
         return new DatagramSocket(port);
     }
 
@@ -72,8 +69,7 @@ public class DefaultDatagramSocketFactory implements DatagramSocketFactory
      ***/
     @Override
     public DatagramSocket createDatagramSocket(int port, InetAddress laddr)
-    throws SocketException
-    {
+            throws SocketException {
         return new DatagramSocket(port, laddr);
     }
 }

@@ -1,8 +1,5 @@
 package com.taobao.arthas.core.util.metrics;
 
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicLongArray;
-
 /**
  * <pre>
  * 统计传入的数据是总数的速率。
@@ -10,9 +7,8 @@ import java.util.concurrent.atomic.AtomicLongArray;
  * 267, 457, 635, 894, 1398
  * 则统计的平均速率是：( (457-267) + (635-457) + (894-635) + (1398-894) ) / 4 = 282
  * </pre>
- * 
- * @author hengyunabc 2015年12月18日 下午3:40:26
  *
+ * @author hengyunabc 2015年12月18日 下午3:40:26
  */
 public class SumRateCounter {
 

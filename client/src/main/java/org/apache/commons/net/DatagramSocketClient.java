@@ -47,14 +47,13 @@ import java.nio.charset.Charset;
  * @see DatagramSocketFactory
  ***/
 
-public abstract class DatagramSocketClient
-{
+public abstract class DatagramSocketClient {
     /***
      * The default DatagramSocketFactory shared by all DatagramSocketClient
      * instances.
      ***/
     private static final DatagramSocketFactory __DEFAULT_SOCKET_FACTORY =
-        new DefaultDatagramSocketFactory();
+            new DefaultDatagramSocketFactory();
 
     /**
      * Charset to use for byte IO.
@@ -79,8 +78,7 @@ public abstract class DatagramSocketClient
      * Default constructor for DatagramSocketClient.  Initializes
      * _socket_ to null, _timeout_ to 0, and _isOpen_ to false.
      ***/
-    public DatagramSocketClient()
-    {
+    public DatagramSocketClient() {
         _socket_ = null;
         _timeout_ = 0;
         _isOpen_ = false;
@@ -99,8 +97,7 @@ public abstract class DatagramSocketClient
      * @exception SocketException If the socket could not be opened or the
      *   timeout could not be set.
      ***/
-    public void open() throws SocketException
-    {
+    public void open() throws SocketException {
         _socket_ = _socketFactory_.createDatagramSocket();
         _socket_.setSoTimeout(_timeout_);
         _isOpen_ = true;
@@ -119,8 +116,7 @@ public abstract class DatagramSocketClient
      * @exception SocketException If the socket could not be opened or the
      *   timeout could not be set.
      ***/
-    public void open(int port) throws SocketException
-    {
+    public void open(int port) throws SocketException {
         _socket_ = _socketFactory_.createDatagramSocket(port);
         _socket_.setSoTimeout(_timeout_);
         _isOpen_ = true;
@@ -141,13 +137,11 @@ public abstract class DatagramSocketClient
      * @exception SocketException If the socket could not be opened or the
      *   timeout could not be set.
      ***/
-    public void open(int port, InetAddress laddr) throws SocketException
-    {
+    public void open(int port, InetAddress laddr) throws SocketException {
         _socket_ = _socketFactory_.createDatagramSocket(port, laddr);
         _socket_.setSoTimeout(_timeout_);
         _isOpen_ = true;
     }
-
 
 
     /***
@@ -158,8 +152,7 @@ public abstract class DatagramSocketClient
      * If you call this method when the client socket is not open,
      * a NullPointerException is thrown.
      ***/
-    public void close()
-    {
+    public void close() {
         if (_socket_ != null) {
             _socket_.close();
         }
@@ -173,8 +166,7 @@ public abstract class DatagramSocketClient
      *
      * @return True if the client has a curerntly open socket, false otherwise.
      ***/
-    public boolean isOpen()
-    {
+    public boolean isOpen() {
         return _isOpen_;
     }
 
@@ -190,8 +182,7 @@ public abstract class DatagramSocketClient
      * @param timeout  The timeout in milliseconds to use for the datagram socket
      *                 connection.
      ***/
-    public void setDefaultTimeout(int timeout)
-    {
+    public void setDefaultTimeout(int timeout) {
         _timeout_ = timeout;
     }
 
@@ -203,8 +194,7 @@ public abstract class DatagramSocketClient
      * @return The default timeout in milliseconds that is used when
      *         opening a socket.
      ***/
-    public int getDefaultTimeout()
-    {
+    public int getDefaultTimeout() {
         return _timeout_;
     }
 
@@ -218,8 +208,7 @@ public abstract class DatagramSocketClient
      *                 open datagram socket connection.
      * @throws SocketException if an error setting the timeout
      ***/
-    public void setSoTimeout(int timeout) throws SocketException
-    {
+    public void setSoTimeout(int timeout) throws SocketException {
         _socket_.setSoTimeout(timeout);
     }
 
@@ -232,8 +221,7 @@ public abstract class DatagramSocketClient
      * @return The timeout in milliseconds of the currently opened socket.
      * @throws SocketException if an error getting the timeout
      ***/
-    public int getSoTimeout() throws SocketException
-    {
+    public int getSoTimeout() throws SocketException {
         return _socket_.getSoTimeout();
     }
 
@@ -246,8 +234,7 @@ public abstract class DatagramSocketClient
      * @return The port number of the open socket on the local host used
      *         for the connection.
      ***/
-    public int getLocalPort()
-    {
+    public int getLocalPort() {
         return _socket_.getLocalPort();
     }
 
@@ -259,8 +246,7 @@ public abstract class DatagramSocketClient
      *
      * @return The local address to which the client's socket is bound.
      ***/
-    public InetAddress getLocalAddress()
-    {
+    public InetAddress getLocalAddress() {
         return _socket_.getLocalAddress();
     }
 
@@ -274,8 +260,7 @@ public abstract class DatagramSocketClient
      * @param factory  The new DatagramSocketFactory the DatagramSocketClient
      * should use.
      ***/
-    public void setDatagramSocketFactory(DatagramSocketFactory factory)
-    {
+    public void setDatagramSocketFactory(DatagramSocketFactory factory) {
         if (factory == null) {
             _socketFactory_ = __DEFAULT_SOCKET_FACTORY;
         } else {

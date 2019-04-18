@@ -17,49 +17,48 @@
 
 package org.apache.commons.net.telnet;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
-import java.io.IOException;
-import java.util.Arrays;
-
 import org.apache.commons.net.SocketClient;
 
-class Telnet extends SocketClient
-{
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Arrays;
+
+class Telnet extends SocketClient {
     static final boolean debug =  /*true;*/ false;
 
     static final boolean debugoptions =  /*true;*/ false;
 
     static final byte[] _COMMAND_DO = {
-                                          (byte)TelnetCommand.IAC, (byte)TelnetCommand.DO
-                                      };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.DO
+    };
 
     static final byte[] _COMMAND_DONT = {
-                                            (byte)TelnetCommand.IAC, (byte)TelnetCommand.DONT
-                                        };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.DONT
+    };
 
     static final byte[] _COMMAND_WILL = {
-                                            (byte)TelnetCommand.IAC, (byte)TelnetCommand.WILL
-                                        };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.WILL
+    };
 
     static final byte[] _COMMAND_WONT = {
-                                            (byte)TelnetCommand.IAC, (byte)TelnetCommand.WONT
-                                        };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.WONT
+    };
 
     static final byte[] _COMMAND_SB = {
-                                          (byte)TelnetCommand.IAC, (byte)TelnetCommand.SB
-                                      };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.SB
+    };
 
     static final byte[] _COMMAND_SE = {
-                                          (byte)TelnetCommand.IAC, (byte)TelnetCommand.SE
-                                      };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.SE
+    };
 
     static final int _WILL_MASK = 0x01, _DO_MASK = 0x02,
-                                  _REQUESTED_WILL_MASK = 0x04, _REQUESTED_DO_MASK = 0x08;
+            _REQUESTED_WILL_MASK = 0x04, _REQUESTED_DO_MASK = 0x08;
 
     /* public */
-    static final int DEFAULT_PORT =  23;
+    static final int DEFAULT_PORT = 23;
 
     int[] _doResponse, _willResponse, _options;
 
@@ -72,19 +71,19 @@ class Telnet extends SocketClient
     /***
      * Send (for subnegotiation)
      ***/
-    protected static final int TERMINAL_TYPE_SEND =  1;
+    protected static final int TERMINAL_TYPE_SEND = 1;
 
     /***
      * Is (for subnegotiation)
      ***/
-    protected static final int TERMINAL_TYPE_IS =  0;
+    protected static final int TERMINAL_TYPE_IS = 0;
 
     /***
      * Is sequence (for subnegotiation)
      ***/
     static final byte[] _COMMAND_IS = {
-                                          (byte) TERMINAL_TYPE, (byte) TERMINAL_TYPE_IS
-                                      };
+            (byte) TERMINAL_TYPE, (byte) TERMINAL_TYPE_IS
+    };
 
     /***
      * Terminal type
@@ -105,8 +104,8 @@ class Telnet extends SocketClient
      * AYT sequence
      ***/
     static final byte[] _COMMAND_AYT = {
-                                          (byte) TelnetCommand.IAC, (byte) TelnetCommand.AYT
-                                       };
+            (byte) TelnetCommand.IAC, (byte) TelnetCommand.AYT
+    };
 
     /***
      * monitor to wait for AYT
@@ -128,34 +127,34 @@ class Telnet extends SocketClient
      * The notification handler
      ***/
     private TelnetNotificationHandler __notifhand = null;
+
     /***
      * Empty Constructor
      ***/
-    Telnet()
-    {
+    Telnet() {
         setDefaultPort(DEFAULT_PORT);
         _doResponse = new int[TelnetOption.MAX_OPTION_VALUE + 1];
         _willResponse = new int[TelnetOption.MAX_OPTION_VALUE + 1];
         _options = new int[TelnetOption.MAX_OPTION_VALUE + 1];
         optionHandlers =
-            new TelnetOptionHandler[TelnetOption.MAX_OPTION_VALUE + 1];
+                new TelnetOptionHandler[TelnetOption.MAX_OPTION_VALUE + 1];
     }
 
     /* TERMINAL-TYPE option (start)*/
+
     /***
      * This constructor lets you specify the terminal type.
      *
      * @param termtype - terminal type to be negotiated (ej. VT100)
      ***/
-    Telnet(String termtype)
-    {
+    Telnet(String termtype) {
         setDefaultPort(DEFAULT_PORT);
         _doResponse = new int[TelnetOption.MAX_OPTION_VALUE + 1];
         _willResponse = new int[TelnetOption.MAX_OPTION_VALUE + 1];
         _options = new int[TelnetOption.MAX_OPTION_VALUE + 1];
         terminalType = termtype;
         optionHandlers =
-            new TelnetOptionHandler[TelnetOption.MAX_OPTION_VALUE + 1];
+                new TelnetOptionHandler[TelnetOption.MAX_OPTION_VALUE + 1];
     }
     /* TERMINAL-TYPE option (end)*/
 
@@ -166,8 +165,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _stateIsWill(int option)
-    {
+    boolean _stateIsWill(int option) {
         return ((_options[option] & _WILL_MASK) != 0);
     }
 
@@ -178,8 +176,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _stateIsWont(int option)
-    {
+    boolean _stateIsWont(int option) {
         return !_stateIsWill(option);
     }
 
@@ -190,8 +187,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _stateIsDo(int option)
-    {
+    boolean _stateIsDo(int option) {
         return ((_options[option] & _DO_MASK) != 0);
     }
 
@@ -202,8 +198,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _stateIsDont(int option)
-    {
+    boolean _stateIsDont(int option) {
         return !_stateIsDo(option);
     }
 
@@ -214,8 +209,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _requestedWill(int option)
-    {
+    boolean _requestedWill(int option) {
         return ((_options[option] & _REQUESTED_WILL_MASK) != 0);
     }
 
@@ -226,8 +220,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _requestedWont(int option)
-    {
+    boolean _requestedWont(int option) {
         return !_requestedWill(option);
     }
 
@@ -238,8 +231,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _requestedDo(int option)
-    {
+    boolean _requestedDo(int option) {
         return ((_options[option] & _REQUESTED_DO_MASK) != 0);
     }
 
@@ -250,8 +242,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be looked up.
      ***/
-    boolean _requestedDont(int option)
-    {
+    boolean _requestedDont(int option) {
         return !_requestedDo(option);
     }
 
@@ -261,22 +252,18 @@ class Telnet extends SocketClient
      * @param option - option code to be set.
      * @throws IOException
      ***/
-    void _setWill(int option) throws IOException
-    {
+    void _setWill(int option) throws IOException {
         _options[option] |= _WILL_MASK;
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (_requestedWill(option))
-        {
-            if (optionHandlers[option] != null)
-            {
+        if (_requestedWill(option)) {
+            if (optionHandlers[option] != null) {
                 optionHandlers[option].setWill(true);
 
                 int subneg[] =
-                    optionHandlers[option].startSubnegotiationLocal();
+                        optionHandlers[option].startSubnegotiationLocal();
 
-                if (subneg != null)
-                {
+                if (subneg != null) {
                     _sendSubnegotiation(subneg);
                 }
             }
@@ -290,22 +277,18 @@ class Telnet extends SocketClient
      * @param option - option code to be set.
      * @throws IOException
      ***/
-    void _setDo(int option) throws IOException
-    {
+    void _setDo(int option) throws IOException {
         _options[option] |= _DO_MASK;
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (_requestedDo(option))
-        {
-            if (optionHandlers[option] != null)
-            {
+        if (_requestedDo(option)) {
+            if (optionHandlers[option] != null) {
                 optionHandlers[option].setDo(true);
 
                 int subneg[] =
-                    optionHandlers[option].startSubnegotiationRemote();
+                        optionHandlers[option].startSubnegotiationRemote();
 
-                if (subneg != null)
-                {
+                if (subneg != null) {
                     _sendSubnegotiation(subneg);
                 }
             }
@@ -318,8 +301,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be set.
      ***/
-    void _setWantWill(int option)
-    {
+    void _setWantWill(int option) {
         _options[option] |= _REQUESTED_WILL_MASK;
     }
 
@@ -328,8 +310,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be set.
      ***/
-    void _setWantDo(int option)
-    {
+    void _setWantDo(int option) {
         _options[option] |= _REQUESTED_DO_MASK;
     }
 
@@ -338,13 +319,11 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be set.
      ***/
-    void _setWont(int option)
-    {
+    void _setWont(int option) {
         _options[option] &= ~_WILL_MASK;
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (optionHandlers[option] != null)
-        {
+        if (optionHandlers[option] != null) {
             optionHandlers[option].setWill(false);
         }
         /* open TelnetOptionHandler functionality (end)*/
@@ -355,13 +334,11 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be set.
      ***/
-    void _setDont(int option)
-    {
+    void _setDont(int option) {
         _options[option] &= ~_DO_MASK;
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (optionHandlers[option] != null)
-        {
+        if (optionHandlers[option] != null) {
             optionHandlers[option].setDo(false);
         }
         /* open TelnetOptionHandler functionality (end)*/
@@ -372,8 +349,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be set.
      ***/
-    void _setWantWont(int option)
-    {
+    void _setWantWont(int option) {
         _options[option] &= ~_REQUESTED_WILL_MASK;
     }
 
@@ -382,8 +358,7 @@ class Telnet extends SocketClient
      *
      * @param option - option code to be set.
      ***/
-    void _setWantDont(int option)
-    {
+    void _setWantDont(int option) {
         _options[option] &= ~_REQUESTED_DO_MASK;
     }
 
@@ -392,17 +367,14 @@ class Telnet extends SocketClient
      *
      * @param command - option code to be set.
      **/
-    void _processCommand(int command)
-    {
-        if (debugoptions)
-        {
+    void _processCommand(int command) {
+        if (debugoptions) {
             System.err.println("RECEIVED COMMAND: " + command);
         }
 
-        if (__notifhand != null)
-        {
+        if (__notifhand != null) {
             __notifhand.receivedNegotiation(
-                TelnetNotificationHandler.RECEIVED_COMMAND, command);
+                    TelnetNotificationHandler.RECEIVED_COMMAND, command);
         }
     }
 
@@ -412,88 +384,69 @@ class Telnet extends SocketClient
      * @param option - option code to be set.
      * @throws IOException - Exception in I/O.
      **/
-    void _processDo(int option) throws IOException
-    {
-        if (debugoptions)
-        {
+    void _processDo(int option) throws IOException {
+        if (debugoptions) {
             System.err.println("RECEIVED DO: "
-                + TelnetOption.getOption(option));
+                    + TelnetOption.getOption(option));
         }
 
-        if (__notifhand != null)
-        {
+        if (__notifhand != null) {
             __notifhand.receivedNegotiation(
-                TelnetNotificationHandler.RECEIVED_DO,
-                option);
+                    TelnetNotificationHandler.RECEIVED_DO,
+                    option);
         }
 
         boolean acceptNewState = false;
 
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (optionHandlers[option] != null)
-        {
+        if (optionHandlers[option] != null) {
             acceptNewState = optionHandlers[option].getAcceptLocal();
-        }
-        else
-        {
-        /* open TelnetOptionHandler functionality (end)*/
+        } else {
+            /* open TelnetOptionHandler functionality (end)*/
             /* TERMINAL-TYPE option (start)*/
-            if (option == TERMINAL_TYPE)
-            {
-                if ((terminalType != null) && (terminalType.length() > 0))
-                {
+            if (option == TERMINAL_TYPE) {
+                if ((terminalType != null) && (terminalType.length() > 0)) {
                     acceptNewState = true;
                 }
             }
             /* TERMINAL-TYPE option (end)*/
-        /* open TelnetOptionHandler functionality (start)*/
+            /* open TelnetOptionHandler functionality (start)*/
         }
         /* open TelnetOptionHandler functionality (end)*/
 
-        if (_willResponse[option] > 0)
-        {
+        if (_willResponse[option] > 0) {
             --_willResponse[option];
-            if (_willResponse[option] > 0 && _stateIsWill(option))
-            {
+            if (_willResponse[option] > 0 && _stateIsWill(option)) {
                 --_willResponse[option];
             }
         }
 
-        if (_willResponse[option] == 0)
-        {
-            if (_requestedWont(option))
-            {
+        if (_willResponse[option] == 0) {
+            if (_requestedWont(option)) {
 
-                switch (option)
-                {
+                switch (option) {
 
-                default:
-                    break;
+                    default:
+                        break;
 
                 }
 
 
-                if (acceptNewState)
-                {
+                if (acceptNewState) {
                     _setWantWill(option);
                     _sendWill(option);
-                }
-                else
-                {
+                } else {
                     ++_willResponse[option];
                     _sendWont(option);
                 }
-            }
-            else
-            {
+            } else {
                 // Other end has acknowledged option.
 
-                switch (option)
-                {
+                switch (option) {
 
-                default:
-                    break;
+                    default:
+                        break;
 
                 }
 
@@ -509,42 +462,34 @@ class Telnet extends SocketClient
      * @param option - option code to be set.
      * @throws IOException - Exception in I/O.
      **/
-    void _processDont(int option) throws IOException
-    {
-        if (debugoptions)
-        {
+    void _processDont(int option) throws IOException {
+        if (debugoptions) {
             System.err.println("RECEIVED DONT: "
-                + TelnetOption.getOption(option));
+                    + TelnetOption.getOption(option));
         }
-        if (__notifhand != null)
-        {
+        if (__notifhand != null) {
             __notifhand.receivedNegotiation(
-                TelnetNotificationHandler.RECEIVED_DONT,
-                option);
+                    TelnetNotificationHandler.RECEIVED_DONT,
+                    option);
         }
-        if (_willResponse[option] > 0)
-        {
+        if (_willResponse[option] > 0) {
             --_willResponse[option];
-            if (_willResponse[option] > 0 && _stateIsWont(option))
-            {
+            if (_willResponse[option] > 0 && _stateIsWont(option)) {
                 --_willResponse[option];
             }
         }
 
-        if (_willResponse[option] == 0 && _requestedWill(option))
-        {
+        if (_willResponse[option] == 0 && _requestedWill(option)) {
 
-            switch (option)
-            {
+            switch (option) {
 
-            default:
-                break;
+                default:
+                    break;
 
             }
 
             /* FIX for a BUG in the negotiation (start)*/
-            if ((_stateIsWill(option)) || (_requestedWill(option)))
-            {
+            if ((_stateIsWill(option)) || (_requestedWill(option))) {
                 _sendWont(option);
             }
 
@@ -562,58 +507,47 @@ class Telnet extends SocketClient
      * @param option - option code to be set.
      * @throws IOException - Exception in I/O.
      **/
-    void _processWill(int option) throws IOException
-    {
-        if (debugoptions)
-        {
+    void _processWill(int option) throws IOException {
+        if (debugoptions) {
             System.err.println("RECEIVED WILL: "
-                + TelnetOption.getOption(option));
+                    + TelnetOption.getOption(option));
         }
 
-        if (__notifhand != null)
-        {
+        if (__notifhand != null) {
             __notifhand.receivedNegotiation(
-                TelnetNotificationHandler.RECEIVED_WILL,
-                option);
+                    TelnetNotificationHandler.RECEIVED_WILL,
+                    option);
         }
 
         boolean acceptNewState = false;
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (optionHandlers[option] != null)
-        {
+        if (optionHandlers[option] != null) {
             acceptNewState = optionHandlers[option].getAcceptRemote();
         }
         /* open TelnetOptionHandler functionality (end)*/
 
-        if (_doResponse[option] > 0)
-        {
+        if (_doResponse[option] > 0) {
             --_doResponse[option];
-            if (_doResponse[option] > 0 && _stateIsDo(option))
-            {
+            if (_doResponse[option] > 0 && _stateIsDo(option)) {
                 --_doResponse[option];
             }
         }
 
-        if (_doResponse[option] == 0 && _requestedDont(option))
-        {
+        if (_doResponse[option] == 0 && _requestedDont(option)) {
 
-            switch (option)
-            {
+            switch (option) {
 
-            default:
-                break;
+                default:
+                    break;
 
             }
 
 
-            if (acceptNewState)
-            {
+            if (acceptNewState) {
                 _setWantDo(option);
                 _sendDo(option);
-            }
-            else
-            {
+            } else {
                 ++_doResponse[option];
                 _sendDont(option);
             }
@@ -628,44 +562,36 @@ class Telnet extends SocketClient
      * @param option - option code to be set.
      * @throws IOException - Exception in I/O.
      **/
-    void _processWont(int option) throws IOException
-    {
-        if (debugoptions)
-        {
+    void _processWont(int option) throws IOException {
+        if (debugoptions) {
             System.err.println("RECEIVED WONT: "
-                + TelnetOption.getOption(option));
+                    + TelnetOption.getOption(option));
         }
 
-        if (__notifhand != null)
-        {
+        if (__notifhand != null) {
             __notifhand.receivedNegotiation(
-                TelnetNotificationHandler.RECEIVED_WONT,
-                option);
+                    TelnetNotificationHandler.RECEIVED_WONT,
+                    option);
         }
 
-        if (_doResponse[option] > 0)
-        {
+        if (_doResponse[option] > 0) {
             --_doResponse[option];
-            if (_doResponse[option] > 0 && _stateIsDont(option))
-            {
+            if (_doResponse[option] > 0 && _stateIsDont(option)) {
                 --_doResponse[option];
             }
         }
 
-        if (_doResponse[option] == 0 && _requestedDo(option))
-        {
+        if (_doResponse[option] == 0 && _requestedDo(option)) {
 
-            switch (option)
-            {
+            switch (option) {
 
-            default:
-                break;
+                default:
+                    break;
 
             }
 
             /* FIX for a BUG in the negotiation (start)*/
-            if ((_stateIsDo(option)) || (_requestedDo(option)))
-            {
+            if ((_stateIsDo(option)) || (_requestedDo(option))) {
                 _sendDont(option);
             }
 
@@ -677,46 +603,37 @@ class Telnet extends SocketClient
     }
 
     /* TERMINAL-TYPE option (start)*/
+
     /**
      * Processes a suboption negotiation.
      *
-     * @param suboption - subnegotiation data received
+     * @param suboption       - subnegotiation data received
      * @param suboptionLength - length of data received
      * @throws IOException - Exception in I/O.
      **/
     void _processSuboption(int suboption[], int suboptionLength)
-    throws IOException
-    {
-        if (debug)
-        {
+            throws IOException {
+        if (debug) {
             System.err.println("PROCESS SUBOPTION.");
         }
 
         /* open TelnetOptionHandler functionality (start)*/
-        if (suboptionLength > 0)
-        {
-            if (optionHandlers[suboption[0]] != null)
-            {
+        if (suboptionLength > 0) {
+            if (optionHandlers[suboption[0]] != null) {
                 int responseSuboption[] =
-                  optionHandlers[suboption[0]].answerSubnegotiation(suboption,
-                  suboptionLength);
+                        optionHandlers[suboption[0]].answerSubnegotiation(suboption,
+                                suboptionLength);
                 _sendSubnegotiation(responseSuboption);
-            }
-            else
-            {
-                if (suboptionLength > 1)
-                {
-                    if (debug)
-                    {
-                        for (int ii = 0; ii < suboptionLength; ii++)
-                        {
+            } else {
+                if (suboptionLength > 1) {
+                    if (debug) {
+                        for (int ii = 0; ii < suboptionLength; ii++) {
                             System.err.println("SUB[" + ii + "]: "
-                                + suboption[ii]);
+                                    + suboption[ii]);
                         }
                     }
                     if ((suboption[0] == TERMINAL_TYPE)
-                        && (suboption[1] == TERMINAL_TYPE_SEND))
-                    {
+                            && (suboption[1] == TERMINAL_TYPE_SEND)) {
                         _sendTerminalType();
                     }
                 }
@@ -731,14 +648,11 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      ***/
     final synchronized void _sendTerminalType()
-    throws IOException
-    {
-        if (debug)
-        {
+            throws IOException {
+        if (debug) {
             System.err.println("SEND TERMINAL-TYPE: " + terminalType);
         }
-        if (terminalType != null)
-        {
+        if (terminalType != null) {
             _output_.write(_COMMAND_SB);
             _output_.write(_COMMAND_IS);
             _output_.write(terminalType.getBytes(getCharset()));
@@ -750,6 +664,7 @@ class Telnet extends SocketClient
     /* TERMINAL-TYPE option (end)*/
 
     /* open TelnetOptionHandler functionality (start)*/
+
     /**
      * Manages subnegotiation for Terminal Type.
      *
@@ -757,22 +672,17 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _sendSubnegotiation(int subn[])
-    throws IOException
-    {
-        if (debug)
-        {
+            throws IOException {
+        if (debug) {
             System.err.println("SEND SUBNEGOTIATION: ");
-            if (subn != null)
-            {
+            if (subn != null) {
                 System.err.println(Arrays.toString(subn));
             }
         }
-        if (subn != null)
-        {
+        if (subn != null) {
             _output_.write(_COMMAND_SB);
             // Note _output_ is buffered, so might as well simplify by writing single bytes
-            for (int element : subn)
-            {
+            for (int element : subn) {
                 byte b = (byte) element;
                 if (b == (byte) TelnetCommand.IAC) { // cast is necessary because IAC is outside the signed byte range
                     _output_.write(b); // double any IAC bytes
@@ -795,23 +705,20 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      * @since 3.0
      */
-    final synchronized void _sendCommand(byte cmd) throws IOException
-    {
-            _output_.write(TelnetCommand.IAC);
-            _output_.write(cmd);
-            _output_.flush();
+    final synchronized void _sendCommand(byte cmd) throws IOException {
+        _output_.write(TelnetCommand.IAC);
+        _output_.write(cmd);
+        _output_.flush();
     }
 
     /* Code Section added for supporting AYT (start)*/
+
     /***
      * Processes the response of an AYT
      ***/
-    final synchronized void _processAYTResponse()
-    {
-        if (!aytFlag)
-        {
-            synchronized (aytMonitor)
-            {
+    final synchronized void _processAYTResponse() {
+        if (!aytFlag) {
+            synchronized (aytMonitor) {
                 aytFlag = true;
                 aytMonitor.notifyAll();
             }
@@ -825,16 +732,13 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      ***/
     @Override
-    protected void _connectAction_() throws IOException
-    {
+    protected void _connectAction_() throws IOException {
         /* (start). BUGFIX: clean the option info for each connection*/
-        for (int ii = 0; ii < TelnetOption.MAX_OPTION_VALUE + 1; ii++)
-        {
+        for (int ii = 0; ii < TelnetOption.MAX_OPTION_VALUE + 1; ii++) {
             _doResponse[ii] = 0;
             _willResponse[ii] = 0;
             _options[ii] = 0;
-            if (optionHandlers[ii] != null)
-            {
+            if (optionHandlers[ii] != null) {
                 optionHandlers[ii].setDo(false);
                 optionHandlers[ii].setWill(false);
             }
@@ -846,17 +750,13 @@ class Telnet extends SocketClient
         _output_ = new BufferedOutputStream(_output_);
 
         /* open TelnetOptionHandler functionality (start)*/
-        for (int ii = 0; ii < TelnetOption.MAX_OPTION_VALUE + 1; ii++)
-        {
-            if (optionHandlers[ii] != null)
-            {
-                if (optionHandlers[ii].getInitLocal())
-                {
+        for (int ii = 0; ii < TelnetOption.MAX_OPTION_VALUE + 1; ii++) {
+            if (optionHandlers[ii] != null) {
+                if (optionHandlers[ii].getInitLocal()) {
                     _requestWill(optionHandlers[ii].getOptionCode());
                 }
 
-                if (optionHandlers[ii].getInitRemote())
-                {
+                if (optionHandlers[ii].getInitRemote()) {
                     _requestDo(optionHandlers[ii].getOptionCode());
                 }
             }
@@ -871,10 +771,8 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _sendDo(int option)
-    throws IOException
-    {
-        if (debug || debugoptions)
-        {
+            throws IOException {
+        if (debug || debugoptions) {
             System.err.println("DO: " + TelnetOption.getOption(option));
         }
         _output_.write(_COMMAND_DO);
@@ -892,12 +790,10 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _requestDo(int option)
-    throws IOException
-    {
+            throws IOException {
         if ((_doResponse[option] == 0 && _stateIsDo(option))
-            || _requestedDo(option))
-        {
-            return ;
+                || _requestedDo(option)) {
+            return;
         }
         _setWantDo(option);
         ++_doResponse[option];
@@ -911,10 +807,8 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _sendDont(int option)
-    throws IOException
-    {
-        if (debug || debugoptions)
-        {
+            throws IOException {
+        if (debug || debugoptions) {
             System.err.println("DONT: " + TelnetOption.getOption(option));
         }
         _output_.write(_COMMAND_DONT);
@@ -932,12 +826,10 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _requestDont(int option)
-    throws IOException
-    {
+            throws IOException {
         if ((_doResponse[option] == 0 && _stateIsDont(option))
-            || _requestedDont(option))
-        {
-            return ;
+                || _requestedDont(option)) {
+            return;
         }
         _setWantDont(option);
         ++_doResponse[option];
@@ -952,10 +844,8 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _sendWill(int option)
-    throws IOException
-    {
-        if (debug || debugoptions)
-        {
+            throws IOException {
+        if (debug || debugoptions) {
             System.err.println("WILL: " + TelnetOption.getOption(option));
         }
         _output_.write(_COMMAND_WILL);
@@ -973,12 +863,10 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _requestWill(int option)
-    throws IOException
-    {
+            throws IOException {
         if ((_willResponse[option] == 0 && _stateIsWill(option))
-            || _requestedWill(option))
-        {
-            return ;
+                || _requestedWill(option)) {
+            return;
         }
         _setWantWill(option);
         ++_doResponse[option];
@@ -992,10 +880,8 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _sendWont(int option)
-    throws IOException
-    {
-        if (debug || debugoptions)
-        {
+            throws IOException {
+        if (debug || debugoptions) {
             System.err.println("WONT: " + TelnetOption.getOption(option));
         }
         _output_.write(_COMMAND_WONT);
@@ -1013,12 +899,10 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _requestWont(int option)
-    throws IOException
-    {
+            throws IOException {
         if ((_willResponse[option] == 0 && _stateIsWont(option))
-            || _requestedWont(option))
-        {
-            return ;
+                || _requestedWont(option)) {
+            return;
         }
         _setWantWont(option);
         ++_doResponse[option];
@@ -1032,8 +916,7 @@ class Telnet extends SocketClient
      * @throws IOException - Exception in I/O.
      **/
     final synchronized void _sendByte(int b)
-    throws IOException
-    {
+            throws IOException {
         _output_.write(b);
 
         /* Code Section added for supporting spystreams (start)*/
@@ -1043,35 +926,30 @@ class Telnet extends SocketClient
     }
 
     /* Code Section added for supporting AYT (start)*/
+
     /**
      * Sends an Are You There sequence and waits for the result.
      *
      * @param timeout - Time to wait for a response (millis.)
-     * @throws IOException - Exception in I/O.
-     * @throws IllegalArgumentException - Illegal argument
-     * @throws InterruptedException - Interrupted during wait.
      * @return true if AYT received a response, false otherwise
+     * @throws IOException              - Exception in I/O.
+     * @throws IllegalArgumentException - Illegal argument
+     * @throws InterruptedException     - Interrupted during wait.
      **/
     final boolean _sendAYT(long timeout)
-    throws IOException, IllegalArgumentException, InterruptedException
-    {
+            throws IOException, IllegalArgumentException, InterruptedException {
         boolean retValue = false;
-        synchronized (aytMonitor)
-        {
-            synchronized (this)
-            {
+        synchronized (aytMonitor) {
+            synchronized (this) {
                 aytFlag = false;
                 _output_.write(_COMMAND_AYT);
                 _output_.flush();
             }
             aytMonitor.wait(timeout);
-            if (aytFlag == false)
-            {
+            if (aytFlag == false) {
                 retValue = false;
                 aytFlag = true;
-            }
-            else
-            {
+            } else {
                 retValue = true;
             }
         }
@@ -1087,40 +965,30 @@ class Telnet extends SocketClient
      *
      * @param opthand - option handler to be registered.
      * @throws InvalidTelnetOptionException - The option code is invalid.
-     * @throws IOException on error
+     * @throws IOException                  on error
      **/
     void addOptionHandler(TelnetOptionHandler opthand)
-    throws InvalidTelnetOptionException, IOException
-    {
+            throws InvalidTelnetOptionException, IOException {
         int optcode = opthand.getOptionCode();
-        if (TelnetOption.isValidOption(optcode))
-        {
-            if (optionHandlers[optcode] == null)
-            {
+        if (TelnetOption.isValidOption(optcode)) {
+            if (optionHandlers[optcode] == null) {
                 optionHandlers[optcode] = opthand;
-                if (isConnected())
-                {
-                    if (opthand.getInitLocal())
-                    {
+                if (isConnected()) {
+                    if (opthand.getInitLocal()) {
                         _requestWill(optcode);
                     }
 
-                    if (opthand.getInitRemote())
-                    {
+                    if (opthand.getInitRemote()) {
                         _requestDo(optcode);
                     }
                 }
-            }
-            else
-            {
+            } else {
                 throw (new InvalidTelnetOptionException(
-                    "Already registered option", optcode));
+                        "Already registered option", optcode));
             }
-        }
-        else
-        {
+        } else {
             throw (new InvalidTelnetOptionException(
-                "Invalid Option Code", optcode));
+                    "Invalid Option Code", optcode));
         }
     }
 
@@ -1129,43 +997,35 @@ class Telnet extends SocketClient
      *
      * @param optcode - Code of the option to be unregistered.
      * @throws InvalidTelnetOptionException - The option code is invalid.
-     * @throws IOException on error
+     * @throws IOException                  on error
      **/
     void deleteOptionHandler(int optcode)
-    throws InvalidTelnetOptionException, IOException
-    {
-        if (TelnetOption.isValidOption(optcode))
-        {
-            if (optionHandlers[optcode] == null)
-            {
+            throws InvalidTelnetOptionException, IOException {
+        if (TelnetOption.isValidOption(optcode)) {
+            if (optionHandlers[optcode] == null) {
                 throw (new InvalidTelnetOptionException(
-                    "Unregistered option", optcode));
-            }
-            else
-            {
+                        "Unregistered option", optcode));
+            } else {
                 TelnetOptionHandler opthand = optionHandlers[optcode];
                 optionHandlers[optcode] = null;
 
-                if (opthand.getWill())
-                {
+                if (opthand.getWill()) {
                     _requestWont(optcode);
                 }
 
-                if (opthand.getDo())
-                {
+                if (opthand.getDo()) {
                     _requestDont(optcode);
                 }
             }
-        }
-        else
-        {
+        } else {
             throw (new InvalidTelnetOptionException(
-                "Invalid Option Code", optcode));
+                    "Invalid Option Code", optcode));
         }
     }
     /* open TelnetOptionHandler functionality (end)*/
 
     /* Code Section added for supporting spystreams (start)*/
+
     /***
      * Registers an OutputStream for spying what's going on in
      * the Telnet session.
@@ -1173,8 +1033,7 @@ class Telnet extends SocketClient
      * @param spystream - OutputStream on which session activity
      * will be echoed.
      ***/
-    void _registerSpyStream(OutputStream  spystream)
-    {
+    void _registerSpyStream(OutputStream spystream) {
         spyStream = spystream;
     }
 
@@ -1182,8 +1041,7 @@ class Telnet extends SocketClient
      * Stops spying this Telnet.
      *
      ***/
-    void _stopSpyStream()
-    {
+    void _stopSpyStream() {
         spyStream = null;
     }
 
@@ -1192,25 +1050,19 @@ class Telnet extends SocketClient
      *
      * @param ch - character read from the session
      ***/
-    void _spyRead(int ch)
-    {
+    void _spyRead(int ch) {
         OutputStream spy = spyStream;
-        if (spy != null)
-        {
-            try
-            {
+        if (spy != null) {
+            try {
                 if (ch != '\r') // never write '\r' on its own
                 {
-                    if (ch == '\n')
-                    {
+                    if (ch == '\n') {
                         spy.write('\r'); // add '\r' before '\n'
                     }
                     spy.write(ch); // write original character
                     spy.flush();
                 }
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 spyStream = null;
             }
         }
@@ -1221,21 +1073,15 @@ class Telnet extends SocketClient
      *
      * @param ch - character written to the session
      ***/
-    void _spyWrite(int ch)
-    {
+    void _spyWrite(int ch) {
         if (!(_stateIsDo(TelnetOption.ECHO)
-            && _requestedDo(TelnetOption.ECHO)))
-        {
+                && _requestedDo(TelnetOption.ECHO))) {
             OutputStream spy = spyStream;
-            if (spy != null)
-            {
-                try
-                {
+            if (spy != null) {
+                try {
                     spy.write(ch);
                     spy.flush();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     spyStream = null;
                 }
             }
@@ -1249,8 +1095,7 @@ class Telnet extends SocketClient
      *
      * @param notifhand - TelnetNotificationHandler to be registered
      ***/
-    public void registerNotifHandler(TelnetNotificationHandler  notifhand)
-    {
+    public void registerNotifHandler(TelnetNotificationHandler notifhand) {
         __notifhand = notifhand;
     }
 
@@ -1258,8 +1103,7 @@ class Telnet extends SocketClient
      * Unregisters the current notification handler.
      *
      ***/
-    public void unregisterNotifHandler()
-    {
+    public void unregisterNotifHandler() {
         __notifhand = null;
     }
 }

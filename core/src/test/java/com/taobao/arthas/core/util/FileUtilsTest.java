@@ -8,17 +8,12 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.endsWith;
-import static org.hamcrest.CoreMatchers.startsWith;
+import static org.hamcrest.CoreMatchers.*;
 
 public class FileUtilsTest {
 
@@ -34,22 +29,22 @@ public class FileUtilsTest {
 
 
     @Test
-    public void testGetTestDirectory(){
+    public void testGetTestDirectory() {
         Assert.assertNotNull(getTestDirectory());
     }
 
     @Test
     public void testOpenOutputStreamIsDirectory() throws IOException {
-        thrown.expectMessage(allOf(startsWith("File '") ,endsWith("' exists but is a directory")));
+        thrown.expectMessage(allOf(startsWith("File '"), endsWith("' exists but is a directory")));
         FileUtils.openOutputStream(getTestDirectory(), true);
 
-        thrown.expectMessage(allOf(startsWith("File '") ,endsWith("' exists but is a directory")));
+        thrown.expectMessage(allOf(startsWith("File '"), endsWith("' exists but is a directory")));
         FileUtils.openOutputStream(getTestDirectory(), false);
     }
 
     @Test
     public void testOpenOutputStreamCannotWrite() throws IOException {
-        thrown.expectMessage(allOf(startsWith("File '") ,endsWith("' cannot be written to")));
+        thrown.expectMessage(allOf(startsWith("File '"), endsWith("' cannot be written to")));
         File targetFile = temporaryFolder.newFile("cannotWrite.txt");
         targetFile.setWritable(false);
         FileUtils.openOutputStream(targetFile, true);
@@ -93,7 +88,7 @@ public class FileUtilsTest {
     @Test
     public void testSaveCommandHistory() throws IOException {
         //cls
-        int[] command1 = new int[]{99,108,115};
+        int[] command1 = new int[]{99, 108, 115};
         File targetFile = temporaryFolder.newFile("targetFile.txt");
         FileUtils.saveCommandHistory(TestUtils.newArrayList(command1), targetFile);
         TestUtils.assertEqualContent("cls\n".getBytes(), targetFile);
@@ -102,17 +97,12 @@ public class FileUtilsTest {
     @Test
     public void testLoadCommandHistory() throws IOException {
         //cls
-        int[] command1 = new int[]{99,108,115};
+        int[] command1 = new int[]{99, 108, 115};
         File targetFile = temporaryFolder.newFile("targetFile.txt");
         FileUtils.saveCommandHistory(TestUtils.newArrayList(command1), targetFile);
         List<int[]> content = FileUtils.loadCommandHistory(targetFile);
         Assert.assertArrayEquals(command1, content.get(0));
     }
-
-
-
-
-
 
 
 }

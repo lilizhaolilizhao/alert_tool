@@ -5,6 +5,7 @@ import static java.lang.System.currentTimeMillis;
 /**
  * 影响反馈
  * Created by vlinux on 15/5/21.
+ *
  * @author diecui1202 on 2017/10/26
  */
 public class Affect {

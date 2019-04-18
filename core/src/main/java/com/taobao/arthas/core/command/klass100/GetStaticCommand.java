@@ -14,11 +14,7 @@ import com.taobao.arthas.core.util.matcher.Matcher;
 import com.taobao.arthas.core.util.matcher.RegexMatcher;
 import com.taobao.arthas.core.util.matcher.WildcardMatcher;
 import com.taobao.arthas.core.view.ObjectView;
-import com.taobao.middleware.cli.annotations.Argument;
-import com.taobao.middleware.cli.annotations.Description;
-import com.taobao.middleware.cli.annotations.Name;
-import com.taobao.middleware.cli.annotations.Option;
-import com.taobao.middleware.cli.annotations.Summary;
+import com.taobao.middleware.cli.annotations.*;
 import com.taobao.middleware.logger.Logger;
 import com.taobao.text.Color;
 import com.taobao.text.Decoration;
@@ -136,14 +132,14 @@ public class GetStaticCommand extends AnnotatedCommand {
                 affect.rCnt(1);
             } catch (IllegalAccessException e) {
                 logger.warn("getstatic: failed to get static value, class: " + clazz + ", field: " + field.getName(),
-                            e);
+                        e);
                 process.write("Failed to get static, exception message: " + e.getMessage()
-                              + ", please check $HOME/logs/arthas/arthas.log for more details. \n");
+                        + ", please check $HOME/logs/arthas/arthas.log for more details. \n");
             } catch (ExpressException e) {
                 logger.warn("getstatic: failed to get express value, class: " + clazz + ", field: " + field.getName()
-                            + ", express: " + express, e);
+                        + ", express: " + express, e);
                 process.write("Failed to get static, exception message: " + e.getMessage()
-                              + ", please check $HOME/logs/arthas/arthas.log for more details. \n");
+                        + ", please check $HOME/logs/arthas/arthas.log for more details. \n");
             } finally {
                 found = true;
             }
@@ -158,16 +154,16 @@ public class GetStaticCommand extends AnnotatedCommand {
         Element usage = new LabelElement("getstatic -c <hashcode> " + classPattern + " " + fieldPattern).style(
                 Decoration.bold.fg(Color.blue));
         process.write("\n Found more than one class for: " + classPattern + ", Please use " + RenderUtil.render(usage,
-                                                                                                                process.width()));
+                process.width()));
 
         TableElement table = new TableElement().leftCellPadding(1).rightCellPadding(1);
         table.row(new LabelElement("HASHCODE").style(Decoration.bold.bold()),
-                  new LabelElement("CLASSLOADER").style(Decoration.bold.bold()));
+                new LabelElement("CLASSLOADER").style(Decoration.bold.bold()));
 
         for (Class<?> c : matchedClasses) {
             ClassLoader classLoader = c.getClassLoader();
             table.row(label(Integer.toHexString(classLoader.hashCode())).style(Decoration.bold.fg(Color.red)),
-                      TypeRenderUtils.drawClassLoader(c));
+                    TypeRenderUtils.drawClassLoader(c));
         }
 
         process.write(RenderUtil.render(table, process.width()) + "\n");

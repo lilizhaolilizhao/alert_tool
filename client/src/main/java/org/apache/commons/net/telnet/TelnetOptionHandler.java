@@ -25,8 +25,7 @@ package org.apache.commons.net.telnet;
  * functionality and defines abstract methods that must be
  * implemented to define subnegotiation behaviour.
  ***/
-public abstract class TelnetOptionHandler
-{
+public abstract class TelnetOptionHandler {
     /***
      * Option code
      ***/
@@ -75,11 +74,10 @@ public abstract class TelnetOptionHandler
      * @param acceptremote - if set to true, any WILL request is accepted.
      ***/
     public TelnetOptionHandler(int optcode,
-                                boolean initlocal,
-                                boolean initremote,
-                                boolean acceptlocal,
-                                boolean acceptremote)
-    {
+                               boolean initlocal,
+                               boolean initremote,
+                               boolean acceptlocal,
+                               boolean acceptremote) {
         optionCode = optcode;
         initialLocal = initlocal;
         initialRemote = initremote;
@@ -93,8 +91,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return Option code.
      ***/
-    public int getOptionCode()
-    {
+    public int getOptionCode() {
         return (optionCode);
     }
 
@@ -104,8 +101,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return true if a DO request shall be accepted.
      ***/
-    public boolean getAcceptLocal()
-    {
+    public boolean getAcceptLocal() {
         return (acceptLocal);
     }
 
@@ -115,8 +111,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return true if a WILL request shall be accepted.
      ***/
-    public boolean getAcceptRemote()
-    {
+    public boolean getAcceptRemote() {
         return (acceptRemote);
     }
 
@@ -126,8 +121,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @param accept - if true, subsequent DO requests will be accepted.
      ***/
-    public void setAcceptLocal(boolean accept)
-    {
+    public void setAcceptLocal(boolean accept) {
         acceptLocal = accept;
     }
 
@@ -137,8 +131,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @param accept - if true, subsequent WILL requests will be accepted.
      ***/
-    public void setAcceptRemote(boolean accept)
-    {
+    public void setAcceptRemote(boolean accept) {
         acceptRemote = accept;
     }
 
@@ -148,8 +141,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return true if a WILL request shall be sent upon connection.
      ***/
-    public boolean getInitLocal()
-    {
+    public boolean getInitLocal() {
         return (initialLocal);
     }
 
@@ -159,8 +151,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return true if a DO request shall be sent upon connection.
      ***/
-    public boolean getInitRemote()
-    {
+    public boolean getInitRemote() {
         return (initialRemote);
     }
 
@@ -170,8 +161,7 @@ public abstract class TelnetOptionHandler
      * @param init - if true, a WILL request will be sent upon subsequent
      * connections.
      ***/
-    public void setInitLocal(boolean init)
-    {
+    public void setInitLocal(boolean init) {
         initialLocal = init;
     }
 
@@ -181,8 +171,7 @@ public abstract class TelnetOptionHandler
      * @param init - if true, a DO request will be sent upon subsequent
      * connections.
      ***/
-    public void setInitRemote(boolean init)
-    {
+    public void setInitRemote(boolean init) {
         initialRemote = init;
     }
 
@@ -242,8 +231,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return true if a WILL sent to the other side has been acknowledged.
      ***/
-    boolean getWill()
-    {
+    boolean getWill() {
         return willFlag;
     }
 
@@ -253,8 +241,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @param state - if true, a WILL request has been acknowledged.
      ***/
-    void setWill(boolean state)
-    {
+    void setWill(boolean state) {
         willFlag = state;
     }
 
@@ -264,8 +251,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @return true if a DO sent to the other side has been acknowledged.
      ***/
-    boolean getDo()
-    {
+    boolean getDo() {
         return doFlag;
     }
 
@@ -276,8 +262,7 @@ public abstract class TelnetOptionHandler
      * <p>
      * @param state - if true, a DO request has been acknowledged.
      ***/
-    void setDo(boolean state)
-    {
+    void setDo(boolean state) {
         doFlag = state;
     }
 }

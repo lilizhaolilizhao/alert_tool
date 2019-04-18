@@ -4,11 +4,8 @@ import com.sun.tools.attach.VirtualMachine;
 import com.sun.tools.attach.VirtualMachineDescriptor;
 import com.taobao.arthas.core.config.Configure;
 import com.taobao.arthas.core.util.AnsiLog;
-import com.taobao.middleware.cli.CLI;
-import com.taobao.middleware.cli.CLIs;
-import com.taobao.middleware.cli.CommandLine;
 import com.taobao.middleware.cli.Option;
-import com.taobao.middleware.cli.TypedOption;
+import com.taobao.middleware.cli.*;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -75,14 +72,14 @@ public class Arthas {
             if (targetJavaVersion != null && currentJavaVersion != null) {
                 if (!targetJavaVersion.equals(currentJavaVersion)) {
                     AnsiLog.warn("Current VM java version: {} do not match target VM java version: {}, attach may fail.",
-                                    currentJavaVersion, targetJavaVersion);
+                            currentJavaVersion, targetJavaVersion);
                     AnsiLog.warn("Target VM JAVA_HOME is {}, try to set the same JAVA_HOME.",
-                                    targetSystemProperties.getProperty("java.home"));
+                            targetSystemProperties.getProperty("java.home"));
                 }
             }
 
             virtualMachine.loadAgent(configure.getArthasAgent(),
-                            configure.getArthasCore() + ";" + configure.toString());
+                    configure.getArthasCore() + ";" + configure.toString());
         } finally {
             if (null != virtualMachine) {
                 virtualMachine.detach();

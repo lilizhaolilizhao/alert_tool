@@ -3,18 +3,14 @@ package com.taobao.arthas.core.command.klass100;
 import com.taobao.arthas.core.command.Constants;
 import com.taobao.arthas.core.shell.command.AnnotatedCommand;
 import com.taobao.arthas.core.shell.command.CommandProcess;
-import com.taobao.arthas.core.util.matcher.Matcher;
-import com.taobao.arthas.core.util.matcher.RegexMatcher;
-import com.taobao.arthas.core.util.matcher.WildcardMatcher;
 import com.taobao.arthas.core.util.SearchUtils;
 import com.taobao.arthas.core.util.StringUtils;
 import com.taobao.arthas.core.util.TypeRenderUtils;
 import com.taobao.arthas.core.util.affect.RowAffect;
-import com.taobao.middleware.cli.annotations.Argument;
-import com.taobao.middleware.cli.annotations.Description;
-import com.taobao.middleware.cli.annotations.Name;
-import com.taobao.middleware.cli.annotations.Option;
-import com.taobao.middleware.cli.annotations.Summary;
+import com.taobao.arthas.core.util.matcher.Matcher;
+import com.taobao.arthas.core.util.matcher.RegexMatcher;
+import com.taobao.arthas.core.util.matcher.WildcardMatcher;
+import com.taobao.middleware.cli.annotations.*;
 import com.taobao.text.ui.Element;
 import com.taobao.text.ui.TableElement;
 import com.taobao.text.util.RenderUtil;
@@ -149,11 +145,11 @@ public class SearchMethodCommand extends AnnotatedCommand {
         TableElement table = new TableElement().leftCellPadding(1).rightCellPadding(1);
 
         table.row(label("declaring-class").style(bold.bold()), label(constructor.getDeclaringClass().getName()))
-             .row(label("constructor-name").style(bold.bold()), label("<init>").style(bold.bold()))
-             .row(label("modifier").style(bold.bold()), label(StringUtils.modifier(constructor.getModifiers(), ',')))
-             .row(label("annotation").style(bold.bold()), label(TypeRenderUtils.drawAnnotation(constructor.getDeclaredAnnotations())))
-             .row(label("parameters").style(bold.bold()), label(TypeRenderUtils.drawParameters(constructor)))
-             .row(label("exceptions").style(bold.bold()), label(TypeRenderUtils.drawExceptions(constructor)));
+                .row(label("constructor-name").style(bold.bold()), label("<init>").style(bold.bold()))
+                .row(label("modifier").style(bold.bold()), label(StringUtils.modifier(constructor.getModifiers(), ',')))
+                .row(label("annotation").style(bold.bold()), label(TypeRenderUtils.drawAnnotation(constructor.getDeclaredAnnotations())))
+                .row(label("parameters").style(bold.bold()), label(TypeRenderUtils.drawParameters(constructor)))
+                .row(label("exceptions").style(bold.bold()), label(TypeRenderUtils.drawExceptions(constructor)));
         return table;
     }
 }

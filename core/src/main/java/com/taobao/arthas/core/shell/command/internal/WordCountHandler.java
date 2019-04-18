@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author ralf0131 2017-02-23 23:28.
  */
-public class WordCountHandler extends StdoutHandler implements StatisticsFunction  {
+public class WordCountHandler extends StdoutHandler implements StatisticsFunction {
 
     public static final String NAME = "wc";
 

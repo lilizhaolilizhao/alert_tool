@@ -1,15 +1,13 @@
 package com.taobao.arthas.core.shell.system;
 
-import java.util.Date;
-
-import com.taobao.arthas.core.shell.future.Future;
-import com.taobao.arthas.core.shell.handlers.Handler;
 import com.taobao.arthas.core.shell.session.Session;
 import com.taobao.arthas.core.shell.term.Tty;
 
+import java.util.Date;
+
 /**
  * A job executed in a {@link JobController}, grouping one or several process.<p/>
- *
+ * <p>
  * The job life cycle can be controlled with the {@link #run}, {@link #resume} and {@link #suspend} and {@link #interrupt}
  * methods.
  *
@@ -104,6 +102,7 @@ public interface Job {
 
     /**
      * Set the date with job timeout
+     *
      * @param date the date with job timeout
      */
     void setTimeoutDate(Date date);

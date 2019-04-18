@@ -18,21 +18,21 @@ public interface Constants {
 
     String EXAMPLE = "\nEXAMPLES:\n";
 
-    String EXPRESS_EXAMPLES =   "Examples:\n" +
-                                "  params[0]\n" +
-                                "  'params[0]+params[1]'\n" +
-                                "  params[0],params[1],returnObj,throwExp\n" +
-                                "  returnObj\n" +
-                                "  throwExp\n" +
-                                "  target\n" +
-                                "  clazz\n" +
-                                "  method\n";
+    String EXPRESS_EXAMPLES = "Examples:\n" +
+            "  params[0]\n" +
+            "  'params[0]+params[1]'\n" +
+            "  params[0],params[1],returnObj,throwExp\n" +
+            "  returnObj\n" +
+            "  throwExp\n" +
+            "  target\n" +
+            "  clazz\n" +
+            "  method\n";
 
-    String CONDITION_EXPRESS =  "Conditional expression in ognl style, for example:\n" +
-                                "  TRUE  : 1==1\n" +
-                                "  TRUE  : true\n" +
-                                "  FALSE : false\n" +
-                                "  TRUE  : 'params.length>=0'\n" +
-                                "  FALSE : 1==2\n";
+    String CONDITION_EXPRESS = "Conditional expression in ognl style, for example:\n" +
+            "  TRUE  : 1==1\n" +
+            "  TRUE  : true\n" +
+            "  FALSE : false\n" +
+            "  TRUE  : 'params.length>=0'\n" +
+            "  FALSE : 1==2\n";
 
 }

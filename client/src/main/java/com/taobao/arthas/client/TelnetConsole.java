@@ -1,20 +1,10 @@
 package com.taobao.arthas.client;
 
-import com.taobao.middleware.cli.Argument;
-import com.taobao.middleware.cli.CLI;
-import com.taobao.middleware.cli.CLIs;
-import com.taobao.middleware.cli.CommandLine;
-import com.taobao.middleware.cli.Option;
-import com.taobao.middleware.cli.TypedOption;
+import com.taobao.middleware.cli.*;
 import org.apache.commons.net.telnet.TelnetClient;
 import org.apache.commons.net.telnet.WindowSizeOptionHandler;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +12,7 @@ import java.util.List;
 /**
  * @author ralf0131 2016-12-29 11:55.
  */
-public class TelnetConsole{
+public class TelnetConsole {
 
     private static final String PROMPT = "$";
     private static final String DEFAULT_TELNET_PORT = "3658";
@@ -65,12 +55,12 @@ public class TelnetConsole{
         try {
             StringBuilder sBuffer = new StringBuilder();
             byte[] b = new byte[DEFAULT_BUFFER_SIZE];
-            while(true) {
+            while (true) {
                 int size = in.read(b);
-                if(-1 != size) {
-                    sBuffer.append(new String(b,0,size));
+                if (-1 != size) {
+                    sBuffer.append(new String(b, 0, size));
                     String data = sBuffer.toString();
-                    if(data.trim().endsWith(prompt)) {
+                    if (data.trim().endsWith(prompt)) {
                         break;
                     }
                 }
@@ -122,7 +112,7 @@ public class TelnetConsole{
     }
 
     private void batchModeRun(List<String> commands) {
-        for (String command: commands) {
+        for (String command : commands) {
             // send command to server
             sendCommand(command + " | plaintext");
             // read result from server and output
@@ -135,7 +125,7 @@ public class TelnetConsole{
         List<String> list = new ArrayList<String>();
         BufferedReader br = null;
         try {
-            br =  new BufferedReader(new FileReader(batchFile));
+            br = new BufferedReader(new FileReader(batchFile));
             String line = br.readLine();
             while (line != null) {
                 list.add(line);
@@ -165,10 +155,10 @@ public class TelnetConsole{
             CommandLine commandLine = parseArguments(args);
 
             TelnetConsole console = new TelnetConsole(
-                    (String)commandLine.getArgumentValue("target-ip"),
-                    (Integer)commandLine.getOptionValue("p"),
-                    (Integer)commandLine.getOptionValue("w"),
-                    (Integer)commandLine.getOptionValue("h"));
+                    (String) commandLine.getArgumentValue("target-ip"),
+                    (Integer) commandLine.getOptionValue("p"),
+                    (Integer) commandLine.getOptionValue("w"),
+                    (Integer) commandLine.getOptionValue("h"));
 
             console.connect();
             String logo = console.readUntilPrompt();
@@ -177,7 +167,7 @@ public class TelnetConsole{
             String cmd = commandLine.getOptionValue("c");
             if (cmd != null) {
                 List<String> cmds = new ArrayList<String>();
-                for (String c: cmd.split(";")) {
+                for (String c : cmd.split(";")) {
                     cmds.add(c.trim());
                 }
                 console.batchModeRun(cmds);

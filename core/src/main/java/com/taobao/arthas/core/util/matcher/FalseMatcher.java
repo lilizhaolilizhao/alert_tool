@@ -7,6 +7,7 @@ public class FalseMatcher<T> implements Matcher<T> {
 
     /**
      * always return false
+     *
      * @param target
      * @return true/false
      */

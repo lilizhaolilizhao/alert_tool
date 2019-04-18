@@ -1,8 +1,5 @@
 package com.taobao.arthas.core.shell.system.impl;
 
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.taobao.arthas.core.shell.future.Future;
 import com.taobao.arthas.core.shell.handlers.Handler;
 import com.taobao.arthas.core.shell.handlers.shell.ShellForegroundUpdateHandler;
@@ -11,6 +8,9 @@ import com.taobao.arthas.core.shell.session.Session;
 import com.taobao.arthas.core.shell.system.ExecStatus;
 import com.taobao.arthas.core.shell.system.Job;
 import com.taobao.arthas.core.shell.system.Process;
+
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>

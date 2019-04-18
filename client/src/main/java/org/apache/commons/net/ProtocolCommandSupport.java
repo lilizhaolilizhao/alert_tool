@@ -17,10 +17,10 @@
 
 package org.apache.commons.net;
 
+import org.apache.commons.net.util.ListenerList;
+
 import java.io.Serializable;
 import java.util.EventListener;
-
-import org.apache.commons.net.util.ListenerList;
 
 /***
  * ProtocolCommandSupport is a convenience class for managing a list of
@@ -33,8 +33,7 @@ import org.apache.commons.net.util.ListenerList;
  * @see ProtocolCommandListener
  ***/
 
-public class ProtocolCommandSupport implements Serializable
-{
+public class ProtocolCommandSupport implements Serializable {
     private static final long serialVersionUID = -8017692739988399978L;
 
     private final Object __source;
@@ -46,8 +45,7 @@ public class ProtocolCommandSupport implements Serializable
      *
      * @param source  The source to use for all generated ProtocolCommandEvents.
      ***/
-    public ProtocolCommandSupport(Object source)
-    {
+    public ProtocolCommandSupport(Object source) {
         __listeners = new ListenerList();
         __source = source;
     }
@@ -64,15 +62,13 @@ public class ProtocolCommandSupport implements Serializable
      * @param message The entire command string verbatim as sent to the server,
      *        including all arguments.
      ***/
-    public void fireCommandSent(String command, String message)
-    {
+    public void fireCommandSent(String command, String message) {
         ProtocolCommandEvent event;
 
         event = new ProtocolCommandEvent(__source, command, message);
 
-        for (EventListener listener : __listeners)
-        {
-           ((ProtocolCommandListener)listener).protocolCommandSent(event);
+        for (EventListener listener : __listeners) {
+            ((ProtocolCommandListener) listener).protocolCommandSent(event);
         }
     }
 
@@ -89,14 +85,12 @@ public class ProtocolCommandSupport implements Serializable
      *   strings like OK rather than integer codes (i.e., POP3Repy.OK).
      * @param message The entire reply as received from the server.
      ***/
-    public void fireReplyReceived(int replyCode, String message)
-    {
+    public void fireReplyReceived(int replyCode, String message) {
         ProtocolCommandEvent event;
         event = new ProtocolCommandEvent(__source, replyCode, message);
 
-        for (EventListener listener : __listeners)
-        {
-            ((ProtocolCommandListener)listener).protocolReplyReceived(event);
+        for (EventListener listener : __listeners) {
+            ((ProtocolCommandListener) listener).protocolReplyReceived(event);
         }
     }
 
@@ -105,8 +99,7 @@ public class ProtocolCommandSupport implements Serializable
      *
      * @param listener  The ProtocolCommandListener to add.
      ***/
-    public void addProtocolCommandListener(ProtocolCommandListener listener)
-    {
+    public void addProtocolCommandListener(ProtocolCommandListener listener) {
         __listeners.addListener(listener);
     }
 
@@ -115,8 +108,7 @@ public class ProtocolCommandSupport implements Serializable
      *
      * @param listener  The ProtocolCommandListener to remove.
      ***/
-    public void removeProtocolCommandListener(ProtocolCommandListener listener)
-    {
+    public void removeProtocolCommandListener(ProtocolCommandListener listener) {
         __listeners.removeListener(listener);
     }
 
@@ -126,8 +118,7 @@ public class ProtocolCommandSupport implements Serializable
      *
      * @return The number of ProtocolCommandListeners currently registered.
      ***/
-    public int getListenerCount()
-    {
+    public int getListenerCount() {
         return __listeners.getListenerCount();
     }
 

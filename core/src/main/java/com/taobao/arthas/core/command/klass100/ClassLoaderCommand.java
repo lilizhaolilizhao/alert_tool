@@ -9,29 +9,14 @@ import com.taobao.middleware.cli.annotations.Name;
 import com.taobao.middleware.cli.annotations.Option;
 import com.taobao.middleware.cli.annotations.Summary;
 import com.taobao.text.Decoration;
-import com.taobao.text.ui.Element;
-import com.taobao.text.ui.LabelElement;
-import com.taobao.text.ui.RowElement;
-import com.taobao.text.ui.TableElement;
-import com.taobao.text.ui.TreeElement;
+import com.taobao.text.ui.*;
 import com.taobao.text.util.RenderUtil;
 
 import java.lang.instrument.Instrumentation;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 @Name("classloader")
 @Summary("Show classloader info")
@@ -95,7 +80,7 @@ public class ClassLoaderCommand extends AnnotatedCommand {
             processResources(process, inst);
         } else if (hashCode != null) {
             processClassloader(process, inst);
-        } else if (listClassLoader || isTree){
+        } else if (listClassLoader || isTree) {
             processClassloaders(process, inst);
         } else {
             processClassLoaderStats(process, inst);
@@ -105,6 +90,7 @@ public class ClassLoaderCommand extends AnnotatedCommand {
     /**
      * Calculate classloader statistics.
      * e.g. In JVM, there are 100 GrooyClassLoader instances, which loaded 200 classes in total
+     *
      * @param process
      * @param inst
      */
@@ -112,7 +98,7 @@ public class ClassLoaderCommand extends AnnotatedCommand {
         RowAffect affect = new RowAffect();
         List<ClassLoaderInfo> classLoaderInfos = getAllClassLoaderInfo(inst);
         Map<String, ClassLoaderStat> classLoaderStats = new HashMap<String, ClassLoaderStat>();
-        for (ClassLoaderInfo info: classLoaderInfos) {
+        for (ClassLoaderInfo info : classLoaderInfos) {
             String name = info.classLoader == null ? "BootstrapClassLoader" : info.classLoader.getClass().getName();
             ClassLoaderStat stat = classLoaderStats.get(name);
             if (null == stat) {

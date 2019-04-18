@@ -23,6 +23,7 @@ public class NetUtils {
 
     /**
      * This implementation is based on Apache HttpClient.
+     *
      * @param urlString the requested url
      * @return the response string of given url
      */
@@ -30,7 +31,7 @@ public class NetUtils {
         HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(urlString);
-            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             // prefer json to text
             urlConnection.setRequestProperty("Accept", "application/json,text/plain;q=0.2");
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -59,11 +60,10 @@ public class NetUtils {
     }
 
     /**
-     * @deprecated
-     * This implementation is based on HttpURLConnection,
-     * which can not detail with status code other than 200.
      * @param url the requested url
      * @return the response string of given url
+     * @deprecated This implementation is based on HttpURLConnection,
+     * which can not detail with status code other than 200.
      */
     public static String simpleRequest(String url) {
         BufferedReader br = null;
@@ -110,6 +110,7 @@ public class NetUtils {
      * and display the response.
      * Note that pandora qos response is not fully HTTP compatible under version 2.1.0,
      * so we filtered some of the content and only display useful content.
+     *
      * @param path the path relative to http://localhost:12201
      *             e.g. /pandora/ls
      *             For commands that requires arguments, use the following format

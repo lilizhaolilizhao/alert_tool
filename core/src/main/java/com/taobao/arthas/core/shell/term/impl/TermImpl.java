@@ -1,13 +1,8 @@
 package com.taobao.arthas.core.shell.term.impl;
 
 import com.taobao.arthas.core.shell.cli.Completion;
-import com.taobao.arthas.core.shell.handlers.term.CloseHandlerWrapper;
-import com.taobao.arthas.core.shell.handlers.term.DefaultTermStdinHandler;
-import com.taobao.arthas.core.shell.handlers.term.EventHandler;
 import com.taobao.arthas.core.shell.handlers.Handler;
-import com.taobao.arthas.core.shell.handlers.term.RequestHandler;
-import com.taobao.arthas.core.shell.handlers.term.SizeHandlerWrapper;
-import com.taobao.arthas.core.shell.handlers.term.StdinHandlerWrapper;
+import com.taobao.arthas.core.shell.handlers.term.*;
 import com.taobao.arthas.core.shell.session.Session;
 import com.taobao.arthas.core.shell.term.SignalHandler;
 import com.taobao.arthas.core.shell.term.Term;
@@ -152,7 +147,7 @@ public class TermImpl implements Term {
     }
 
     @Override
-    public Term stdoutHandler(io.termd.core.function.Function<String, String>  handler) {
+    public Term stdoutHandler(io.termd.core.function.Function<String, String> handler) {
         if (stdoutHandlerChain == null) {
             stdoutHandlerChain = new ArrayList<io.termd.core.function.Function<String, String>>();
         }

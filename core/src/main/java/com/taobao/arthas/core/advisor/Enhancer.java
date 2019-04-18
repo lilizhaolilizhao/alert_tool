@@ -4,10 +4,9 @@ import com.taobao.arthas.core.GlobalOptions;
 import com.taobao.arthas.core.util.Constants;
 import com.taobao.arthas.core.util.FileUtils;
 import com.taobao.arthas.core.util.LogUtil;
-import com.taobao.arthas.core.util.matcher.Matcher;
 import com.taobao.arthas.core.util.SearchUtils;
 import com.taobao.arthas.core.util.affect.EnhancerAffect;
-
+import com.taobao.arthas.core.util.matcher.Matcher;
 import com.taobao.arthas.core.util.reflect.FieldUtils;
 import com.taobao.middleware.logger.Logger;
 import org.objectweb.asm.ClassReader;
@@ -69,7 +68,7 @@ public class Enhancer implements ClassFileTransformer {
         this.affect = affect;
     }
 
-	private void spy(final ClassLoader targetClassLoader) throws Exception {
+    private void spy(final ClassLoader targetClassLoader) throws Exception {
         if (targetClassLoader == null) {
             // 增强JDK自带的类,targetClassLoader为null
             return;
@@ -90,7 +89,7 @@ public class Enhancer implements ClassFileTransformer {
                 FieldUtils.getField(spyClass, "BEFORE_INVOKING_METHOD").get(null),
                 FieldUtils.getField(spyClass, "AFTER_INVOKING_METHOD").get(null),
                 FieldUtils.getField(spyClass, "THROW_INVOKING_METHOD").get(null));
-	}
+    }
 
     @Override
     public byte[] transform(

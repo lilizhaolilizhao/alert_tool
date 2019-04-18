@@ -4,6 +4,7 @@ import com.taobao.arthas.core.util.ArthasCheckUtils;
 
 /**
  * 字符串全匹配
+ *
  * @author ralf0131 2017-01-06 13:18.
  */
 public class EqualsMatcher<T> implements Matcher<T> {

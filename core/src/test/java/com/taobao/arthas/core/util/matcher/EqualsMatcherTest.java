@@ -9,7 +9,7 @@ import org.junit.Test;
 public class EqualsMatcherTest {
 
     @Test
-    public void testMatching(){
+    public void testMatching() {
         Assert.assertTrue(new EqualsMatcher<String>(null).matching(null));
         Assert.assertTrue(new EqualsMatcher<String>("").matching(""));
         Assert.assertTrue(new EqualsMatcher<String>("foobar").matching("foobar"));

@@ -3,9 +3,7 @@ package com.taobao.arthas.core.util;
 import java.lang.management.ManagementFactory;
 
 /**
- *
  * @author hengyunabc 2018-09-30
- *
  */
 public class ApplicationUtils {
 

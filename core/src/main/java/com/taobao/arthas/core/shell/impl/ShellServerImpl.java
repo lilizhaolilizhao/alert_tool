@@ -21,17 +21,8 @@ import com.taobao.arthas.core.util.LogUtil;
 import com.taobao.middleware.logger.Logger;
 
 import java.lang.instrument.Instrumentation;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -172,7 +163,7 @@ public class ShellServerImpl extends ShellServer {
             // close shell's foreground job
             job.terminate();
             logger.info(null, "Session {} closed, so terminate foreground job, id: {}, line: {}",
-                        shell.session().getSessionId(), job.id(), job.line());
+                    shell.session().getSessionId(), job.id(), job.line());
         }
 
         synchronized (ShellServerImpl.this) {

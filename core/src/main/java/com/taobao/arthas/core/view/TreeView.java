@@ -95,6 +95,7 @@ public class TreeView implements View {
 
     /**
      * 查找耗时最大的节点，便于后续高亮展示
+     *
      * @param node
      */
     private void findMaxCostNode(Node node) {
@@ -106,7 +107,7 @@ public class TreeView implements View {
             }
         }
         if (!node.isLeaf()) {
-            for (Node n: node.children) {
+            for (Node n : node.children) {
                 findMaxCostNode(n);
             }
         }

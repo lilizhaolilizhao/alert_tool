@@ -1,13 +1,5 @@
 package com.taobao.arthas.core.shell.system.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
 import com.taobao.arthas.core.GlobalOptions;
 import com.taobao.arthas.core.shell.cli.CliToken;
 import com.taobao.arthas.core.shell.handlers.Handler;
@@ -16,9 +8,12 @@ import com.taobao.arthas.core.shell.system.Job;
 import com.taobao.arthas.core.util.LogUtil;
 import com.taobao.middleware.logger.Logger;
 
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 /**
  * 全局的Job Controller，不应该存在启停的概念，不需要在连接的断开时关闭，
- * 
+ *
  * @author gehui 2017年7月31日 上午11:55:41
  */
 public class GlobalJobControllerImpl extends JobControllerImpl {
@@ -50,7 +45,9 @@ public class GlobalJobControllerImpl extends JobControllerImpl {
             jobTimeoutTask.cancel();
         }
         return super.removeJob(id);
-    };
+    }
+
+    ;
 
     @Override
     public Job createJob(InternalCommandManager commandManager, List<CliToken> tokens, ShellImpl shell) {
@@ -80,21 +77,21 @@ public class GlobalJobControllerImpl extends JobControllerImpl {
             char unit = jobTimeoutConfig.charAt(jobTimeoutConfig.length() - 1);
             String duration = jobTimeoutConfig.substring(0, jobTimeoutConfig.length() - 1);
             switch (unit) {
-            case 'h':
-                result = TimeUnit.HOURS.toSeconds(Long.parseLong(duration));
-                break;
-            case 'd':
-                result = TimeUnit.DAYS.toSeconds(Long.parseLong(duration));
-                break;
-            case 'm':
-                result = TimeUnit.MINUTES.toSeconds(Long.parseLong(duration));
-                break;
-            case 's':
-                result = Long.parseLong(duration);
-                break;
-            default:
-                result = Long.parseLong(jobTimeoutConfig);
-                break;
+                case 'h':
+                    result = TimeUnit.HOURS.toSeconds(Long.parseLong(duration));
+                    break;
+                case 'd':
+                    result = TimeUnit.DAYS.toSeconds(Long.parseLong(duration));
+                    break;
+                case 'm':
+                    result = TimeUnit.MINUTES.toSeconds(Long.parseLong(duration));
+                    break;
+                case 's':
+                    result = Long.parseLong(duration);
+                    break;
+                default:
+                    result = Long.parseLong(jobTimeoutConfig);
+                    break;
             }
         } catch (Exception e) {
         }

@@ -63,7 +63,7 @@ public interface Term extends Tty {
     /**
      * Prompt the user a line of text.
      *
-     * @param prompt the displayed prompt
+     * @param prompt      the displayed prompt
      * @param lineHandler the line handler called with the line
      */
     void readline(String prompt, Handler<String> lineHandler);
@@ -71,8 +71,8 @@ public interface Term extends Tty {
     /**
      * Prompt the user a line of text, providing a completion handler to handle user's completion.
      *
-     * @param prompt the displayed prompt
-     * @param lineHandler the line handler called with the line
+     * @param prompt            the displayed prompt
+     * @param lineHandler       the line handler called with the line
      * @param completionHandler the completion handler
      */
     void readline(String prompt, Handler<String> lineHandler, Handler<Completion> completionHandler);

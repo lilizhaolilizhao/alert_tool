@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TrueMatcherTest {
 
     @Test
-    public void testMatching(){
+    public void testMatching() {
         Assert.assertTrue(new TrueMatcher<String>().matching(null));
         Assert.assertTrue(new TrueMatcher<Integer>().matching(1));
         Assert.assertTrue(new TrueMatcher<String>().matching(""));

@@ -9,7 +9,7 @@ import org.junit.Test;
 public class WildcardMatcherTest {
 
     @Test
-    public void testMatching(){
+    public void testMatching() {
         Assert.assertFalse(new WildcardMatcher(null).matching(null));
         Assert.assertFalse(new WildcardMatcher(null).matching("foo"));
         Assert.assertFalse(new WildcardMatcher("foo").matching(null));

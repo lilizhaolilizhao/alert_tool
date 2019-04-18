@@ -32,15 +32,13 @@ import java.io.OutputStream;
  ***/
 
 
-final class TelnetOutputStream extends OutputStream
-{
+final class TelnetOutputStream extends OutputStream {
     private final TelnetClient __client;
     // TODO there does not appear to be any way to change this value - should it be a ctor parameter?
     private final boolean __convertCRtoCRLF = true;
     private boolean __lastWasCR = false;
 
-    TelnetOutputStream(TelnetClient client)
-    {
+    TelnetOutputStream(TelnetClient client) {
         __client = client;
     }
 
@@ -53,58 +51,51 @@ final class TelnetOutputStream extends OutputStream
      *            stream.
      ***/
     @Override
-    public void write(int ch) throws IOException
-    {
+    public void write(int ch) throws IOException {
 
-        synchronized (__client)
-        {
+        synchronized (__client) {
             ch &= 0xff;
 
             if (__client._requestedWont(TelnetOption.BINARY)) // i.e. ASCII
             {
-                if (__lastWasCR)
-                {
-                    if (__convertCRtoCRLF)
-                    {
+                if (__lastWasCR) {
+                    if (__convertCRtoCRLF) {
                         __client._sendByte('\n');
                         if (ch == '\n') // i.e. was CRLF anyway
                         {
                             __lastWasCR = false;
-                            return ;
+                            return;
                         }
                     } // __convertCRtoCRLF
-                    else if (ch != '\n')
-                     {
+                    else if (ch != '\n') {
                         __client._sendByte('\0'); // RFC854 requires CR NUL for bare CR
                     }
                 }
 
-                switch (ch)
-                {
-                case '\r':
-                    __client._sendByte('\r');
-                    __lastWasCR = true;
-                    break;
-                case '\n':
-                    if (!__lastWasCR) { // convert LF to CRLF
+                switch (ch) {
+                    case '\r':
                         __client._sendByte('\r');
-                    }
-                    __client._sendByte(ch);
-                    __lastWasCR = false;
-                    break;
-                case TelnetCommand.IAC:
-                    __client._sendByte(TelnetCommand.IAC);
-                    __client._sendByte(TelnetCommand.IAC);
-                    __lastWasCR = false;
-                    break;
-                default:
-                    __client._sendByte(ch);
-                    __lastWasCR = false;
-                    break;
+                        __lastWasCR = true;
+                        break;
+                    case '\n':
+                        if (!__lastWasCR) { // convert LF to CRLF
+                            __client._sendByte('\r');
+                        }
+                        __client._sendByte(ch);
+                        __lastWasCR = false;
+                        break;
+                    case TelnetCommand.IAC:
+                        __client._sendByte(TelnetCommand.IAC);
+                        __client._sendByte(TelnetCommand.IAC);
+                        __lastWasCR = false;
+                        break;
+                    default:
+                        __client._sendByte(ch);
+                        __lastWasCR = false;
+                        break;
                 }
             } // end ASCII
-            else if (ch == TelnetCommand.IAC)
-            {
+            else if (ch == TelnetCommand.IAC) {
                 __client._sendByte(ch);
                 __client._sendByte(TelnetCommand.IAC);
             } else {
@@ -122,8 +113,7 @@ final class TelnetOutputStream extends OutputStream
      *            stream.
      ***/
     @Override
-    public void write(byte buffer[]) throws IOException
-    {
+    public void write(byte buffer[]) throws IOException {
         write(buffer, 0, buffer.length);
     }
 
@@ -139,10 +129,8 @@ final class TelnetOutputStream extends OutputStream
      *            stream.
      ***/
     @Override
-    public void write(byte buffer[], int offset, int length) throws IOException
-    {
-        synchronized (__client)
-        {
+    public void write(byte buffer[], int offset, int length) throws IOException {
+        synchronized (__client) {
             while (length-- > 0) {
                 write(buffer[offset++]);
             }
@@ -151,15 +139,13 @@ final class TelnetOutputStream extends OutputStream
 
     /*** Flushes the stream. ***/
     @Override
-    public void flush() throws IOException
-    {
+    public void flush() throws IOException {
         __client._flushOutputStream();
     }
 
     /*** Closes the stream. ***/
     @Override
-    public void close() throws IOException
-    {
+    public void close() throws IOException {
         __client._closeOutputStream();
     }
 }

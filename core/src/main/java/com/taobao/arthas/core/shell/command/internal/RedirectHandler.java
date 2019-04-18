@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 
 /**
  * 重定向处理类
- *  
+ *
  * @author gehui 2017年7月27日 上午11:38:40
  */
 public class RedirectHandler extends PlainTextHandler implements CloseFunction {

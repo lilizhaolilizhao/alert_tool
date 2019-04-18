@@ -1,7 +1,7 @@
 package com.taobao.arthas.core.server;
 
-import com.taobao.arthas.core.config.Configure;
 import com.taobao.arthas.core.command.BuiltinCommandPack;
+import com.taobao.arthas.core.config.Configure;
 import com.taobao.arthas.core.shell.ShellServer;
 import com.taobao.arthas.core.shell.ShellServerOptions;
 import com.taobao.arthas.core.shell.command.CommandResolver;
@@ -101,7 +101,7 @@ public class ArthasBootstrap {
             // 异步回报启动次数
             UserStatUtil.arthasStart();
 
-            logger.info("as-server started in {} ms", System.currentTimeMillis() - start );
+            logger.info("as-server started in {} ms", System.currentTimeMillis() - start);
         } catch (Throwable e) {
             logger.error(null, "Error during bind to port " + configure.getTelnetPort(), e);
             if (shellServer != null) {

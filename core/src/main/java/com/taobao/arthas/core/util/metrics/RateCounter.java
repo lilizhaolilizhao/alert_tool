@@ -1,9 +1,9 @@
 package com.taobao.arthas.core.util.metrics;
 
+import com.taobao.arthas.core.util.ThreadLocalRandom;
+
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicLongArray;
-
-import com.taobao.arthas.core.util.ThreadLocalRandom;
 
 /**
  * <pre>
@@ -14,7 +14,6 @@ import com.taobao.arthas.core.util.ThreadLocalRandom;
  * </pre>
  *
  * @author hengyunabc 2015年12月18日 下午3:40:19
- *
  */
 public class RateCounter {
     private static final int BITS_PER_LONG = 63;
@@ -76,8 +75,7 @@ public class RateCounter {
      * Get a pseudo-random long uniformly between 0 and n-1. Stolen from
      * {@link java.util.Random#nextInt()}.
      *
-     * @param n
-     *            the bound
+     * @param n the bound
      * @return a value select randomly from the range {@code [0..n)}.
      */
     private static long nextLong(long n) {

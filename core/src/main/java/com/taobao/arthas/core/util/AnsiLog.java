@@ -1,17 +1,15 @@
 package com.taobao.arthas.core.util;
+
 import java.util.regex.Matcher;
 
 /**
- *
  * @author hengyunabc 2017-05-03
- *
  */
 public abstract class AnsiLog {
 
     static boolean enable = System.console() != null;
 
     /**
-     *
      * @param msg
      */
     public static void red(String msg) {

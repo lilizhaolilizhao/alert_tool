@@ -1,11 +1,10 @@
 package com.taobao.arthas.core.shell.system;
 
-import java.io.File;
-import java.util.Date;
-
 import com.taobao.arthas.core.shell.handlers.Handler;
 import com.taobao.arthas.core.shell.session.Session;
 import com.taobao.arthas.core.shell.term.Tty;
+
+import java.util.Date;
 
 /**
  * A process managed by the shell.
@@ -171,7 +170,7 @@ public interface Process {
 
     /**
      * Set job id
-     * 
+     *
      * @param jobId job id
      */
     void setJobId(int jobId);

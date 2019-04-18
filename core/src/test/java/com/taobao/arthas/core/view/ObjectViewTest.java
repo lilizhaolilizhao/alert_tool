@@ -3,12 +3,7 @@ package com.taobao.arthas.core.view;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * @author ralf0131 2018-07-10 10:55.
@@ -67,7 +62,7 @@ public class ObjectViewTest {
 
     @Test
     public void testIntArray() {
-        int[] data = {1,3,4,5};
+        int[] data = {1, 3, 4, 5};
         ObjectView objectView = new ObjectView(data, 3);
         String expected = "@int[][\n" +
                 "    @Integer[1],\n" +
@@ -80,7 +75,7 @@ public class ObjectViewTest {
 
     @Test
     public void testLongArray() {
-        long[] data = {1L,3L,4L,5L};
+        long[] data = {1L, 3L, 4L, 5L};
         ObjectView objectView = new ObjectView(data, 3);
         String expected = "@long[][\n" +
                 "    @Long[1],\n" +
@@ -93,7 +88,7 @@ public class ObjectViewTest {
 
     @Test
     public void testShortArray() {
-        short[] data = {1,3,4,5};
+        short[] data = {1, 3, 4, 5};
         ObjectView objectView = new ObjectView(data, 3);
         String expected = "@short[][\n" +
                 "    @Short[1],\n" +
@@ -192,7 +187,7 @@ public class ObjectViewTest {
     @Test
     public void testDate() {
         Date d = new Date(1531204354961L - TimeZone.getDefault().getRawOffset()
-                        + TimeZone.getTimeZone("GMT+8").getRawOffset());
+                + TimeZone.getTimeZone("GMT+8").getRawOffset());
         ObjectView objectView = new ObjectView(d, 3);
         String expected = "@Date[2018-07-10 14:32:34,961]";
         Assert.assertEquals(expected, objectView.draw());

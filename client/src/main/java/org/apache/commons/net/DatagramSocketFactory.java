@@ -35,8 +35,7 @@ import java.net.SocketException;
  *
  ***/
 
-public interface DatagramSocketFactory
-{
+public interface DatagramSocketFactory {
 
     /***
      * Creates a DatagramSocket on the local host at the first available port.
@@ -65,5 +64,5 @@ public interface DatagramSocketFactory
      * @exception SocketException If the socket could not be created.
      ***/
     public DatagramSocket createDatagramSocket(int port, InetAddress laddr)
-    throws SocketException;
+            throws SocketException;
 }
