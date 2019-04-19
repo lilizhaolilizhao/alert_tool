@@ -2,6 +2,7 @@ package com.taobao.arthas.core.command.monitor200;
 
 import com.taobao.arthas.core.advisor.AdviceListener;
 import com.taobao.arthas.core.advisor.Enhancer;
+import com.taobao.arthas.core.advisor.InvokeTraceable;
 import com.taobao.arthas.core.shell.cli.CliToken;
 import com.taobao.arthas.core.shell.cli.Completion;
 import com.taobao.arthas.core.shell.cli.CompletionUtils;
@@ -82,7 +83,7 @@ public abstract class EnhancerCommand extends AnnotatedCommand {
             }
 
             boolean skipJDKTrace = false;
-            if(listener instanceof AbstractTraceAdviceListener) {
+            if (listener instanceof AbstractTraceAdviceListener) {
                 skipJDKTrace = ((AbstractTraceAdviceListener) listener).getCommand().isSkipJDKTrace();
             }
 
