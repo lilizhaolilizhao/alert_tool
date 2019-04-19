@@ -1,5 +1,8 @@
 package com.taobao.arthas.core.command.monitor200;
 
+import com.taobao.arthas.core.advisor.AdviceListener;
+import com.taobao.arthas.core.shell.command.CommandProcess;
+import com.taobao.arthas.core.shell.handlers.Handler;
 import com.taobao.arthas.core.util.SearchUtils;
 import com.taobao.arthas.core.util.matcher.Matcher;
 import com.taobao.middleware.cli.annotations.*;
@@ -86,6 +89,28 @@ public class MonitorCommand extends EnhancerCommand {
             methodNameMatcher = SearchUtils.classNameMatcher(getMethodPattern(), isRegEx());
         }
         return methodNameMatcher;
+    }
+
+    @Override
+    protected AdviceListener getAdviceListener(CommandProcess process) {
+        final AdviceListener listener = new MonitorAdviceListener(this, process);
+
+        /*
+         * 通过handle回调，在suspend时停止timer，resume时重启timer
+         */
+        process.suspendHandler(new Handler<Void>() {
+            @Override
+            public void handle(Void event) {
+                listener.destroy();
+            }
+        });
+        process.resumeHandler(new Handler<Void>() {
+            @Override
+            public void handle(Void event) {
+                listener.create();
+            }
+        });
+        return listener;
     }
 
 }

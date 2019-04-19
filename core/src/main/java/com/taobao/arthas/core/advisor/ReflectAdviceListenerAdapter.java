@@ -1,10 +1,7 @@
 package com.taobao.arthas.core.advisor;
 
-import com.taobao.arthas.core.command.express.ExpressException;
-import com.taobao.arthas.core.command.express.ExpressFactory;
 import com.taobao.arthas.core.shell.command.CommandProcess;
 import com.taobao.arthas.core.util.ArthasCheckUtils;
-import com.taobao.arthas.core.util.Constants;
 import com.taobao.arthas.core.util.StringUtils;
 import org.objectweb.asm.Type;
 
@@ -17,7 +14,6 @@ import java.lang.reflect.Method;
  * 当然性能开销要比普通监听器高许多
  */
 public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
-
     @Override
     public void create() {
         // default no-op
@@ -116,7 +112,6 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
         return clazz.getDeclaredConstructor(argClasses);
     }
 
-
     @Override
     final public void before(
             ClassLoader loader, String className, String methodName, String methodDesc,
@@ -140,7 +135,6 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
         final Class<?> clazz = toClass(loader, className);
         afterThrowing(loader, clazz, toMethod(loader, clazz, methodName, methodDesc), target, args, throwable);
     }
-
 
     /**
      * 前置通知
@@ -192,36 +186,6 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
             Object target, Object[] args,
             Throwable throwable) throws Throwable;
 
-
-    /**
-     * 判断条件是否满足，满足的情况下需要输出结果
-     *
-     * @param conditionExpress 条件表达式
-     * @param advice           当前的advice对象
-     * @param cost             本次执行的耗时
-     * @return true 如果条件表达式满足
-     */
-    protected boolean isConditionMet(String conditionExpress, Advice advice, double cost) throws ExpressException {
-        return StringUtils.isEmpty(conditionExpress) ||
-                ExpressFactory.newExpress(advice).bind(Constants.COST_VARIABLE, cost).is(conditionExpress);
-    }
-
-    protected Object getExpressionResult(String express, Advice advice, double cost) throws ExpressException {
-        return ExpressFactory.newExpress(advice)
-                .bind(Constants.COST_VARIABLE, cost).get(express);
-    }
-
-    /**
-     * 是否超过了上限，超过之后，停止输出
-     *
-     * @param limit        命令执行上限
-     * @param currentTimes 当前执行次数
-     * @return true 如果超过或者达到了上限
-     */
-    protected boolean isLimitExceeded(int limit, int currentTimes) {
-        return currentTimes >= limit;
-    }
-
     /**
      * 超过次数上限，则不在输出，命令终止
      *
@@ -232,5 +196,4 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
         process.write("Command execution times exceed limit: " + limit + ", so command will exit. You can set it with -n option.\n");
         process.end();
     }
-
 }

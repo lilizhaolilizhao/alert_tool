@@ -5,9 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Arthas封装的方法<br/>
+ * Arthas封装的方法
  * 主要用来封装构造函数cinit/init/method
- * Created by vlinux on 15/5/24.
  */
 public class ArthasMethod {
 
