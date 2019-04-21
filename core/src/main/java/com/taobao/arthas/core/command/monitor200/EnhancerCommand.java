@@ -95,8 +95,7 @@ public abstract class EnhancerCommand extends AnnotatedCommand {
                 // might be method code too large
                 process.write("No class or method is affected, try:\n"
                         + "1. sm CLASS_NAME METHOD_NAME to make sure the method you are tracing actually exists (it might be in your parent class).\n"
-                        + "2. reset CLASS_NAME and try again, your method body might be too large.\n"
-                        + "3. visit https://github.com/alibaba/arthas/issues/47 for more details.\n");
+                        + "2. reset CLASS_NAME and try again, your method body might be too large.\n");
                 process.end();
                 return;
             }
