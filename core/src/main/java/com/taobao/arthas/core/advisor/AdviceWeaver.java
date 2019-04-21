@@ -16,6 +16,80 @@ public class AdviceWeaver extends ClassVisitor implements Opcodes {
     private final static Map<Integer/*ADVICE_ID*/, AdviceListener> advices
             = new ConcurrentHashMap<Integer, AdviceListener>();
 
+    /**
+     * 方法开始<br/>
+     * 用于编织通知器,外部不会直接调用
+     *
+     * @param loader     类加载器
+     * @param adviceId   通知ID
+     * @param className  类名
+     * @param methodName 方法名
+     * @param methodDesc 方法描述
+     * @param target     返回结果
+     *                   若为无返回值方法(void),则为null
+     * @param args       参数列表
+     */
+    public static void methodOnBegin(
+            int adviceId,
+            ClassLoader loader, String className, String methodName, String methodDesc,
+            Object target, Object[] args) {
+
+    }
+
+    /**
+     * 方法以返回结束<br/>
+     * 用于编织通知器,外部不会直接调用
+     *
+     * @param returnObject 返回对象
+     *                     若目标为静态方法,则为null
+     */
+    public static void methodOnReturnEnd(Object returnObject) {
+
+    }
+
+    /**
+     * 方法以抛异常结束<br/>
+     * 用于编织通知器,外部不会直接调用
+     *
+     * @param throwable 抛出异常
+     */
+    public static void methodOnThrowingEnd(Throwable throwable) {
+
+    }
+
+    /**
+     * 方法内部调用开始
+     *
+     * @param adviceId 通知ID
+     * @param owner    调用类名
+     * @param name     调用方法名
+     * @param desc     调用方法描述
+     */
+    public static void methodOnInvokeBeforeTracing(int adviceId, String owner, String name, String desc) {
+    }
+
+    /**
+     * 方法内部调用结束(正常返回)
+     *
+     * @param adviceId 通知ID
+     * @param owner    调用类名
+     * @param name     调用方法名
+     * @param desc     调用方法描述
+     */
+    public static void methodOnInvokeAfterTracing(int adviceId, String owner, String name, String desc) {
+    }
+
+    /**
+     * 方法内部调用结束(异常返回)
+     *
+     * @param adviceId 通知ID
+     * @param owner    调用类名
+     * @param name     调用方法名
+     * @param desc     调用方法描述
+     */
+    public static void methodOnInvokeThrowTracing(int adviceId, String owner, String name, String desc) {
+    }
+
     public AdviceWeaver(int api) {
         super(ASM5);
     }
