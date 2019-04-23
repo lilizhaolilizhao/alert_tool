@@ -1,7 +1,10 @@
 package com.taobao.arthas.core.advisor;
 
+import com.taobao.arthas.core.command.express.ExpressException;
+import com.taobao.arthas.core.command.express.ExpressFactory;
 import com.taobao.arthas.core.shell.command.CommandProcess;
 import com.taobao.arthas.core.util.ArthasCheckUtils;
+import com.taobao.arthas.core.util.Constants;
 import com.taobao.arthas.core.util.StringUtils;
 import org.objectweb.asm.Type;
 
@@ -134,6 +137,33 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
             Object target, Object[] args, Throwable throwable) throws Throwable {
         final Class<?> clazz = toClass(loader, className);
         afterThrowing(loader, clazz, toMethod(loader, clazz, methodName, methodDesc), target, args, throwable);
+    }
+
+    /**
+     * 判断条件是否满足，满足的情况下需要输出结果
+     * @param conditionExpress 条件表达式
+     * @param advice 当前的advice对象
+     * @param cost 本次执行的耗时
+     * @return true 如果条件表达式满足
+     */
+    protected boolean isConditionMet(String conditionExpress, Advice advice, double cost) throws ExpressException {
+        return StringUtils.isEmpty(conditionExpress) ||
+                ExpressFactory.newExpress(advice).bind(Constants.COST_VARIABLE, cost).is(conditionExpress);
+    }
+
+    protected Object getExpressionResult(String express, Advice advice, double cost) throws ExpressException {
+        return ExpressFactory.newExpress(advice)
+                .bind(Constants.COST_VARIABLE, cost).get(express);
+    }
+
+    /**
+     * 是否超过了上限，超过之后，停止输出
+     * @param limit 命令执行上限
+     * @param currentTimes 当前执行次数
+     * @return true 如果超过或者达到了上限
+     */
+    protected boolean isLimitExceeded(int limit, int currentTimes) {
+        return currentTimes >= limit;
     }
 
     /**
