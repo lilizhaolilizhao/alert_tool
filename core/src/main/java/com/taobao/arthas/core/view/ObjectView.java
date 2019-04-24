@@ -8,7 +8,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.String.format;
 
@@ -472,15 +475,7 @@ public class ObjectView implements View {
                     appendStringBuilder(buf, format("@%s[%s]", className, obj));
                 } else {
                     appendStringBuilder(buf, format("@%s[", className));
-
-                    List<Field> fields = new ArrayList<Field>();
-                    Class objClass = obj.getClass();
-                    //当父类为null的时候说明到达了最上层的父类(Object类).
-                    while (objClass != null) {
-                        fields.addAll(Arrays.asList(objClass.getDeclaredFields()));
-                        objClass = objClass.getSuperclass();
-                    }
-
+                    final Field[] fields = obj.getClass().getDeclaredFields();
                     if (null != fields) {
                         for (Field field : fields) {
                             field.setAccessible(true);

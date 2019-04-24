@@ -39,7 +39,7 @@ public class BuiltinCommandPack implements CommandResolver {
         commands.add(Command.create(StackCommand.class));
         commands.add(Command.create(ThreadCommand.class));
         commands.add(Command.create(TraceCommand.class));
-//        commands.add(Command.create(WatchCommand.class));
+        commands.add(Command.create(WatchCommand.class));
 //        commands.add(Command.create(TimeTunnelCommand.class));
         commands.add(Command.create(JvmCommand.class));
 //        commands.add(Command.create(DashboardCommand.class));
