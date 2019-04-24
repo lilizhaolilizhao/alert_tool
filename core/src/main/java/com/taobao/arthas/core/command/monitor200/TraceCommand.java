@@ -2,10 +2,13 @@ package com.taobao.arthas.core.command.monitor200;
 
 import com.taobao.arthas.core.advisor.AdviceListener;
 import com.taobao.arthas.core.command.Constants;
+import com.taobao.arthas.core.shell.cli.Completion;
 import com.taobao.arthas.core.shell.command.CommandProcess;
-import com.taobao.arthas.core.util.matcher.Matcher;
+import com.taobao.arthas.core.util.SearchUtils;
+import com.taobao.arthas.core.util.matcher.*;
 import com.taobao.middleware.cli.annotations.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,19 +104,66 @@ public class TraceCommand extends EnhancerCommand {
         return pathPatterns;
     }
 
-
     @Override
     protected Matcher getClassNameMatcher() {
-        return null;
+        if (classNameMatcher == null) {
+            if (pathPatterns == null || pathPatterns.isEmpty()) {
+                classNameMatcher = SearchUtils.classNameMatcher(getClassPattern(), isRegEx());
+            } else {
+                classNameMatcher = getPathTracingClassMatcher();
+            }
+        }
+        return classNameMatcher;
     }
 
     @Override
     protected Matcher getMethodNameMatcher() {
-        return null;
+        if (methodNameMatcher == null) {
+            if (pathPatterns == null || pathPatterns.isEmpty()) {
+                methodNameMatcher = SearchUtils.classNameMatcher(getMethodPattern(), isRegEx());
+            } else {
+                methodNameMatcher = getPathTracingMethodMatcher();
+            }
+        }
+        return methodNameMatcher;
     }
 
     @Override
     protected AdviceListener getAdviceListener(CommandProcess process) {
-        return null;
+        if (pathPatterns == null || pathPatterns.isEmpty()) {
+            return new TraceAdviceListener(this, process);
+        } else {
+            return new PathTraceAdviceListener(this, process);
+        }
+    }
+
+    @Override
+    protected boolean completeExpress(Completion completion) {
+        completion.complete(EMPTY);
+        return true;
+    }
+
+    /**
+     * 构造追踪路径匹配
+     */
+    private Matcher<String> getPathTracingClassMatcher() {
+        List<Matcher<String>> matcherList = new ArrayList<Matcher<String>>();
+        matcherList.add(SearchUtils.classNameMatcher(getClassPattern(), isRegEx()));
+
+        if (null != getPathPatterns()) {
+            for (String pathPattern : getPathPatterns()) {
+                if (isRegEx()) {
+                    matcherList.add(new RegexMatcher(pathPattern));
+                } else {
+                    matcherList.add(new WildcardMatcher(pathPattern));
+                }
+            }
+        }
+
+        return new GroupMatcher.Or<String>(matcherList);
+    }
+
+    private Matcher<String> getPathTracingMethodMatcher() {
+        return new TrueMatcher<String>();
     }
 }

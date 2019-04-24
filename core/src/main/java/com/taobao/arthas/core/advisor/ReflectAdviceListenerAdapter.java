@@ -141,9 +141,10 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
 
     /**
      * 判断条件是否满足，满足的情况下需要输出结果
+     *
      * @param conditionExpress 条件表达式
-     * @param advice 当前的advice对象
-     * @param cost 本次执行的耗时
+     * @param advice           当前的advice对象
+     * @param cost             本次执行的耗时
      * @return true 如果条件表达式满足
      */
     protected boolean isConditionMet(String conditionExpress, Advice advice, double cost) throws ExpressException {
@@ -158,7 +159,8 @@ public abstract class ReflectAdviceListenerAdapter implements AdviceListener {
 
     /**
      * 是否超过了上限，超过之后，停止输出
-     * @param limit 命令执行上限
+     *
+     * @param limit        命令执行上限
      * @param currentTimes 当前执行次数
      * @return true 如果超过或者达到了上限
      */

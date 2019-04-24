@@ -4,10 +4,7 @@ import com.taobao.arthas.core.command.basic1000.*;
 import com.taobao.arthas.core.command.hidden.JulyCommand;
 import com.taobao.arthas.core.command.hidden.OptionsCommand;
 import com.taobao.arthas.core.command.klass100.*;
-import com.taobao.arthas.core.command.monitor200.JvmCommand;
-import com.taobao.arthas.core.command.monitor200.MonitorCommand;
-import com.taobao.arthas.core.command.monitor200.StackCommand;
-import com.taobao.arthas.core.command.monitor200.ThreadCommand;
+import com.taobao.arthas.core.command.monitor200.*;
 import com.taobao.arthas.core.shell.command.Command;
 import com.taobao.arthas.core.shell.command.CommandResolver;
 
@@ -41,7 +38,7 @@ public class BuiltinCommandPack implements CommandResolver {
         commands.add(Command.create(MonitorCommand.class));
         commands.add(Command.create(StackCommand.class));
         commands.add(Command.create(ThreadCommand.class));
-//        commands.add(Command.create(TraceCommand.class));
+        commands.add(Command.create(TraceCommand.class));
 //        commands.add(Command.create(WatchCommand.class));
 //        commands.add(Command.create(TimeTunnelCommand.class));
         commands.add(Command.create(JvmCommand.class));
